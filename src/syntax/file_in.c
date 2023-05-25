@@ -6,7 +6,7 @@
 /*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 23:52:11 by mbachar           #+#    #+#             */
-/*   Updated: 2023/05/25 21:59:23 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/05/25 22:09:43 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	file_in_ending(t_hell *mini)
 {
 	int	i;
 
-	i = ft_strlen(mini->line);
+	i = ft_strlen(mini->line) - 1;
 	if (mini->line[i] == '<')
 		return (0);
 	return (1);

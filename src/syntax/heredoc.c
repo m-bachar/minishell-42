@@ -6,7 +6,7 @@
 /*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 00:00:20 by mbachar           #+#    #+#             */
-/*   Updated: 2023/05/25 21:59:31 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/05/25 22:10:00 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	heredoc_ending(t_hell *mini)
 {
 	int	i;
 
-	i = ft_strlen(mini->line);
+	i = ft_strlen(mini->line) - 1;
 	if (mini->line[i] == '<' && mini->line[i - 1] == '<')
 		return (0);
 	return (1);

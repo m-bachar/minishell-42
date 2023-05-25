@@ -6,7 +6,7 @@
 /*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 00:01:00 by mbachar           #+#    #+#             */
-/*   Updated: 2023/05/25 02:38:42 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/05/25 22:10:03 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	pipe_ending(t_hell *mini)
 {
 	int	i;
 
-	i = ft_strlen(mini->line);
+	i = ft_strlen(mini->line) - 1;
 	if (mini->line[i] == '|')
 		return (0);
 	return (1);
