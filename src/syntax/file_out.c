@@ -6,7 +6,7 @@
 /*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 23:56:11 by mbachar           #+#    #+#             */
-/*   Updated: 2023/05/25 02:35:30 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/05/25 21:59:28 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ int	file_out_begining(t_hell *mini)
 	if (mini->line[i] == '>' && mini->line[i + 1] != '>')
 	{
 		i++;
+		if (mini->line[i] == '\0')
+			return (0);
 		while (mini->line[i])
 		{
 			while (mini->line[i] && (mini->line[i] == ' '

@@ -6,7 +6,7 @@
 /*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 22:35:36 by mbachar           #+#    #+#             */
-/*   Updated: 2023/05/25 02:21:46 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/05/25 19:44:14 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ char	*add_whitespaces(t_hell *mini)
 
 void	split_and_store(char *line, t_list *mini)
 {
-	int		i;
 	char	**splitted;
+	int		i;
 
 	i = 0;
 	splitted = ft_split(line, ' ');
