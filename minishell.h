@@ -6,7 +6,7 @@
 /*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 22:25:23 by mbachar           #+#    #+#             */
-/*   Updated: 2023/05/26 04:40:22 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/05/26 08:18:05 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include <string.h>
 # include "./libft/libft.h"
 
-# define MAX_SIZE 1000
+# define MAX_SIZE 100000
 
 # define WORD		(0)
 # define HEREDOC	(1)
@@ -57,7 +57,6 @@ void	ft_errors(char *str);
 
 /*	./src/syntax.c	*/ // TBU
 void	minihell_entrance(t_hell *mini);
-void	syntax(t_hell *mini, char *line);
 
 /*	./src/misc/tools.c	*/
 int		check_for_redirections(t_hell *mini, int i);
@@ -103,6 +102,7 @@ int		file_out_middle(t_hell *mini);
 int		file_out_begining(t_hell *mini);
 int		file_out_ending(t_hell *mini);
 
+/*	./src/syntax/quotes.c	*/
 int		quotes(t_hell *mini);
 
 #endif

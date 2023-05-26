@@ -6,26 +6,11 @@
 /*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 22:29:00 by mbachar           #+#    #+#             */
-/*   Updated: 2023/05/26 05:07:21 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/05/26 07:49:29 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-void	syntax(t_hell *mini, char *line)
-{
-	if (!all_begining_syntaxes(mini)
-		|| !all_middle_syntaxes(mini) || !all_ending_syntaxes(mini))
-		printf("😤 " RED "SyntaxError: " RESET
-			"Oh dear! It appears you've encountered a syntax error.\n");
-	add_history(mini->line);
-	if (all_begining_syntaxes(mini)
-		&& all_middle_syntaxes(mini) && all_ending_syntaxes(mini))
-	{
-		line = add_whitespaces(mini);
-		split_and_store(line, mini->push);
-	}
-}
 
 void	minihell_entrance(t_hell *mini)
 {
@@ -47,6 +32,16 @@ void	minihell_entrance(t_hell *mini)
 			free(mini->line);
 			continue ;
 		}
-		syntax(mini, line);
+		if (!all_begining_syntaxes(mini)
+			|| !all_middle_syntaxes(mini) || !all_ending_syntaxes(mini))
+			printf("😤 " RED "SyntaxError: " RESET
+				"Oh dear! It appears you've encountered a syntax error.\n");
+		add_history(mini->line);
+		if (all_begining_syntaxes(mini)
+			&& all_middle_syntaxes(mini) && all_ending_syntaxes(mini))
+		{
+			line = add_whitespaces(mini);
+			split_and_store(line, mini->push);
+		}
 	}
 }
