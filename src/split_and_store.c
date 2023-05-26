@@ -6,7 +6,7 @@
 /*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 22:35:36 by mbachar           #+#    #+#             */
-/*   Updated: 2023/05/25 19:44:14 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/05/26 04:41:29 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ void	split_and_store(char *line, t_list *mini)
 			mini->token = FILE_OUT;
 		else
 			mini->token = WORD;
-		printf("Cmd = %s\t\tCmd token = %d\n", mini->data, mini->token);
 		mini = mini->next;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 00:00:20 by mbachar           #+#    #+#             */
-/*   Updated: 2023/05/25 22:10:00 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/05/26 05:04:27 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,9 @@ int	heredoc_middle(t_hell *mini)
 	{
 		while (mini->line[i] && (mini->line[i] == ' ' || mini->line[i] == '\t'))
 			i++;
+		if ((mini->line[i] == '"' || mini->line[i] == '\'')
+			&& !check_for_redirections(mini, i + 1))
+			return (1);
 		if (mini->line[i] == '<' && mini->line[i + 1] == '<')
 		{
 			i += 2;

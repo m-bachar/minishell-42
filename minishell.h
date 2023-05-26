@@ -6,7 +6,7 @@
 /*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 22:25:23 by mbachar           #+#    #+#             */
-/*   Updated: 2023/05/25 02:40:49 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/05/26 04:40:22 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,5 +102,7 @@ int		file_in_ending(t_hell *mini);
 int		file_out_middle(t_hell *mini);
 int		file_out_begining(t_hell *mini);
 int		file_out_ending(t_hell *mini);
+
+int		quotes(t_hell *mini);
 
 #endif
