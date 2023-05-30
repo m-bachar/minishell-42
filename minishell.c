@@ -6,7 +6,7 @@
 /*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 22:25:27 by mbachar           #+#    #+#             */
-/*   Updated: 2023/05/30 09:28:22 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/05/30 22:20:14 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ int	main(int ac, char *av[], char *env[])
 	i = 0;
 	if (ac == 1)
 	{
-		// mini.env = env;
 		minihell_entrance(&mini);
 	}
 	else

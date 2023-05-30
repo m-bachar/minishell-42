@@ -6,7 +6,7 @@
 #    By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/20 22:20:05 by mbachar           #+#    #+#              #
-#    Updated: 2023/05/30 09:19:50 by mbachar          ###   ########.fr        #
+#    Updated: 2023/05/30 10:34:29 by mbachar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,8 @@ MAN_SRC 	=	minishell.c \
 				./src/syntax/file_out.c \
 				./src/syntax/pipe.c \
 				./src/syntax/all_in_one.c \
-				./src/syntax/quotes.c
+				./src/syntax/quotes.c \
+				./src/parsing/parsing.c
 
 MAN_OBJ		=	$(MAN_SRC:.c=.o)
 

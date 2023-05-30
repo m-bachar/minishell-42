@@ -6,7 +6,7 @@
 /*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 22:25:23 by mbachar           #+#    #+#             */
-/*   Updated: 2023/05/30 09:38:01 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/05/30 11:37:54 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ typedef struct s_list
 typedef struct s_env
 {
 	char				*env_name;
-	char				*env_type;
+	char				*env_value;
 	struct s_env		*next;
 	struct minishell	*minishell;
 }	t_env;
@@ -80,6 +80,9 @@ void	split_and_store(char *line, t_list *mini);
 void	ft_lstadd_back(t_list **lst, t_list *new);
 t_list	*ft_lstnew(char *data, int id, int token);
 int		ft_lstsize(t_list *lst);
+void	ft_lstadd_back1(t_env **lst, t_env *new);
+t_env	*ft_lstnew1(char *env_name, char *env_value);
+int		ft_lstsize1(t_env *lst);
 
 		/* 		Syntax 		*/
 int		all_begining_syntaxes(t_hell *mini);
@@ -107,5 +110,8 @@ int		file_out_begining(t_hell *mini);
 int		file_out_ending(t_hell *mini);
 
 int		quotes(t_hell *mini);
+
+		/* 		Envs 	*/
+t_env	*copy_env(t_env *lst, char **envs);
 
 #endif
