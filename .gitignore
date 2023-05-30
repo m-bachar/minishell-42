@@ -54,3 +54,4 @@ dkms.conf
 # Misc
 .vscode/
 .DS_Store
+*.tldr

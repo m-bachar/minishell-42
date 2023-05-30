@@ -6,7 +6,7 @@
 /*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 22:29:00 by mbachar           #+#    #+#             */
-/*   Updated: 2023/05/26 07:49:29 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/05/30 09:21:28 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	minihell_entrance(t_hell *mini)
 	printf(CYAN "\t\tHell is -- MiniShell 😔 😔  \n\n" RESET);
 	while (1)
 	{
-		mini->line = readline("😃 " CYAN "Minihell-1.0$ " RESET);
+		mini->line = readline("😃 Minihell-1.0$ ");
 		if (!mini->line)
 			return (printf(RED "\t\tExiting Minishell 🥺\n" RESET), exit(0));
 		if (!ft_strncmp(mini->line, "", 1)

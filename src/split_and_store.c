@@ -6,7 +6,7 @@
 /*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 22:35:36 by mbachar           #+#    #+#             */
-/*   Updated: 2023/05/26 04:41:29 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/05/30 09:39:35 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,15 @@
 
 char	*add_whitespaces(t_hell *mini)
 {
-	char		result[MAX_SIZE];
+	char		*result;
 	int			j;
 	size_t		i;
 
 	j = 0;
 	i = 0;
+	result = malloc(sizeof(char) * MAX_SIZE);
+	if (!result)
+		return (NULL);
 	while (i < ft_strlen(mini->line))
 	{
 		if (mini->line[i] == '<' || mini->line[i] == '>'
@@ -40,8 +43,11 @@ char	*add_whitespaces(t_hell *mini)
 		i++;
 	}
 	result[j] = '\0';
+	mini->line = malloc(sizeof(char) * ft_strlen(result) + 1);
+	if (!mini->line)
+		return (free(result), NULL);
 	ft_strcpy(mini->line, result);
-	return (mini->line);
+	return (free(result), mini->line);
 }
 
 void	split_and_store(char *line, t_list *mini)
@@ -50,6 +56,7 @@ void	split_and_store(char *line, t_list *mini)
 	int		i;
 
 	i = 0;
+	mini = NULL;
 	splitted = ft_split(line, ' ');
 	while (splitted[i])
 	{
@@ -72,4 +79,11 @@ void	split_and_store(char *line, t_list *mini)
 			mini->token = WORD;
 		mini = mini->next;
 	}
+	i = 0;
+	while (splitted[i])
+	{
+		free(splitted[i]);
+		i++;
+	}
+	free(splitted);
 }
