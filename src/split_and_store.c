@@ -6,7 +6,7 @@
 /*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 22:35:36 by mbachar           #+#    #+#             */
-/*   Updated: 2023/05/30 09:39:35 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/06/03 14:31:03 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ char	*add_whitespaces(t_hell *mini)
 		i++;
 	}
 	result[j] = '\0';
+	free(mini->line);
 	mini->line = malloc(sizeof(char) * ft_strlen(result) + 1);
 	if (!mini->line)
 		return (free(result), NULL);
@@ -56,7 +57,6 @@ void	split_and_store(char *line, t_list *mini)
 	int		i;
 
 	i = 0;
-	mini = NULL;
 	splitted = ft_split(line, ' ');
 	while (splitted[i])
 	{

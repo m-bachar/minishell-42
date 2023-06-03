@@ -6,29 +6,16 @@
 /*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 20:18:25 by mbachar           #+#    #+#             */
-/*   Updated: 2023/05/30 22:01:36 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/06/03 13:18:32 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-// int	parsing(t_list *mini)
-// {
-// 	t_list	*head;
-
-// 	head = mini;
-// 	while (mini != NULL)
-// 	{
-// 		printf("id = %d\tdata = %s\n", mini->id, mini->data);
-// 		mini = mini->next;
-// 	}
-// 	return (0);
-// }
-
 t_env	*copy_env(t_env *lst, char **envs)
 {
-	char	env_name[1000];
-	char	env_value[1000];
+	char	env_name[MAX_SIZE];
+	char	env_value[MAX_SIZE];
 	char	*env_name_heap;
 	char	*env_value_heap;
 	int		i;

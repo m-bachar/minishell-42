@@ -6,7 +6,7 @@
 /*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 22:29:00 by mbachar           #+#    #+#             */
-/*   Updated: 2023/05/30 10:32:58 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/06/03 14:24:24 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ void	minihell_entrance(t_hell *mini)
 	{
 		mini->line = readline("😃 Minihell-1.0$ ");
 		if (!mini->line)
-			return (printf(RED "\t\tExiting Minishell 🥺\n" RESET), exit(0));
+			return (printf(RED "\t\tExiting Minishell 🥺\n" RESET),
+				free(mini->line), exit(0));
 		if (!ft_strncmp(mini->line, "", 1)
 			|| !remove_whitespaces_from_history(mini))
 		{
@@ -43,5 +44,6 @@ void	minihell_entrance(t_hell *mini)
 			line = add_whitespaces(mini);
 			split_and_store(line, mini->push);
 		}
+		free(mini->line);
 	}
 }

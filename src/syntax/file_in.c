@@ -6,7 +6,7 @@
 /*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 23:52:11 by mbachar           #+#    #+#             */
-/*   Updated: 2023/05/26 07:45:04 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/06/03 15:33:05 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	file_in_begining(t_hell *mini)
 	int	i;
 
 	i = 0;
+	while (mini->line[i] == ' ' || mini->line[i] == '\t')
+		i++;
 	if (mini->line[i] == '<' && mini->line[i + 1] != '<')
 	{
 		i++;
@@ -41,14 +43,24 @@ int	file_in_begining(t_hell *mini)
 int	file_in_middle(t_hell *mini)
 {
 	int	i;
+	int flag;
 
 	i = 0;
+	flag = 0;
 	while (mini->line[i])
 	{
 		while (mini->line[i] && (mini->line[i] == ' ' || mini->line[i] == '\t'))
 			i++;
-		if (quotes(mini) && !check_for_redirections(mini, i))
-			return (1);
+		if (mini->line[i] == '"' || mini->line[i] == '\'')
+		{
+			flag++;
+			i++;
+			while (mini->line[i] != '"' && mini->line[i] != '\'')
+				i++;
+			flag++;
+			if (flag % 2 != 0)
+				return (0);
+		}
 		if (mini->line[i] == '<' && mini->line[i + 1] != '<')
 		{
 			i++;
@@ -68,6 +80,8 @@ int	file_in_ending(t_hell *mini)
 	int	i;
 
 	i = ft_strlen(mini->line) - 1;
+	while (mini->line[i] == ' ' || mini->line[i] == '\t')
+		i--;
 	if (mini->line[i] == '<')
 		return (0);
 	return (1);
