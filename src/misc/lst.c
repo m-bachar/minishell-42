@@ -6,7 +6,7 @@
 /*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 02:04:05 by mbachar           #+#    #+#             */
-/*   Updated: 2023/05/30 11:19:11 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/06/04 12:53:15 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,9 @@ t_env	*ft_lstnew1(char *env_name, char *env_value)
 
 	node = malloc(sizeof(t_env));
 	if (!node)
-		return (NULL);
-	node->env_name = env_name;
-	node->env_value = env_value;
+		return (free(node), NULL);
+	node->env_name = ft_strdup(env_name);
+	node->env_value = ft_strdup(env_value);
 	node->next = NULL;
 	return (node);
 }

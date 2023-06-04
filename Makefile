@@ -6,7 +6,7 @@
 #    By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/20 22:20:05 by mbachar           #+#    #+#              #
-#    Updated: 2023/05/30 10:34:29 by mbachar          ###   ########.fr        #
+#    Updated: 2023/06/04 10:58:12 by mbachar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,7 @@ $(MINISHELL): $(MAN_OBJ)
 	@ $(CC) $(CFLAGS) $(LDFLAGS) $(CPPFLAGS) $(MAN_OBJ) -o $(MINISHELL) $(LIBFT)
 	@ printf "===============================================\n"
 	@ printf "All mandatory source files have been compiled.\n"
-	@ printf "Executable file philo has been generated.\n"
+	@ printf "Executable file minishell has been generated.\n"
 	@ printf "===============================================\n"
 
 clean:

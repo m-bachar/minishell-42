@@ -6,7 +6,7 @@
 /*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 22:25:23 by mbachar           #+#    #+#             */
-/*   Updated: 2023/06/03 14:22:20 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/06/04 12:57:50 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include <string.h>
 # include "./libft/libft.h"
 
-# define MAX_SIZE 1000000
+# define MAX_SIZE 4000000
 
 # define WORD		(0)
 # define HEREDOC	(1)
