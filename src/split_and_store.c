@@ -6,7 +6,7 @@
 /*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 22:35:36 by mbachar           #+#    #+#             */
-/*   Updated: 2023/06/03 14:31:03 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/06/05 00:44:14 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void	split_and_store(char *line, t_list *mini)
 
 	i = 0;
 	splitted = ft_split(line, ' ');
+	mini = NULL;
 	while (splitted[i])
 	{
 		ft_lstadd_back(&mini, ft_lstnew(splitted[i], i, 0));

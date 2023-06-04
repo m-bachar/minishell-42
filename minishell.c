@@ -6,7 +6,7 @@
 /*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 22:25:27 by mbachar           #+#    #+#             */
-/*   Updated: 2023/06/04 12:58:22 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/06/04 22:20:30 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,13 @@
 
 int	main(int ac, char *av[], char *env[])
 {
-	t_env	envs;
-	t_env	*envss;
+	t_hell	mini;
 
 	(void)av;
-	envss = NULL;
+	(void)env;
 	if (ac >= 1)
 	{
-		envss = copy_env(&envs, env);
-		while (1);
+		minihell_entrance(&mini);
 	}
 	else
 		ft_errors("Too many arguments");

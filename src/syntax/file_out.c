@@ -6,7 +6,7 @@
 /*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 23:56:11 by mbachar           #+#    #+#             */
-/*   Updated: 2023/06/03 15:33:26 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/06/04 23:17:38 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	file_out_middle(t_hell *mini)
 		{
 			flag++;
 			i++;
-			while (mini->line[i] != '"' && mini->line[i] != '\'')
+			while (mini->line[i] && mini->line[i] != '"' && mini->line[i] != '\'')
 				i++;
 			flag++;
 			if (flag % 2 != 0)
@@ -70,6 +70,8 @@ int	file_out_middle(t_hell *mini)
 			if (!check_for_redirections(mini, i))
 				return (0);
 		}
+		if (!mini->line[i])
+			break ;
 		i++;
 	}
 	return (1);

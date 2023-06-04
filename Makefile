@@ -6,13 +6,13 @@
 #    By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/20 22:20:05 by mbachar           #+#    #+#              #
-#    Updated: 2023/06/04 10:58:12 by mbachar          ###   ########.fr        #
+#    Updated: 2023/06/04 23:19:11 by mbachar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 MINISHELL 	= 	minishell
 
-CFLAGS		=	-Wall -Wextra -Werror #-g -fsanitize=address
+CFLAGS		=	-Wall -Wextra -Werror -g -fsanitize=address
 
 LDFLAGS		=	"-L/goinfre/mbachar/homebrew/opt/readline/lib"
 
@@ -70,4 +70,4 @@ fclean:
 
 re: fclean all
 
-.PHONY: fclean clean re bonus
+.PHONY: fclean clean re
