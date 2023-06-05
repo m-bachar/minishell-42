@@ -3,13 +3,14 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+         #
+#    By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/22 08:33:19 by mbachar           #+#    #+#              #
-#    Updated: 2023/04/16 11:01:33 by mbachar          ###   ########.fr        #
+#    Updated: 2023/06/05 00:54:12 by otchekai         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+MAKEFLAGS += -s
 NAME = libft.a
 SRC = 	ft_atoi.c \
 		ft_bzero.c \

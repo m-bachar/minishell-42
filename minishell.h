@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 22:25:23 by mbachar           #+#    #+#             */
-/*   Updated: 2023/06/04 12:57:50 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/06/05 00:55:24 by otchekai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,12 @@
 
 typedef struct minishell
 {
+	char			**path;
+	char			**vne;
 	char			*line;
+	char			*new_key;
+	char			*new_val;
+	int				join_val;
 	struct s_list	*push;
 	struct s_env	*s_env;
 }	t_hell;
@@ -112,6 +117,10 @@ int		file_out_ending(t_hell *mini);
 int		quotes(t_hell *mini);
 
 		/* 		Envs 	*/
-t_env	*copy_env(t_env *lst, char **envs);
+void    copy_env(t_env **lst, char **envs);
+void	print_current_directory(void);
+int		export_first(t_hell *mini, char *str);
+void	execution(t_hell *mini);
+void	ft_export(t_env *lst, t_hell *mini);
 
 #endif

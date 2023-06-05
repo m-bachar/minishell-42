@@ -1,27 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/20 22:25:27 by mbachar           #+#    #+#             */
-/*   Updated: 2023/06/05 00:53:21 by otchekai         ###   ########.fr       */
+/*   Created: 2023/06/04 22:21:15 by otchekai          #+#    #+#             */
+/*   Updated: 2023/06/04 22:21:37 by otchekai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../minishell.h"
 
-int	main(int ac, char *av[], char *env[])
+void	print_current_directory(void)
 {
-	t_hell	mini;
+	char	*cmd;
 
-	(void)av;
-	if (ac >= 1)
+	cmd = getcwd(NULL, 0);
+	if (cmd == NULL)
 	{
-		mini.vne = env;
-		minihell_entrance(&mini);
+		printf("pwd Error\n");
+		exit(1);
 	}
-	else
-		ft_errors("Too many arguments");
+	printf("%s\n", cmd);
 }
