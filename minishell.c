@@ -6,7 +6,7 @@
 /*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 22:25:27 by mbachar           #+#    #+#             */
-/*   Updated: 2023/06/05 00:53:21 by otchekai         ###   ########.fr       */
+/*   Updated: 2023/06/09 22:14:23 by otchekai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,11 @@
 int	main(int ac, char *av[], char *env[])
 {
 	t_hell	mini;
+	t_env	*lst;
 
 	(void)av;
-	if (ac >= 1)
+	lst = NULL;
+	if (ac == 1)
 	{
 		mini.vne = env;
 		minihell_entrance(&mini);

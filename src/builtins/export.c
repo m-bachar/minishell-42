@@ -6,20 +6,21 @@
 /*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 19:01:18 by otchekai          #+#    #+#             */
-/*   Updated: 2023/06/05 00:58:16 by otchekai         ###   ########.fr       */
+/*   Updated: 2023/06/11 21:17:14 by otchekai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void execution(t_hell *mini)
+void	execution(t_hell *mini)
 {
-	int i;
-	char **env = mini->vne;
+	int	i;
+	char **env;
 	char *to_find = NULL;
 
 	char **cmds = ft_split(mini->line, ' ');
 	char *slash = "/";
+	env = mini->vne;
 	i = 0;
 	if (!ft_strncmp(mini->line, "pwd", 4))
 		return ;
@@ -106,6 +107,8 @@ void	ft_export(t_env *lst, t_hell *mini)
 			if (tmp->env_name && mini->new_key && \
 				!strcmp(tmp->env_name, mini->new_key))
 			{
+				if (!mini->new_val && tmp->env_value != NULL)
+					printf("Im Wide Awake, Its Morning");
 				if (mini->join_val == 1)
 					tmp->env_value = ft_strjoin(tmp->env_value, \
 					ft_strdup(mini->new_val));

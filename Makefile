@@ -6,7 +6,7 @@
 #    By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/20 22:20:05 by mbachar           #+#    #+#              #
-#    Updated: 2023/06/05 00:50:46 by otchekai         ###   ########.fr        #
+#    Updated: 2023/06/12 02:00:28 by otchekai         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,8 +38,10 @@ MAN_SRC 	=	minishell.c \
 				./src/syntax/all_in_one.c \
 				./src/syntax/quotes.c \
 				./src/parsing/parsing.c \
-				./src/builtings/export.c \
-				./src/builtings/pwd.c
+				./src/builtins/export.c \
+				./src/builtins/pwd.c \
+				./src/builtins/cd.c \
+				./src/builtins/unset.c
 
 MAN_OBJ		=	$(MAN_SRC:.c=.o)
 

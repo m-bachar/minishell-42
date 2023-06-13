@@ -6,7 +6,7 @@
 /*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 22:25:23 by mbachar           #+#    #+#             */
-/*   Updated: 2023/06/05 00:55:24 by otchekai         ###   ########.fr       */
+/*   Updated: 2023/06/13 13:23:03 by otchekai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,10 @@
 
 typedef struct minishell
 {
+	char			**splitted;
 	char			**path;
 	char			**vne;
+	char			*pwd;
 	char			*line;
 	char			*new_key;
 	char			*new_val;
@@ -117,10 +119,17 @@ int		file_out_ending(t_hell *mini);
 int		quotes(t_hell *mini);
 
 		/* 		Envs 	*/
-void    copy_env(t_env **lst, char **envs);
-void	print_current_directory(void);
+void	copy_env(t_env **lst, char **envs);
+
+		/*		execution		*/
+t_env	*check_env(t_env *lst, char *str);
+void	print_current_directory(t_hell *mini);
 int		export_first(t_hell *mini, char *str);
 void	execution(t_hell *mini);
 void	ft_export(t_env *lst, t_hell *mini);
+void	print_env(t_hell *mini, t_env *tmp);
+void	update_pwds(t_env *lst, t_hell *mini);
+void	change_directory(t_hell *mini, t_env *lst);
+void	unset(t_env **lst, t_hell *mini);
 
 #endif
