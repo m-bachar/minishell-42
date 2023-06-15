@@ -6,7 +6,7 @@
 /*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 00:17:23 by otchekai          #+#    #+#             */
-/*   Updated: 2023/06/13 13:29:28 by otchekai         ###   ########.fr       */
+/*   Updated: 2023/06/13 13:57:59 by otchekai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	unset(t_env **lst, t_hell *mini)
 	{
 		tmp = *lst;
 		temp = *lst;
-		if (tmp->env_name && !strcmp(mini->splitted[index], tmp->env_name))
+		if (tmp && !strcmp(mini->splitted[index], tmp->env_name))
 			*lst = tmp->next;
 		while (tmp)
 		{

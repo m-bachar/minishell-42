@@ -6,7 +6,7 @@
 /*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 19:01:18 by otchekai          #+#    #+#             */
-/*   Updated: 2023/06/11 21:17:14 by otchekai         ###   ########.fr       */
+/*   Updated: 2023/06/15 00:44:59 by otchekai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,11 @@ void	execution(t_hell *mini)
 	}
 	int j = fork();
 	if (j == 0)
+	{
 		execve(to_find, cmds, env);
+		printf("ZABI\n");
+	}
+		
 	while (wait(NULL) != -1);
 }
 

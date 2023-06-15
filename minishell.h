@@ -6,7 +6,7 @@
 /*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 22:25:23 by mbachar           #+#    #+#             */
-/*   Updated: 2023/06/13 13:23:03 by otchekai         ###   ########.fr       */
+/*   Updated: 2023/06/15 00:05:24 by otchekai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@
 
 # define MAX_SIZE 4000000
 
-# define WORD		(0)
-# define HEREDOC	(1)
-# define APPEND		(2)
-# define FILE_IN	(3)
-# define FILE_OUT	(4)
-# define PIPE		(5)
+# define WORD		0
+# define HEREDOC	1
+# define APPEND		2
+# define FILE_IN	3
+# define FILE_OUT	4
+# define PIPE		5
 
 # define RED	"\x1b[1;31m"
 # define CYAN	"\x1b[1;36m"
@@ -131,5 +131,7 @@ void	print_env(t_hell *mini, t_env *tmp);
 void	update_pwds(t_env *lst, t_hell *mini);
 void	change_directory(t_hell *mini, t_env *lst);
 void	unset(t_env **lst, t_hell *mini);
+void	echo(t_hell *mini);
+int		check_n(char *str);
 
 #endif
