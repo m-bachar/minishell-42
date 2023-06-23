@@ -6,7 +6,7 @@
 /*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 14:47:21 by otchekai          #+#    #+#             */
-/*   Updated: 2023/06/15 00:52:12 by otchekai         ###   ########.fr       */
+/*   Updated: 2023/06/24 00:19:02 by otchekai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 void	echo(t_hell *mini)
 {
 	int	index;
-	int flag;
+	int	flag;
 
 	index = 1;
 	flag = 0;
-	if(!mini->splitted)
-		return;
+	if (!mini->splitted)
+		return ;
 	if (mini->splitted[0] && !mini->splitted[1])
 	{
 		printf("\n");
@@ -35,7 +35,7 @@ void	echo(t_hell *mini)
 	{
 		printf("%s", mini->splitted[index]);
 		if (mini->splitted[index] != NULL)
-				printf(" ");
+			printf(" ");
 		index++;
 	}
 	if (!flag)
@@ -44,11 +44,11 @@ void	echo(t_hell *mini)
 
 int	check_n(char *str)
 {
-	int index;
+	int	index;
 
 	index = 1;
 	if (!str[index])
-			return (1);
+		return (1);
 	while (str[index])
 	{
 		if (str[index] != 'n')

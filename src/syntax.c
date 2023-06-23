@@ -6,7 +6,7 @@
 /*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 22:29:00 by mbachar           #+#    #+#             */
-/*   Updated: 2023/06/15 00:45:12 by otchekai         ###   ########.fr       */
+/*   Updated: 2023/06/22 13:33:59 by otchekai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ void	minihell_entrance(t_hell *mini)
 				unset(&lst, mini);
 			if (!ft_strncmp(mini->splitted[0], "echo", 5))
 				echo(mini);
-
 		}
 		// execution(mini);
 		tmp = lst;

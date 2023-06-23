@@ -6,11 +6,25 @@
 /*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 00:17:23 by otchekai          #+#    #+#             */
-/*   Updated: 2023/06/13 13:57:59 by otchekai         ###   ########.fr       */
+/*   Updated: 2023/06/24 00:22:10 by otchekai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
+void	check_key(char *str)
+{
+	int		i;
+
+	i = -1;
+	while (str[++i])
+	{
+		if ((!i && !ft_isalpha(str[i])) || \
+			(i && !ft_isalnum(str[i])))
+			printf("Forbidden key!\n");
+	}
+	return ;
+}
 
 void	unset(t_env **lst, t_hell *mini)
 {
@@ -20,6 +34,7 @@ void	unset(t_env **lst, t_hell *mini)
 	int		index;
 
 	index = 1;
+	check_key(mini->splitted[index]);
 	while (mini->splitted[index])
 	{
 		tmp = *lst;
