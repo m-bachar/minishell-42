@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 19:01:18 by otchekai          #+#    #+#             */
-/*   Updated: 2023/06/05 00:58:16 by otchekai         ###   ########.fr       */
+/*   Updated: 2023/06/30 16:45:41 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void execution(t_hell *mini)
+void	execution(t_hell *mini)
 {
 	int i;
 	char **env = mini->vne;
