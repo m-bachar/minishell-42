@@ -6,7 +6,7 @@
 /*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 22:29:00 by mbachar           #+#    #+#             */
-/*   Updated: 2023/07/01 17:25:45 by otchekai         ###   ########.fr       */
+/*   Updated: 2023/07/01 19:29:46 by otchekai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,6 @@ void	minihell_entrance(t_hell *mini)
 			line = add_whitespaces(mini);
 			choose_and_acquire(mini, lst);
 		}
+		// execution(mini, lst);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 22:25:23 by mbachar           #+#    #+#             */
-/*   Updated: 2023/07/01 17:26:35 by otchekai         ###   ########.fr       */
+/*   Updated: 2023/07/01 18:05:29 by otchekai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ void	copy_env(t_env **lst, char **envs);
 t_env	*check_env(t_env *lst, char *str);
 void	print_current_directory(t_hell *mini);
 int		export_first(t_hell *mini, char *str);
-void	execution(t_hell *mini);
+void	execution(t_hell *mini, t_env *lst);
 void	ft_export(t_env *lst, t_hell *mini);
 void	update_pwds(t_env *lst, t_hell *mini);
 void	change_directory(t_hell *mini, t_env *lst);
