@@ -6,7 +6,7 @@
 /*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 22:25:23 by mbachar           #+#    #+#             */
-/*   Updated: 2023/06/22 13:11:24 by otchekai         ###   ########.fr       */
+/*   Updated: 2023/07/01 17:06:51 by otchekai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,23 +115,24 @@ int		file_in_ending(t_hell *mini);
 int		file_out_middle(t_hell *mini);
 int		file_out_begining(t_hell *mini);
 int		file_out_ending(t_hell *mini);
-
 int		quotes(t_hell *mini);
 
-		/* 		Envs 	*/
+		/*		builtins		*/
 void	copy_env(t_env **lst, char **envs);
-
-		/*		execution		*/
 t_env	*check_env(t_env *lst, char *str);
 void	print_current_directory(t_hell *mini);
 int		export_first(t_hell *mini, char *str);
 void	execution(t_hell *mini);
 void	ft_export(t_env *lst, t_hell *mini);
-void	print_env(t_hell *mini, t_env *tmp);
 void	update_pwds(t_env *lst, t_hell *mini);
 void	change_directory(t_hell *mini, t_env *lst);
 void	unset(t_env **lst, t_hell *mini);
 void	echo(t_hell *mini);
+void	print_export(t_env *lst, t_hell *mini);
+void    print_env(t_env *lst);
 int		check_n(char *str);
+
+		/*		norminette		*/
+void    choose_and_acquire(t_hell *mini, t_env *lst);
 
 #endif

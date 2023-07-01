@@ -6,7 +6,7 @@
 #    By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/20 22:20:05 by mbachar           #+#    #+#              #
-#    Updated: 2023/06/14 21:19:37 by otchekai         ###   ########.fr        #
+#    Updated: 2023/07/01 17:10:38 by otchekai         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,7 @@ MAN_SRC 	=	minishell.c \
 				./src/misc/tools.c \
 				./src/syntax.c \
 				./src/split_and_store.c \
+				./src/norminette.c \
 				./src/misc/lst.c \
 				./src/syntax/append.c \
 				./src/syntax/heredoc.c \
@@ -42,7 +43,8 @@ MAN_SRC 	=	minishell.c \
 				./src/builtins/pwd.c \
 				./src/builtins/cd.c \
 				./src/builtins/unset.c \
-				./src/builtins/echo.c
+				./src/builtins/echo.c \
+				./src/builtins/exit.c
 
 MAN_OBJ		=	$(MAN_SRC:.c=.o)
 

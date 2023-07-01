@@ -6,7 +6,7 @@
 /*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 20:18:25 by mbachar           #+#    #+#             */
-/*   Updated: 2023/06/07 22:31:10 by otchekai         ###   ########.fr       */
+/*   Updated: 2023/07/01 16:51:00 by otchekai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,20 @@ void    copy_env(t_env **lst, char **envs)
         k = 0;
         j++;
     }
+}
+void    print_env(t_env *lst)
+{
+    t_env *tmp;
+
+    tmp = lst;
+    while (tmp)
+	{
+		if (tmp->env_value && !ft_strncmp(tmp->env_value, "", 1))
+		{
+			tmp = tmp->next;
+			continue ;
+		}
+		printf("%s=%s\n", tmp->env_name, tmp->env_value);
+		tmp = tmp->next;
+	}
 }

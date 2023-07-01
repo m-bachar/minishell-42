@@ -6,7 +6,7 @@
 /*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 22:29:00 by mbachar           #+#    #+#             */
-/*   Updated: 2023/06/22 13:33:59 by otchekai         ###   ########.fr       */
+/*   Updated: 2023/07/01 17:13:53 by otchekai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,8 @@
 void	minihell_entrance(t_hell *mini)
 {
 	t_env	*lst;
-	t_env	*tmp;
-	int		i;
-	int		j;
 	char	*line;
 
-	i = 0;
-	j = 0;
 	lst = NULL;
 	line = NULL;
 	system("clear");
@@ -51,48 +46,7 @@ void	minihell_entrance(t_hell *mini)
 		{
 			mini->splitted = ft_split(mini->line, ' ');
 			line = add_whitespaces(mini);
-			if (!ft_strncmp(mini->splitted[0], "pwd", 4))
-			{
-				if (mini->splitted[1])
-					print_current_directory(mini);
-				else
-					print_current_directory(mini);
-			}
-			if (!ft_strncmp(mini->splitted[0], "export", 7)
-				&& mini->splitted[1])
-				ft_export(lst, mini);
-			if (!ft_strncmp(mini->splitted[0], "cd", 3))
-				update_pwds(lst, mini);
-			if (!ft_strncmp(mini->splitted[0], "unset", 6))
-				unset(&lst, mini);
-			if (!ft_strncmp(mini->splitted[0], "echo", 5))
-				echo(mini);
-		}
-		// execution(mini);
-		tmp = lst;
-		if (mini->line && !strncmp(mini->line, "env", 4))
-		{
-			while (tmp)
-			{
-				if (tmp->env_value && !ft_strncmp(tmp->env_value, "", 1))
-				{
-					tmp = tmp->next;
-					continue ;
-				}
-				printf("%s=%s\n", tmp->env_name, tmp->env_value);
-				tmp = tmp->next;
-			}
-		}
-		if (mini->line && !ft_strncmp(mini->line, "export", 7))
-		{
-			while (tmp)
-			{
-				if (!ft_strncmp(tmp->env_value, "", 1))
-					printf("%s%s\n", tmp->env_name, tmp->env_value);
-				else
-					printf("%s=%s\n", tmp->env_name, tmp->env_value);
-				tmp = tmp->next;
-			}
+			choose_and_acquire(mini, lst);
 		}
 	}
 }
