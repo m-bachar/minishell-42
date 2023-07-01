@@ -6,13 +6,13 @@
 /*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 22:35:36 by mbachar           #+#    #+#             */
-/*   Updated: 2023/06/05 00:44:14 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/06/07 20:14:06 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	*add_whitespaces(t_hell *mini)
+void	add_whitespaces(t_hell *mini)
 {
 	char		*result;
 	int			j;
@@ -22,7 +22,7 @@ char	*add_whitespaces(t_hell *mini)
 	i = 0;
 	result = malloc(sizeof(char) * MAX_SIZE);
 	if (!result)
-		return (NULL);
+		return ;
 	while (i < ft_strlen(mini->line))
 	{
 		if (mini->line[i] == '<' || mini->line[i] == '>'
@@ -46,9 +46,12 @@ char	*add_whitespaces(t_hell *mini)
 	free(mini->line);
 	mini->line = malloc(sizeof(char) * ft_strlen(result) + 1);
 	if (!mini->line)
-		return (free(result), NULL);
+	{
+		free(result);
+		return ;
+	}
 	ft_strcpy(mini->line, result);
-	return (free(result), mini->line);
+	free(result);
 }
 
 void	split_and_store(char *line, t_list *mini)
@@ -87,4 +90,28 @@ void	split_and_store(char *line, t_list *mini)
 		i++;
 	}
 	free(splitted);
+}
+
+void	shape_shifting(char	*line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] && line[i + 1] && (line[i] == '\"'))
+		{
+			i++;
+			while (line[i] && (line[i] != '\"'))
+			{
+				line[i] *= -1;
+				i++;
+				if (!line[i])
+					break ;
+			}
+		}
+		if (!line[i])
+			break ;
+		i++;
+	}
 }

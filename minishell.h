@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 22:25:23 by mbachar           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/06/22 13:11:24 by otchekai         ###   ########.fr       */
+=======
+/*   Updated: 2023/06/06 19:58:34 by mbachar          ###   ########.fr       */
+>>>>>>> main
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +84,7 @@ char	*ft_strcpy(char *dest, char *src);
 int		remove_whitespaces_from_history(t_hell *mini);
 
 		/*		Tools 2		*/
-char	*add_whitespaces(t_hell *mini);
+void	add_whitespaces(t_hell *mini);
 void	split_and_store(char *line, t_list *mini);
 
 		/*		Misc		*/
@@ -119,6 +123,7 @@ int		file_out_ending(t_hell *mini);
 int		quotes(t_hell *mini);
 
 		/* 		Envs 	*/
+<<<<<<< HEAD
 void	copy_env(t_env **lst, char **envs);
 
 		/*		execution		*/
@@ -133,5 +138,14 @@ void	change_directory(t_hell *mini, t_env *lst);
 void	unset(t_env **lst, t_hell *mini);
 void	echo(t_hell *mini);
 int		check_n(char *str);
+=======
+// void    copy_env(t_env **lst, char **envs);
+// void	print_current_directory(void);
+// int		export_first(t_hell *mini, char *str);
+// void	execution(t_hell *mini);
+// void	ft_export(t_env *lst, t_hell *mini);
+
+void	shape_shifting(char	*line);
+>>>>>>> main
 
 #endif

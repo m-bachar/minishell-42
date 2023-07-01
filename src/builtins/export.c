@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 19:01:18 by otchekai          #+#    #+#             */
+<<<<<<< HEAD:src/builtins/export.c
 /*   Updated: 2023/06/24 00:17:10 by otchekai         ###   ########.fr       */
+=======
+/*   Updated: 2023/06/30 16:45:41 by mbachar          ###   ########.fr       */
+>>>>>>> main:src/builtings/export.c
 /*                                                                            */
 /* ************************************************************************** */
 
