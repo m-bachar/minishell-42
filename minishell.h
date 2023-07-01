@@ -6,7 +6,7 @@
 /*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 22:25:23 by mbachar           #+#    #+#             */
-/*   Updated: 2023/07/01 17:06:51 by otchekai         ###   ########.fr       */
+/*   Updated: 2023/07/01 17:26:35 by otchekai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,5 +134,4 @@ int		check_n(char *str);
 
 		/*		norminette		*/
 void    choose_and_acquire(t_hell *mini, t_env *lst);
-
 #endif

@@ -6,7 +6,7 @@
 /*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 19:01:18 by otchekai          #+#    #+#             */
-/*   Updated: 2023/07/01 16:59:38 by otchekai         ###   ########.fr       */
+/*   Updated: 2023/07/01 17:26:42 by otchekai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ int	export_first(t_hell *mini, char *str)
 	}
 	return (0);
 }
+
 
 void	ft_export(t_env *lst, t_hell *mini)
 {
