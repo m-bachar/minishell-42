@@ -6,7 +6,7 @@
 /*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 00:00:20 by mbachar           #+#    #+#             */
-/*   Updated: 2023/06/04 23:17:41 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/07/02 14:09:41 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	heredoc_begining(t_hell *mini)
 int	heredoc_middle(t_hell *mini)
 {
 	int	i;
-	int flag;
+	int	flag;
 
 	i = 0;
 	flag = 0;
@@ -51,16 +51,6 @@ int	heredoc_middle(t_hell *mini)
 	{
 		while (mini->line[i] && (mini->line[i] == ' ' || mini->line[i] == '\t'))
 			i++;
-		if (mini->line[i] == '"' || mini->line[i] == '\'')
-		{
-			flag++;
-			i++;
-			while (mini->line[i] && mini->line[i] != '"' && mini->line[i] != '\'')
-				i++;
-			flag++;
-			if (flag % 2 != 0)
-				return (0);
-		}
 		if (mini->line[i] == '<' && mini->line[i + 1] == '<')
 		{
 			i += 2;

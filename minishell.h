@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 22:25:23 by mbachar           #+#    #+#             */
-/*   Updated: 2023/07/01 18:05:29 by otchekai         ###   ########.fr       */
+/*   Updated: 2023/07/02 12:50:03 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ int		remove_whitespaces_from_history(t_hell *mini);
 		/*		Tools 2		*/
 char	*add_whitespaces(t_hell *mini);
 void	split_and_store(char *line, t_list *mini);
+void	shape_shifting(char	*line);
 
 		/*		Misc		*/
 void	ft_lstadd_back(t_list **lst, t_list *new);
@@ -95,6 +96,7 @@ int		ft_lstsize1(t_env *lst);
 int		all_begining_syntaxes(t_hell *mini);
 int		all_middle_syntaxes(t_hell *mini);
 int		all_ending_syntaxes(t_hell *mini);
+int		all_in_one(t_hell *mini);
 
 int		append_begining(t_hell *mini);
 int		append_middle(t_hell *mini);
@@ -129,9 +131,9 @@ void	change_directory(t_hell *mini, t_env *lst);
 void	unset(t_env **lst, t_hell *mini);
 void	echo(t_hell *mini);
 void	print_export(t_env *lst, t_hell *mini);
-void    print_env(t_env *lst);
+void	print_env(t_env *lst);
 int		check_n(char *str);
 
 		/*		norminette		*/
-void    choose_and_acquire(t_hell *mini, t_env *lst);
+void	choose_and_acquire(t_hell *mini, t_env *lst);
 #endif

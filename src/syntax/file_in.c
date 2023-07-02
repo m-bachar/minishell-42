@@ -6,7 +6,7 @@
 /*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 23:52:11 by mbachar           #+#    #+#             */
-/*   Updated: 2023/06/04 23:17:35 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/07/02 14:10:05 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	file_in_begining(t_hell *mini)
 int	file_in_middle(t_hell *mini)
 {
 	int	i;
-	int flag;
+	int	flag;
 
 	i = 0;
 	flag = 0;
@@ -51,16 +51,6 @@ int	file_in_middle(t_hell *mini)
 	{
 		while (mini->line[i] && (mini->line[i] == ' ' || mini->line[i] == '\t'))
 			i++;
-		if (mini->line[i] == '"' || mini->line[i] == '\'')
-		{
-			flag++;
-			i++;
-			while (mini->line[i] && mini->line[i] != '"' && mini->line[i] != '\'')
-				i++;
-			flag++;
-			if (flag % 2 != 0)
-				return (0);
-		}
 		if (mini->line[i] == '<' && mini->line[i + 1] != '<')
 		{
 			i++;

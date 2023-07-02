@@ -6,7 +6,7 @@
 /*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 01:23:15 by mbachar           #+#    #+#             */
-/*   Updated: 2023/06/03 14:09:52 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/07/02 12:49:51 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,15 @@ int	all_ending_syntaxes(t_hell *mini)
 	if (!append_ending(mini) || !heredoc_ending(mini)
 		|| !pipe_ending(mini) || !file_in_ending(mini)
 		|| !file_out_ending(mini))
+		return (0);
+	return (1);
+}
+
+int	all_in_one(t_hell *mini)
+{
+	if (!all_begining_syntaxes(mini)
+		|| !all_middle_syntaxes(mini)
+		|| !all_ending_syntaxes(mini) || !quotes(mini))
 		return (0);
 	return (1);
 }

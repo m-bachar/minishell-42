@@ -3,20 +3,20 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+         #
+#    By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/20 22:20:05 by mbachar           #+#    #+#              #
-#    Updated: 2023/07/01 18:06:20 by otchekai         ###   ########.fr        #
+#    Updated: 2023/07/02 11:35:45 by mbachar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 MINISHELL 	= 	minishell
 
-CFLAGS		=	-Wall -Wextra -Werror -g -fsanitize=address
+CFLAGS		=	-Wall -Wextra -Werror #-g -fsanitize=address
 
-LDFLAGS		=	"-L/goinfre/otchekai/homebrew/opt/readline/lib"
+LDFLAGS		=	"-L/goinfre/mbachar/homebrew/opt/readline/lib"
 
-CPPFLAGS	=	"-I/goinfre/otchekai/homebrew/opt/readline/include" -lreadline
+CPPFLAGS	=	"-I/goinfre/mbachar/homebrew/opt/readline/include" -lreadline
 
 INC 		= 	minishell.h
 
