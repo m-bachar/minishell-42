@@ -6,7 +6,7 @@
 /*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 19:01:18 by otchekai          #+#    #+#             */
-/*   Updated: 2023/07/01 17:26:42 by otchekai         ###   ########.fr       */
+/*   Updated: 2023/07/03 02:53:44 by otchekai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ int	export_first(t_hell *mini, char *str)
 	return (0);
 }
 
-
 void	ft_export(t_env *lst, t_hell *mini)
 {
 	t_env	*tmp;
@@ -68,7 +67,7 @@ void	ft_export(t_env *lst, t_hell *mini)
 		while (tmp)
 		{
 			if (tmp->env_name && mini->new_key && \
-				!strcmp(tmp->env_name, mini->new_key))
+				!strcmp(tmp->env_name, mini->new_key) && export_first(mini, split[i]))
 			{
 				if (!mini->new_val && tmp->env_value != NULL)
 					printf("Export error\n");
@@ -101,9 +100,9 @@ void	print_export(t_env *lst, t_hell *mini)
 		while (tmp)
 		{
 			if (!ft_strncmp(tmp->env_value, "", 1))
-				printf("%s%s\n", tmp->env_name, tmp->env_value);
+				printf("declare -x %s%s\n", tmp->env_name, tmp->env_value);
 			else
-				printf("%s=%s\n", tmp->env_name, tmp->env_value);
+				printf("declare -x %s=%s\n", tmp->env_name, tmp->env_value);
 			tmp = tmp->next;
 		}
 	}

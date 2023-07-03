@@ -6,13 +6,13 @@
 #    By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/20 22:20:05 by mbachar           #+#    #+#              #
-#    Updated: 2023/07/03 01:06:32 by otchekai         ###   ########.fr        #
+#    Updated: 2023/07/03 02:30:13 by otchekai         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 MINISHELL 	= 	minishell
 
-CFLAGS		=	-Wall -Wextra -Werror #-g -fsanitize=address
+CFLAGS		=	-Wall -Wextra -Werror -g -fsanitize=address
 
 LDFLAGS		=	"-L/goinfre/otchekai/homebrew/opt/readline/lib"
 
