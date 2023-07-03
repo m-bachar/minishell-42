@@ -6,7 +6,7 @@
 /*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 16:44:18 by otchekai          #+#    #+#             */
-/*   Updated: 2023/07/01 18:32:40 by otchekai         ###   ########.fr       */
+/*   Updated: 2023/07/03 01:07:11 by otchekai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	execution(t_hell *mini, t_env *lst)
 	env = mini->vne;
 	tmp = lst;
 	i = 0;
-	if (!ft_strncmp(mini->line, "pwd", 4))
+	if (!tmp)
 		return ;
 	while (tmp)
 	{
