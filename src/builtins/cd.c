@@ -6,7 +6,7 @@
 /*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 00:40:28 by otchekai          #+#    #+#             */
-/*   Updated: 2023/06/13 12:53:04 by otchekai         ###   ########.fr       */
+/*   Updated: 2023/07/05 16:56:49 by otchekai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ void	update_pwds(t_env *lst, t_hell *mini)
 	if (!current_pwd)
 		return ;
 	tmp = check_env(lst, "OLDPWD");
-	if(!tmp)
-		return;
+	if (!tmp)
+		return ;
 	free(tmp->env_value);
 	tmp->env_value = old_pwd;
 	tmp = check_env(lst, "PWD");
