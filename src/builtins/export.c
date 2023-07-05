@@ -6,7 +6,7 @@
 /*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 19:01:18 by otchekai          #+#    #+#             */
-/*   Updated: 2023/07/01 17:26:42 by otchekai         ###   ########.fr       */
+/*   Updated: 2023/07/05 16:07:29 by otchekai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ int	export_first(t_hell *mini, char *str)
 	return (0);
 }
 
-
 void	ft_export(t_env *lst, t_hell *mini)
 {
 	t_env	*tmp;
@@ -70,8 +69,11 @@ void	ft_export(t_env *lst, t_hell *mini)
 			if (tmp->env_name && mini->new_key && \
 				!strcmp(tmp->env_name, mini->new_key))
 			{
-				if (!mini->new_val && tmp->env_value != NULL)
-					printf("Export error\n");
+				if (!strcmp(mini->new_val, "") && tmp->env_value != NULL)
+				{
+					var = 1;
+					break ;
+				}
 				if (mini->join_val == 1)
 					tmp->env_value = ft_strjoin(tmp->env_value, \
 					ft_strdup(mini->new_val));
@@ -93,7 +95,7 @@ void	ft_export(t_env *lst, t_hell *mini)
 
 void	print_export(t_env *lst, t_hell *mini)
 {
-	t_env *tmp;
+	t_env	*tmp;
 
 	tmp = lst;
 	if (mini->line && !ft_strncmp(mini->line, "export", 7))
@@ -101,9 +103,9 @@ void	print_export(t_env *lst, t_hell *mini)
 		while (tmp)
 		{
 			if (!ft_strncmp(tmp->env_value, "", 1))
-				printf("%s%s\n", tmp->env_name, tmp->env_value);
+				printf("declare -x %s%s\n", tmp->env_name, tmp->env_value);
 			else
-				printf("%s=%s\n", tmp->env_name, tmp->env_value);
+				printf("declare -x %s=%s\n", tmp->env_name, tmp->env_value);
 			tmp = tmp->next;
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 23:37:39 by mbachar           #+#    #+#             */
-/*   Updated: 2023/06/06 19:32:04 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/07/02 13:55:06 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,18 +51,7 @@ int	append_middle(t_hell *mini)
 	{
 		while (mini->line[i] && (mini->line[i] == ' ' || mini->line[i] == '\t'))
 			i++;
-		if (mini->line[i] == '"' || mini->line[i] == '\'')
-		{
-			flag++;
-			i++;
-			while (mini->line[i]
-				&& mini->line[i] != '"' && mini->line[i] != '\'')
-				i++;
-			flag++;
-			if (flag % 2 != 0)
-				return (0);
-		}
-		else if (mini->line[i] == '>' && mini->line[i + 1] == '>')
+		if (mini->line[i] == '>' && mini->line[i + 1] == '>')
 		{
 			i += 2;
 			while (mini->line[i] && (mini->line[i] == ' '
