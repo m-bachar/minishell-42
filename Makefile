@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+         #
+#    By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/20 22:20:05 by mbachar           #+#    #+#              #
-#    Updated: 2023/07/03 02:30:13 by otchekai         ###   ########.fr        #
+#    Updated: 2023/07/07 17:57:37 by mbachar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,9 +14,9 @@ MINISHELL 	= 	minishell
 
 CFLAGS		=	-Wall -Wextra -Werror -g -fsanitize=address
 
-LDFLAGS		=	"-L/goinfre/otchekai/homebrew/opt/readline/lib"
+LDFLAGS		=	"-L/goinfre/mbachar/homebrew/opt/readline/lib"
 
-CPPFLAGS	=	"-I/goinfre/otchekai/homebrew/opt/readline/include" -lreadline
+CPPFLAGS	=	"-I/goinfre/mbachar/homebrew/opt/readline/include" -lreadline
 
 INC 		= 	minishell.h
 
@@ -39,6 +39,10 @@ MAN_SRC 	=	minishell.c \
 				./src/syntax/all_in_one.c \
 				./src/syntax/quotes.c \
 				./src/parsing/parsing.c \
+				./src/parsing/append.c \
+				./src/parsing/heredoc.c \
+				./src/parsing/file_in.c \
+				./src/parsing/file_out.c \
 				./src/builtins/export.c \
 				./src/builtins/pwd.c \
 				./src/builtins/cd.c \

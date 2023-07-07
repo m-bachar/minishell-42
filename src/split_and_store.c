@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_and_store.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 22:35:36 by mbachar           #+#    #+#             */
-/*   Updated: 2023/07/01 17:27:07 by otchekai         ###   ########.fr       */
+/*   Updated: 2023/07/07 18:06:07 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,35 +51,37 @@ char	*add_whitespaces(t_hell *mini)
 	return (free(result), mini->line);
 }
 
-void	split_and_store(char *line, t_list *mini)
+void	split_and_store(char *line, t_list **mini)
 {
+	t_list	*tmp;
 	char	**splitted;
 	int		i;
 
 	i = 0;
 	splitted = ft_split(line, ' ');
-	mini = NULL;
 	while (splitted[i])
 	{
-		ft_lstadd_back(&mini, ft_lstnew(splitted[i], i, 0));
+		ft_lstadd_back(mini, ft_lstnew(splitted[i], i, 0));
 		i++;
 	}
-	while (mini != NULL)
+	tmp = *mini;
+	while ((*mini) != NULL)
 	{
-		if (!strcmp(mini->data, "|"))
-			mini->token = PIPE;
-		else if (!strcmp(mini->data, "<<"))
-			mini->token = HEREDOC;
-		else if (!strcmp(mini->data, ">>"))
-			mini->token = APPEND;
-		else if (!strcmp(mini->data, "<"))
-			mini->token = FILE_IN;
-		else if (!strcmp(mini->data, ">"))
-			mini->token = FILE_OUT;
+		if (!ft_strcmp((*mini)->data, "|"))
+			(*mini)->token = PIPE;
+		else if (!ft_strcmp((*mini)->data, "<<"))
+			(*mini)->token = HEREDOC;
+		else if (!ft_strcmp((*mini)->data, ">>"))
+			(*mini)->token = APPEND;
+		else if (!ft_strcmp((*mini)->data, "<"))
+			(*mini)->token = FILE_IN;
+		else if (!ft_strcmp((*mini)->data, ">"))
+			(*mini)->token = FILE_OUT;
 		else
-			mini->token = WORD;
-		mini = mini->next;
+			(*mini)->token = WORD;
+		(*mini) = (*mini)->next;
 	}
+	*mini = tmp;
 	i = 0;
 	while (splitted[i])
 	{

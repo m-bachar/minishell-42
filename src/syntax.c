@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 22:29:00 by mbachar           #+#    #+#             */
-/*   Updated: 2023/07/02 23:50:44 by otchekai         ###   ########.fr       */
+/*   Updated: 2023/07/07 19:55:17 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,14 @@ void	exit_minihell(t_hell *mini)
 void	minihell_entrance(t_hell *mini)
 {
 	t_env	*lst;
+	t_list	*list;
 	char	*line;
+	int		fd;
 
 	lst = NULL;
+	list = NULL;
 	line = NULL;
+	fd = 0;
 	printf(CYAN "\t\tHell is -- MiniShell 😔 😔  \n\n" RESET);
 	copy_env(&lst, mini->vne);
 	while (1)
@@ -53,9 +57,10 @@ void	minihell_entrance(t_hell *mini)
 		shape_shifting(mini->line);
 		if (all_in_one(mini))
 		{
-			mini->splitted = ft_split(mini->line, ' ');
 			line = add_whitespaces(mini);
-			choose_and_acquire(mini, lst);
+			split_and_store(line, &list);
+			fd = open_and_heredoc(&list);
+			// choose_and_acquire(mini, lst);
 		}
 	}
 }

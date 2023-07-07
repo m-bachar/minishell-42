@@ -6,7 +6,7 @@
 /*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 00:01:00 by mbachar           #+#    #+#             */
-/*   Updated: 2023/07/02 13:55:26 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/07/07 19:53:42 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	pipe_middle(t_hell *mini)
 			while (mini->line[i] && (mini->line[i] == ' '
 					|| mini->line[i] == '\t'))
 				i++;
-			if (!check_for_redirections(mini, i))
+			if (mini->line[i] == '|')
 				return (0);
 		}
 		if (!mini->line[i])

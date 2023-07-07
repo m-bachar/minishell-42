@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 22:25:23 by mbachar           #+#    #+#             */
-/*   Updated: 2023/07/05 17:15:13 by otchekai         ###   ########.fr       */
+/*   Updated: 2023/07/07 18:05:46 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <string.h>
+# include <fcntl.h>
 # include "./libft/libft.h"
 
 # define MAX_SIZE 4000000
@@ -37,6 +38,7 @@
 typedef struct minishell
 {
 	char			**splitted;
+	char			**splitted2;
 	char			**path;
 	char			**vne;
 	char			*pwd;
@@ -77,11 +79,12 @@ void	minihell_entrance(t_hell *mini);
 		/*		Tools		*/
 int		check_for_redirections(t_hell *mini, int i);
 char	*ft_strcpy(char *dest, char *src);
+int		ft_strcmp(char *s1, char *s2);
 int		remove_whitespaces_from_history(t_hell *mini);
 
 		/*		Tools 2		*/
 char	*add_whitespaces(t_hell *mini);
-void	split_and_store(char *line, t_list *mini);
+void	split_and_store(char *line, t_list **mini);
 void	shape_shifting(char	*line);
 
 		/*		Misc		*/
@@ -119,7 +122,13 @@ int		file_out_begining(t_hell *mini);
 int		file_out_ending(t_hell *mini);
 int		quotes(t_hell *mini);
 
-		/*		builtins		*/
+		/*		Parsing			*/
+int		open_and_append(t_list **mini);
+int		open_and_output(t_list **mini);
+int		open_and_input(t_list **mini);
+int		open_and_heredoc(t_list **mini);
+
+		/*		Builtins		*/
 void	copy_env(t_env **lst, char **envs);
 t_env	*check_env(t_env *lst, char *str);
 void	print_current_directory(t_hell *mini);
@@ -134,6 +143,7 @@ void	print_export(t_env *lst, t_hell *mini);
 void	print_env(t_env *lst);
 int		check_n(char *str);
 
-		/*		norminette		*/
+		/*		Norminette		*/
 void	choose_and_acquire(t_hell *mini, t_env *lst);
+
 #endif

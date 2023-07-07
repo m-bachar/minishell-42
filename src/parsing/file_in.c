@@ -1,30 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   file_in.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/30 05:28:30 by mbachar           #+#    #+#             */
-/*   Updated: 2023/07/07 17:55:41 by mbachar          ###   ########.fr       */
+/*   Created: 2023/07/07 15:16:25 by mbachar           #+#    #+#             */
+/*   Updated: 2023/07/07 16:12:19 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../minishell.h"
 
-void	ft_putstr_fd(char *s, int fd)
+int	open_and_input(t_list **mini)
 {
-	int		i;
-	char	c;
+	t_list	*tmp;
+	char	*file_name;
+	int		file_id;
 
-	i = 0;
-	if (s == 0)
-		return ;
-	while (s[i] != '\0')
+	tmp = *mini;
+	while ((*mini) != NULL)
 	{
-		c = s[i];
-		write(fd, &c, 1);
-		i++;
+		if ((*mini)->token == FILE_IN)
+		{
+			if (file_id > 2)
+				close(file_id);
+			file_name = ft_strdup((*mini)->next->data);
+			file_id = open(file_name, O_RDONLY);
+		}
+		(*mini) = (*mini)->next;
 	}
-	ft_putchar_fd('\n', fd);
+	*mini = tmp;
+	free(file_name);
+	return (file_id);
 }
