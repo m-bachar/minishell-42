@@ -6,7 +6,7 @@
 /*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 14:47:21 by otchekai          #+#    #+#             */
-/*   Updated: 2023/06/24 00:19:02 by otchekai         ###   ########.fr       */
+/*   Updated: 2023/07/07 20:48:40 by otchekai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,9 @@ void	echo(t_hell *mini)
 	}
 	while (mini->splitted[index])
 	{
-		printf("%s", mini->splitted[index]);
+		printf("%s", mini->splitted[index++]);
 		if (mini->splitted[index] != NULL)
 			printf(" ");
-		index++;
 	}
 	if (!flag)
 		printf("\n");

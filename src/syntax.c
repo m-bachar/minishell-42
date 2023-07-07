@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 22:29:00 by mbachar           #+#    #+#             */
-/*   Updated: 2023/07/07 19:55:17 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/07/07 20:47:07 by otchekai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,11 @@ void	minihell_entrance(t_hell *mini)
 		shape_shifting(mini->line);
 		if (all_in_one(mini))
 		{
+			mini->splitted = ft_split(mini->line, ' ');
 			line = add_whitespaces(mini);
 			split_and_store(line, &list);
 			fd = open_and_heredoc(&list);
-			// choose_and_acquire(mini, lst);
+			choose_and_acquire(mini, lst);
 		}
 	}
 }
