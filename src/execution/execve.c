@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execve.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 16:44:18 by otchekai          #+#    #+#             */
-/*   Updated: 2023/07/03 01:13:26 by otchekai         ###   ########.fr       */
+/*   Updated: 2023/07/08 11:06:49 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void	execution(t_hell *mini, t_env *lst)
 	{
 		execve(to_find, cmds, env);
 		printf(RED"%s : cmd not found\n"RESET, cmds[0]);
+		exit (1);
 	}
 	while (wait(NULL) != -1);
 }

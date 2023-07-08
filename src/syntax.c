@@ -6,11 +6,24 @@
 /*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 22:29:00 by mbachar           #+#    #+#             */
-/*   Updated: 2023/07/07 19:55:17 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/07/08 22:52:27 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+// void	nodes_shapeshifting(t_list **mini)
+// {
+// 	t_list	*tmp;
+
+// 	tmp = *mini;
+// 	while (*mini)
+// 	{
+// 		shape_shifting((*mini)->data);
+// 		(*mini) = (*mini)->next;
+// 	}
+// 	*mini = tmp;
+// }
 
 void	print_syntax_error(void)
 {
@@ -25,17 +38,32 @@ void	exit_minihell(t_hell *mini)
 	exit(0);
 }
 
+void	split_and_store2(t_list **list)
+{
+	t_list	*tmp;
+
+	tmp = *list;
+	while (*list)
+	{
+		(*list)->command = ft_split((*list)->multi_cmds, ' '); // Add all whitespaces
+		(*list) = (*list)->next;
+	}
+	*list = tmp;
+}
+
 void	minihell_entrance(t_hell *mini)
 {
 	t_env	*lst;
 	t_list	*list;
 	char	*line;
-	int		fd;
+	int		i;
+	int		x;
 
 	lst = NULL;
 	list = NULL;
 	line = NULL;
-	fd = 0;
+	i = 0;
+	x = 1;
 	printf(CYAN "\t\tHell is -- MiniShell 😔 😔  \n\n" RESET);
 	copy_env(&lst, mini->vne);
 	while (1)
@@ -59,8 +87,26 @@ void	minihell_entrance(t_hell *mini)
 		{
 			line = add_whitespaces(mini);
 			split_and_store(line, &list);
-			fd = open_and_heredoc(&list);
-			// choose_and_acquire(mini, lst);
+			split_and_store2(&list);
+			if (is_heredoc(list))
+				open_and_heredoc(&list);
+			else if (is_append(list))
+				open_and_append(&list);
+			else if (is_output(list))
+				open_and_output(&list);
+			else if (is_input(list))
+				open_and_input(&list);
+			choose_and_acquire(mini, lst);
+			// while (list)
+			// {
+			// 	while (list->command[i])
+			// 	{
+			// 		printf("Command = %s\n", list->command[i]);
+			// 		i++;
+			// 	}
+			// 	i = 0;
+			// 	list = list->next;
+			// }
 		}
 	}
 }
