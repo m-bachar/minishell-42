@@ -6,7 +6,7 @@
 /*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 02:04:05 by mbachar           #+#    #+#             */
-/*   Updated: 2023/07/07 13:33:42 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/07/08 21:14:22 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,16 @@ void	ft_lstadd_back(t_list **lst, t_list *new)
 	last->next = new;
 }
 
-t_list	*ft_lstnew(char *data, int id, int token)
+t_list	*ft_lstnew(char *data)
 {
 	t_list	*node;
 
 	node = malloc(sizeof(t_list));
 	if (!node)
 		return (NULL);
-	node->data = ft_strdup(data);
-	node->id = id;
-	node->token = token;
+	node->multi_cmds = ft_strdup(data);
+	node->file_in = 0;
+	node->file_out = 1;
 	node->next = NULL;
 	return (node);
 }

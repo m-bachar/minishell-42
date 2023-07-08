@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 22:25:23 by mbachar           #+#    #+#             */
-/*   Updated: 2023/07/07 20:46:41 by otchekai         ###   ########.fr       */
+/*   Updated: 2023/07/08 22:07:26 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,6 @@
 
 # define MAX_SIZE 4000000
 
-# define WORD		0
-# define HEREDOC	1
-# define APPEND		2
-# define FILE_IN	3
-# define FILE_OUT	4
-# define PIPE		5
-
 # define RED	"\x1b[1;31m"
 # define CYAN	"\x1b[1;36m"
 # define RESET	"\x1b[0m"
@@ -38,6 +31,7 @@
 typedef struct minishell
 {
 	char			**splitted;
+	char			**splitted2;
 	char			**path;
 	char			**vne;
 	char			*pwd;
@@ -51,9 +45,10 @@ typedef struct minishell
 
 typedef struct s_list
 {
-	char				*data;
-	int					token;
-	int					id;
+	char				*multi_cmds;
+	char				**command;
+	int					file_in;
+	int					file_out;
 	struct s_list		*next;
 	struct minishell	*minihell;
 }	t_list;
@@ -88,7 +83,7 @@ void	shape_shifting(char	*line);
 
 		/*		Misc		*/
 void	ft_lstadd_back(t_list **lst, t_list *new);
-t_list	*ft_lstnew(char *data, int id, int token);
+t_list	*ft_lstnew(char *data);
 int		ft_lstsize(t_list *lst);
 void	ft_lstadd_back1(t_env **lst, t_env *new);
 t_env	*ft_lstnew1(char *env_name, char *env_value);
@@ -122,16 +117,22 @@ int		file_out_ending(t_hell *mini);
 int		quotes(t_hell *mini);
 
 		/*		Parsing			*/
-int		open_and_append(t_list **mini);
-int		open_and_output(t_list **mini);
-int		open_and_input(t_list **mini);
-int		open_and_heredoc(t_list **mini);
+int		is_append(t_list *mini);
+int		is_output(t_list *mini);
+int		is_input(t_list *mini);
+int		is_heredoc(t_list *mini);
+void	open_and_append(t_list **mini);
+void	open_and_output(t_list **mini);
+void	open_and_input(t_list **mini);
+void	open_and_heredoc(t_list **mini);
+char	*rand_name(void);
 
 		/*		Builtins		*/
-void	copy_env(t_env **lst, char **envs);
 t_env	*check_env(t_env *lst, char *str);
-void	print_current_directory(t_hell *mini);
 int		export_first(t_hell *mini, char *str);
+int		check_n(char *str);
+void	copy_env(t_env **lst, char **envs);
+void	print_current_directory(t_hell *mini);
 void	execution(t_hell *mini, t_env *lst);
 void	ft_export(t_env *lst, t_hell *mini);
 void	update_pwds(t_env *lst, t_hell *mini);
@@ -140,7 +141,6 @@ void	unset(t_env **lst, t_hell *mini);
 void	echo(t_hell *mini);
 void	print_export(t_env *lst, t_hell *mini);
 void	print_env(t_env *lst);
-int		check_n(char *str);
 
 		/*		Norminette		*/
 void	choose_and_acquire(t_hell *mini, t_env *lst);

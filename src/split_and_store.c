@@ -6,7 +6,7 @@
 /*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 22:35:36 by mbachar           #+#    #+#             */
-/*   Updated: 2023/07/07 18:06:07 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/07/08 22:54:14 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,35 +53,18 @@ char	*add_whitespaces(t_hell *mini)
 
 void	split_and_store(char *line, t_list **mini)
 {
-	t_list	*tmp;
 	char	**splitted;
 	int		i;
 
 	i = 0;
-	splitted = ft_split(line, ' ');
+	splitted = ft_split(line, '|');
+	if(splitted == NULL || splitted[0] == NULL)
+		return;
 	while (splitted[i])
 	{
-		ft_lstadd_back(mini, ft_lstnew(splitted[i], i, 0));
+		ft_lstadd_back(mini, ft_lstnew(splitted[i]));
 		i++;
 	}
-	tmp = *mini;
-	while ((*mini) != NULL)
-	{
-		if (!ft_strcmp((*mini)->data, "|"))
-			(*mini)->token = PIPE;
-		else if (!ft_strcmp((*mini)->data, "<<"))
-			(*mini)->token = HEREDOC;
-		else if (!ft_strcmp((*mini)->data, ">>"))
-			(*mini)->token = APPEND;
-		else if (!ft_strcmp((*mini)->data, "<"))
-			(*mini)->token = FILE_IN;
-		else if (!ft_strcmp((*mini)->data, ">"))
-			(*mini)->token = FILE_OUT;
-		else
-			(*mini)->token = WORD;
-		(*mini) = (*mini)->next;
-	}
-	*mini = tmp;
 	i = 0;
 	while (splitted[i])
 	{
