@@ -6,7 +6,7 @@
 /*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 19:01:18 by otchekai          #+#    #+#             */
-/*   Updated: 2023/07/03 02:53:44 by otchekai         ###   ########.fr       */
+/*   Updated: 2023/07/11 18:43:29 by otchekai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	ft_export(t_env *lst, t_hell *mini)
 
 void	print_export(t_env *lst, t_hell *mini)
 {
-	t_env *tmp;
+	t_env	*tmp;
 
 	tmp = lst;
 	if (mini->line && !ft_strncmp(mini->line, "export", 7))

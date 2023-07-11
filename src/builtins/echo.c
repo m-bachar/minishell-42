@@ -6,37 +6,36 @@
 /*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 14:47:21 by otchekai          #+#    #+#             */
-/*   Updated: 2023/06/24 00:19:02 by otchekai         ###   ########.fr       */
+/*   Updated: 2023/07/11 18:43:07 by otchekai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void	echo(t_hell *mini)
+void	echo(t_list *list)
 {
 	int	index;
 	int	flag;
 
 	index = 1;
 	flag = 0;
-	if (!mini->splitted)
+	if (!list->command)
 		return ;
-	if (mini->splitted[0] && !mini->splitted[1])
+	if (list->command[0] && !list->command[1])
 	{
 		printf("\n");
 		return ;
 	}
-	while (mini->splitted[index] && !check_n(mini->splitted[index]))
+	while (list->command[index] && !check_n(list->command[index]))
 	{
 		index++;
 		flag = 1;
 	}
-	while (mini->splitted[index])
+	while (list->command[index])
 	{
-		printf("%s", mini->splitted[index]);
-		if (mini->splitted[index] != NULL)
+		printf("%s", list->command[index++]);
+		if (list->command[index] != NULL)
 			printf(" ");
-		index++;
 	}
 	if (!flag)
 		printf("\n");

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 22:25:23 by mbachar           #+#    #+#             */
-/*   Updated: 2023/07/08 22:07:26 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/07/11 16:43:31 by otchekai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <unistd.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-# include <string.h>
+# include <string.h> 
 # include <fcntl.h>
 # include "./libft/libft.h"
 
@@ -30,12 +30,11 @@
 
 typedef struct minishell
 {
-	char			**splitted;
-	char			**splitted2;
 	char			**path;
 	char			**vne;
 	char			*pwd;
 	char			*line;
+	char			*to_find;
 	char			*new_key;
 	char			*new_val;
 	int				join_val;
@@ -125,6 +124,7 @@ void	open_and_append(t_list **mini);
 void	open_and_output(t_list **mini);
 void	open_and_input(t_list **mini);
 void	open_and_heredoc(t_list **mini);
+void	ft_lstclear(t_list **lst);
 char	*rand_name(void);
 
 		/*		Builtins		*/
@@ -133,16 +133,20 @@ int		export_first(t_hell *mini, char *str);
 int		check_n(char *str);
 void	copy_env(t_env **lst, char **envs);
 void	print_current_directory(t_hell *mini);
-void	execution(t_hell *mini, t_env *lst);
 void	ft_export(t_env *lst, t_hell *mini);
-void	update_pwds(t_env *lst, t_hell *mini);
-void	change_directory(t_hell *mini, t_env *lst);
-void	unset(t_env **lst, t_hell *mini);
-void	echo(t_hell *mini);
+void	update_pwds(t_env *lst, t_list *list);
+void	change_directory(t_list *list, t_env *lst);
+void	unset(t_env **lst, t_list *list);
+void	echo(t_list *list);
 void	print_export(t_env *lst, t_hell *mini);
 void	print_env(t_env *lst);
 
+		/*      Commands        */
+void	one_command(t_hell *mini, t_env *lst, t_list *split);
+void	commands(t_list *list, t_hell *mini, t_env *lst);
+
 		/*		Norminette		*/
-void	choose_and_acquire(t_hell *mini, t_env *lst);
+void	choose_and_acquire(t_hell *mini, t_env *lst, t_list *split);
+char	**convert_to_2d_array(t_env *env_list);
 
 #endif
