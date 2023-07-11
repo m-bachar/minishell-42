@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   append.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 16:53:05 by mbachar           #+#    #+#             */
-/*   Updated: 2023/07/08 22:39:55 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/07/11 18:43:41 by otchekai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	is_append(t_list *mini)
 		while (mini->command[i])
 		{
 			if (!ft_strcmp(mini->command[i], ">>"))
-				return(1);
+				return (1);
 			i++;
 		}
 		i = 0;

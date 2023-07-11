@@ -6,7 +6,7 @@
 /*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 00:17:23 by otchekai          #+#    #+#             */
-/*   Updated: 2023/06/24 00:22:10 by otchekai         ###   ########.fr       */
+/*   Updated: 2023/07/10 17:39:32 by otchekai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	check_key(char *str)
 	return ;
 }
 
-void	unset(t_env **lst, t_hell *mini)
+void	unset(t_env **lst, t_list *list)
 {
 	t_env	*tmp;
 	t_env	*temp;
@@ -34,16 +34,16 @@ void	unset(t_env **lst, t_hell *mini)
 	int		index;
 
 	index = 1;
-	check_key(mini->splitted[index]);
-	while (mini->splitted[index])
+	check_key(list->command[index]);
+	while (list->command[index])
 	{
 		tmp = *lst;
 		temp = *lst;
-		if (tmp && !strcmp(mini->splitted[index], tmp->env_name))
+		if (tmp && !strcmp(list->command[index], tmp->env_name))
 			*lst = tmp->next;
 		while (tmp)
 		{
-			if (tmp->env_name && !strcmp(mini->splitted[index], tmp->env_name))
+			if (tmp->env_name && !strcmp(list->command[index], tmp->env_name))
 			{
 				temp->next = tmp->next;
 				purpose = tmp;

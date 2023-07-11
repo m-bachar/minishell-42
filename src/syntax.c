@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 22:29:00 by mbachar           #+#    #+#             */
-/*   Updated: 2023/07/08 22:52:27 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/07/11 20:20:17 by otchekai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void	minihell_entrance(t_hell *mini)
 				open_and_output(&list);
 			else if (is_input(list))
 				open_and_input(&list);
-			choose_and_acquire(mini, lst);
+			choose_and_acquire(mini, lst, list);
 			// while (list)
 			// {
 			// 	while (list->command[i])
@@ -107,6 +107,7 @@ void	minihell_entrance(t_hell *mini)
 			// 	i = 0;
 			// 	list = list->next;
 			// }
+			ft_lstclear(&list);
 		}
 	}
 }
