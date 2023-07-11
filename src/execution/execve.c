@@ -6,7 +6,7 @@
 /*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 16:44:18 by otchekai          #+#    #+#             */
-/*   Updated: 2023/07/11 20:16:11 by otchekai         ###   ########.fr       */
+/*   Updated: 2023/07/11 22:24:36 by otchekai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,10 @@ void	one_command(t_hell *mini, t_env *lst, t_list *split)
 	i = 0;
 	if (!tmp)
 		return ;
+	choose_and_acquire(mini, lst, split);
 	check_path(mini, lst, split);
-	execve(mini->to_find, split->command, convert_to_2d_array(tmp));
+	if (execve(mini->to_find, split->command, convert_to_2d_array(tmp)) == -1)
+		printf("command not found\n");
 	exit(1);
 	while (wait(NULL) != -1);
 }
@@ -74,8 +76,11 @@ void	commands(t_list *list, t_hell *mini, t_env *lst)
 			dup2(fd[1], STDOUT_FILENO);
 			close(fd[0]);
 			close(fd[1]);
+			choose_and_acquire(mini, lst, tmp);
 			check_path(mini, lst, tmp);
-			execve(mini->to_find, tmp->command, convert_to_2d_array(lst));
+			if (execve(mini->to_find, tmp->command,
+					convert_to_2d_array(lst)) == -1)
+				ft_putstr_fd("command not found", 2);
 			exit(1);
 		}
 		dup2(fd[0], STDIN_FILENO);
