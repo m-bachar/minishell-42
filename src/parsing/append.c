@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   append.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 16:53:05 by mbachar           #+#    #+#             */
-/*   Updated: 2023/07/11 18:43:41 by otchekai         ###   ########.fr       */
+/*   Updated: 2023/07/12 17:11:52 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,19 @@
 int	is_append(t_list *mini)
 {
 	int	i;
+	int	j;
 
 	i = 0;
+	j = 0;
 	while (mini != NULL)
 	{
-		while (mini->command[i])
+		while (mini->command[j])
 		{
-			if (!ft_strcmp(mini->command[i], ">>"))
+			if (mini->command[j][i] == '>' && mini->command[j][i + 1] == '>')
 				return (1);
-			i++;
+			j++;
 		}
-		i = 0;
+		j = 0;
 		mini = mini->next;
 	}
 	return (0);
@@ -51,6 +53,12 @@ void	open_and_append(t_list **mini)
 				file_name = ft_strdup((*mini)->command[i + 1]);
 				file_id = open(file_name, O_CREAT | O_RDWR | O_APPEND, 0777);
 				(*mini)->file_out = file_id;
+				while ((*mini)->command[i])
+				{
+					(*mini)->command[i] = NULL;
+					i++;
+				}
+				break ;
 			}
 			i++;
 		}

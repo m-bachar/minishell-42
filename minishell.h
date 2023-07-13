@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 22:25:23 by mbachar           #+#    #+#             */
-/*   Updated: 2023/07/11 16:43:31 by otchekai         ###   ########.fr       */
+/*   Updated: 2023/07/12 21:46:33 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ void	minihell_entrance(t_hell *mini);
 int		check_for_redirections(t_hell *mini, int i);
 char	*ft_strcpy(char *dest, char *src);
 int		ft_strcmp(char *s1, char *s2);
+int		ft_strcmp2(char *s1, char *s2);
 int		remove_whitespaces_from_history(t_hell *mini);
 
 		/*		Tools 2		*/
@@ -126,6 +127,10 @@ void	open_and_input(t_list **mini);
 void	open_and_heredoc(t_list **mini);
 void	ft_lstclear(t_list **lst);
 char	*rand_name(void);
+
+		/*		Expand			*/
+char	*extract_var_name(t_list **mini);
+char	*extract_var_value(t_env **env, char *env_name);
 
 		/*		Builtins		*/
 t_env	*check_env(t_env *lst, char *str);

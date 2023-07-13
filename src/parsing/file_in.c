@@ -6,7 +6,7 @@
 /*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 15:16:25 by mbachar           #+#    #+#             */
-/*   Updated: 2023/07/08 22:40:01 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/07/12 17:25:52 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,19 @@
 int	is_input(t_list *mini)
 {
 	int	i;
+	int	j;
 
 	i = 0;
+	j = 0;
 	while (mini != NULL)
 	{
-		while (mini->command[i])
+		while (mini->command[j])
 		{
-			if (!ft_strcmp(mini->command[i], "<"))
-				return(1);
-			i++;
+			if (mini->command[j][i] == '<' && mini->command[j][i + 1] == '\0')
+				return (1);
+			j++;
 		}
-		i = 0;
+		j = 0;
 		mini = mini->next;
 	}
 	return (0);
@@ -51,6 +53,12 @@ void	open_and_input(t_list **mini)
 				file_name = ft_strdup((*mini)->command[i + 1]);
 				file_id = open(file_name, O_RDONLY);
 				(*mini)->file_in = file_id;
+				while ((*mini)->command[i])
+				{
+					(*mini)->command[i] = NULL;
+					i++;
+				}
+				break ;
 			}
 			i++;
 		}

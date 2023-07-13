@@ -3,27 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   syntax.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 22:29:00 by mbachar           #+#    #+#             */
-/*   Updated: 2023/07/11 22:12:20 by otchekai         ###   ########.fr       */
+/*   Updated: 2023/07/13 01:25:45 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-// void	nodes_shapeshifting(t_list **mini)
-// {
-// 	t_list	*tmp;
+void	nodes_shapeshifting(t_list **mini)
+{
+	t_list	*tmp;
+	int		i;
 
-// 	tmp = *mini;
-// 	while (*mini)
-// 	{
-// 		shape_shifting((*mini)->data);
-// 		(*mini) = (*mini)->next;
-// 	}
-// 	*mini = tmp;
-// }
+	i = 0;
+	tmp = *mini;
+	while (*mini)
+	{
+		while ((*mini)->command[i])
+		{
+			shape_shifting((*mini)->command[i]);
+			i++;
+		}
+		i = 0;
+		(*mini) = (*mini)->next;
+	}
+	*mini = tmp;
+}
 
 void	print_syntax_error(void)
 {
@@ -33,7 +40,7 @@ void	print_syntax_error(void)
 
 void	exit_minihell(t_hell *mini)
 {
-	printf(RED "\t\tExiting Minishell 🥺\n" RESET);
+	printf(RED "\t\tExiting MiniShell 🥺\n" RESET);
 	free(mini->line);
 	exit(0);
 }
@@ -56,12 +63,16 @@ void	minihell_entrance(t_hell *mini)
 	t_env	*lst;
 	t_list	*list;
 	char	*line;
+	char	*var_name;
+	char	*var_value;
 	int		i;
 	int		x;
 
 	lst = NULL;
 	list = NULL;
 	line = NULL;
+	var_name = NULL;
+	var_value = NULL;
 	i = 0;
 	x = 1;
 	printf(CYAN "\t\tHell is -- MiniShell 😔 😔  \n\n" RESET);
@@ -88,6 +99,7 @@ void	minihell_entrance(t_hell *mini)
 			line = add_whitespaces(mini);
 			split_and_store(line, &list);
 			split_and_store2(&list);
+			nodes_shapeshifting(&list);
 			if (is_heredoc(list))
 				open_and_heredoc(&list);
 			else if (is_append(list))
@@ -97,16 +109,18 @@ void	minihell_entrance(t_hell *mini)
 			else if (is_input(list))
 				open_and_input(&list);
 			commands(list, mini, lst);
+			// var_name = extract_var_name(&list);
+			// var_value = extract_var_value(&lst, var_name);
 			// while (list)
 			// {
 			// 	while (list->command[i])
 			// 	{
-			// 		printf("Command = %s\n", list->command[i]);
+			// 		printf("Command = %s\tFile_in = %d\tFile_out = %d\n", list->command[i], list->file_in, list->file_out);
 			// 		i++;
 			// 	}
 			// 	i = 0;
 			// 	list = list->next;
-			// }
+			// } // Remove redirections arguments
 			ft_lstclear(&list);
 		}
 	}

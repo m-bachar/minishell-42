@@ -6,7 +6,7 @@
 /*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 13:02:48 by mbachar           #+#    #+#             */
-/*   Updated: 2023/07/07 18:26:58 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/07/12 17:43:30 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,22 @@ int	ft_strcmp(char *s1, char *s2)
 		i++;
 	}
 	return (0);
+}
+
+int	ft_strcmp2(char *s1, char *s2)
+{
+	int	i;
+
+	i = 0;
+	if (!s2)
+		return (0);
+	if (!s1)
+		s1 = ft_strdup("");
+	while (s2[i])
+	{
+		if (s1[i] != s2[i])
+			return (1);
+		i++;
+	}
+	return (free(s1), 0);
 }
