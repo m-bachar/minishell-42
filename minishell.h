@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 22:25:23 by mbachar           #+#    #+#             */
-/*   Updated: 2023/07/12 21:46:33 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/07/14 02:07:14 by otchekai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,12 +146,10 @@ void	echo(t_list *list);
 void	print_export(t_env *lst, t_hell *mini);
 void	print_env(t_env *lst);
 
-		/*      Commands        */
+		/*      execution        */
 void	one_command(t_hell *mini, t_env *lst, t_list *split);
 void	commands(t_list *list, t_hell *mini, t_env *lst);
-
-		/*		Norminette		*/
-void	choose_and_acquire(t_hell *mini, t_env *lst, t_list *split);
+int		choose_and_acquire(t_hell *mini, t_env *lst, t_list *list);
 char	**convert_to_2d_array(t_env *env_list);
 
 #endif

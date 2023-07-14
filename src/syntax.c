@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 22:29:00 by mbachar           #+#    #+#             */
-/*   Updated: 2023/07/13 01:25:45 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/07/14 01:38:19 by otchekai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ void	minihell_entrance(t_hell *mini)
 			else if (is_input(list))
 				open_and_input(&list);
 			commands(list, mini, lst);
+			// commands(list, mini, lst);
 			// var_name = extract_var_name(&list);
 			// var_value = extract_var_value(&lst, var_name);
 			// while (list)
