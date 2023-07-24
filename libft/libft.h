@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 13:37:34 by mbachar           #+#    #+#             */
-/*   Updated: 2023/07/13 08:20:03 by otchekai         ###   ########.fr       */
+/*   Updated: 2023/07/16 01:09:40 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,12 @@ char	**ft_split(char const *s, char c);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strdup(const char *s1);
 void	ft_striteri(char *s, void (*f)(unsigned int, char*));
-char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_strjoin(char *s1, char *s2);
 size_t	ft_strlcat(char *dest, const char *src, size_t n);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 size_t	ft_strlen(const char *str);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
-int	    ft_strncmp(char	*s1, char	*s2, size_t	n);
+int		ft_strncmp(char	*s1, char	*s2, size_t	n);
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
 char	*ft_strrchr(const char *s, int c);
 char	*ft_strtrim(char const *s1, char const *set);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_and_store.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 22:35:36 by mbachar           #+#    #+#             */
-/*   Updated: 2023/07/11 14:12:04 by otchekai         ###   ########.fr       */
+/*   Updated: 2023/07/20 00:11:23 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ void	split_and_store(char *line, t_list **mini)
 
 	i = 0;
 	splitted = ft_split(line, '|');
-	if(splitted == NULL || splitted[0] == NULL)
-		return;
+	if (splitted == NULL || splitted[0] == NULL)
+		return ;
 	while (splitted[i])
 	{
 		ft_lstadd_back(mini, ft_lstnew(splitted[i]));
@@ -76,12 +76,11 @@ void	split_and_store(char *line, t_list **mini)
 
 void	ft_lstclear(t_list **lst)
 {
-	t_list *tmp;
-	t_list *to_clear;
+	t_list	*tmp;
+	t_list	*to_clear;
 
 	tmp = *lst;
-
-	while(tmp)
+	while (tmp)
 	{
 		to_clear = tmp;
 		tmp = tmp->next;

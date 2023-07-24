@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+         #
+#    By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/20 22:20:05 by mbachar           #+#    #+#              #
-#    Updated: 2023/07/13 04:47:29 by otchekai         ###   ########.fr        #
+#    Updated: 2023/07/23 22:58:38 by mbachar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,9 +14,9 @@ MINISHELL 	= 	minishell
 
 CFLAGS		=	-Wall -Wextra -Werror -g -fsanitize=address
 
-LDFLAGS		=	"-L/goinfre/otchekai/homebrew/opt/readline/lib"
+LDFLAGS		=	"-L/goinfre/mbachar/homebrew/opt/readline/lib"
 
-CPPFLAGS	=	"-I/goinfre/otchekai/homebrew/opt/readline/include" -lreadline
+CPPFLAGS	=	"-I/goinfre/mbachar/homebrew/opt/readline/include" -lreadline
 
 INC 		= 	minishell.h
 
@@ -62,24 +62,24 @@ all: $(MINISHELL)
 $(MINISHELL): $(MAN_OBJ)
 	@ cd ./libft && make
 	@ $(CC) $(CFLAGS) $(LDFLAGS) $(CPPFLAGS) $(MAN_OBJ) -o $(MINISHELL) $(LIBFT)
-	@ printf "===============================================\n"
+	@ printf "==================================================\n"
 	@ printf "All mandatory source files have been compiled.\n"
 	@ printf "Executable file minishell has been generated.\n"
-	@ printf "===============================================\n"
+	@ printf "==================================================\n"
 
 clean:
 	@ rm -fr $(MAN_OBJ)
 	@ cd ./libft && make clean
-	@ printf "===============================================\n"
+	@ printf "==================================================\n"
 	@ printf "All object files have been destroyed.\n"
-	@ printf "===============================================\n"
+	@ printf "==================================================\n"
 
 fclean:
 	@ rm -fr $(MINISHELL) $(MAN_OBJ)
 	@ cd ./libft && make fclean
-	@ printf "=========================================================\n"
+	@ printf "=============================================================\n"
 	@ printf "All object files and executable file have been destroyed.\n"
-	@ printf "==========================================================\n"
+	@ printf "=============================================================\n"
 
 re: fclean all
 

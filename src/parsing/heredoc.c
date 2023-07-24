@@ -6,7 +6,7 @@
 /*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 15:16:30 by mbachar           #+#    #+#             */
-/*   Updated: 2023/07/12 19:01:48 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/07/14 01:10:47 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,12 @@ char	*rand_name(void)
 	char			*name;
 
 	number = ft_itoa(i);
-	name = ft_strjoin("./tmp/tmp_", number);
+	name = ft_strjoin(ft_strdup("./tmp/tmp_"), number);
 	i++;
 	return (free(number), name);
 }
 
-void	open_and_heredoc(t_list **mini)
+void	open_and_heredoc(t_list **mini) // delimiter issue
 {
 	t_list	*tmp;
 	char	*line;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 22:25:23 by mbachar           #+#    #+#             */
-/*   Updated: 2023/07/14 02:07:14 by otchekai         ###   ########.fr       */
+/*   Updated: 2023/07/22 02:46:59 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,12 +125,12 @@ void	open_and_append(t_list **mini);
 void	open_and_output(t_list **mini);
 void	open_and_input(t_list **mini);
 void	open_and_heredoc(t_list **mini);
-void	ft_lstclear(t_list **lst);
+void	ft_lstclear(t_list **lst); // Check if file exists
 char	*rand_name(void);
 
 		/*		Expand			*/
-char	*extract_var_name(t_list **mini);
 char	*extract_var_value(t_env **env, char *env_name);
+void	skip_or_replace(t_list	**mini, t_env **env);
 
 		/*		Builtins		*/
 t_env	*check_env(t_env *lst, char *str);
