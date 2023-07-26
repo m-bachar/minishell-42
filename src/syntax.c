@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: benito <benito@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 22:29:00 by mbachar           #+#    #+#             */
-/*   Updated: 2023/07/25 00:05:56 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/07/25 11:02:08 by benito           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,18 +63,10 @@ void	minihell_entrance(t_hell *mini)
 	t_env	*lst;
 	t_list	*list;
 	char	*line;
-	char	*var_name;
-	char	*var_value;
-	int		i;
-	int		x;
 
 	lst = NULL;
 	list = NULL;
 	line = NULL;
-	var_name = NULL;
-	var_value = NULL;
-	i = 0;
-	x = 1;
 	printf(CYAN "\t\tHell is -- MiniShell 😔 😔  \n\n" RESET);
 	copy_env(&lst, mini->vne);
 	while (1)
@@ -110,16 +102,6 @@ void	minihell_entrance(t_hell *mini)
 				open_and_input(&list);
 			skip_or_replace(&list, &lst);
 			commands(list, mini, lst);
-			// while (list)
-			// {
-			// 	while (list->command[i])
-			// 	{
-			// 		printf("command[%d] = %s\n", i, list->command[i]);
-			// 		i++;
-			// 	}
-			// 	i = 0;
-			// 	list = list->next;
-			// }
 			ft_lstclear(&list);
 		}
 	}

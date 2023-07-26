@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: benito <benito@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 12:07:28 by mbachar           #+#    #+#             */
-/*   Updated: 2023/07/25 00:28:39 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/07/26 13:36:41 by benito           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,12 @@ char	*extract_var_value(t_env **env, char *env_name)
 {
 	t_env	*tmp;
 	char	*env_value;
-	int		i;
 
 	tmp = (*env);
-	i = 0;
 	env_value = NULL;
 	while ((*env))
 	{
-		if (!strcmp((*env)->env_name, env_name))
+		if (!ft_strcmp((*env)->env_name, env_name))
 		{
 			env_value = ft_strdup((*env)->env_value);
 			break ;
@@ -71,7 +69,8 @@ void	skip_or_replace(t_list	**mini, t_env **env)
 						}
 						var_name[l] = '\0';
 						var_value = extract_var_value(env, var_name);
-						// printf("Var Name = %s\tVar Value = %s\n", var_name, var_value);
+						if (var_value == NULL)
+							var_value = ft_strdup("");
 						l = 0;
 						if (var_value != NULL)
 						{
@@ -82,6 +81,7 @@ void	skip_or_replace(t_list	**mini, t_env **env)
 								k++;
 							}
 						}
+						l = 0;
 					}
 					else
 					{
@@ -91,10 +91,7 @@ void	skip_or_replace(t_list	**mini, t_env **env)
 					}
 				}
 				str[k] = '\0';
-				(*mini)->command[j] = str;
-				printf("command[%d] = %s\n", 0, (*mini)->command[0]);
-				printf("command[%d] = %s\n", 1, (*mini)->command[1]);
-				printf("command[%d] = %s\n", 2, (*mini)->command[2]);
+				(*mini)->command[j] = ft_strdup(str);
 			}
 			j++;
 		}

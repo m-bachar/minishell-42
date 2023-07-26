@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execve.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
+/*   By: benito <benito@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 16:44:18 by otchekai          #+#    #+#             */
-/*   Updated: 2023/07/14 02:13:05 by otchekai         ###   ########.fr       */
+/*   Updated: 2023/07/25 10:51:37 by benito           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,9 @@ void	check_path(t_hell *mini, t_env *lst, t_list *split)
 void	one_command(t_hell *mini, t_env *lst, t_list *list)
 {
 	t_env	*tmp;
-	int		i;
 	int		fok;
 
 	tmp = lst;
-	i = 0;
 	if (!tmp)
 		return ;
 	if ((choose_and_acquire(mini, tmp, list)) == 1)

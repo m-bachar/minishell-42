@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   append.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: benito <benito@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 23:37:39 by mbachar           #+#    #+#             */
-/*   Updated: 2023/07/02 13:55:06 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/07/25 10:51:58 by benito           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,8 @@ int	append_begining(t_hell *mini)
 int	append_middle(t_hell *mini)
 {
 	int	i;
-	int	flag;
 
 	i = 0;
-	flag = 0;
 	while (mini->line[i])
 	{
 		while (mini->line[i] && (mini->line[i] == ' ' || mini->line[i] == '\t'))

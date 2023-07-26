@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: benito <benito@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 00:01:00 by mbachar           #+#    #+#             */
-/*   Updated: 2023/07/07 19:53:42 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/07/25 10:52:26 by benito           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,7 @@ int	pipe_begining(t_hell *mini)
 int	pipe_middle(t_hell *mini)
 {
 	int	i;
-	int	flag;
 
-	flag = 0;
 	i = 0;
 	while (mini->line[i])
 	{

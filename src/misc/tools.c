@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: benito <benito@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 13:02:48 by mbachar           #+#    #+#             */
-/*   Updated: 2023/07/12 17:43:30 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/07/25 12:38:35 by benito           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,20 +47,16 @@ char	*ft_strcpy(char *dest, char *src)
 	return (dest);
 }
 
-int	ft_strcmp(char *s1, char *s2)
+int ft_strcmp(char *s1, char *s2)
 {
-	int	i;
-
-	i = 0;
-	if (!s1 || !s2)
-		return (0);
-	while (s1[i] && s2[i])
+    while (*s1 || *s2)
 	{
-		if (s1[i] != s2[i])
-			return (1);
-		i++;
-	}
-	return (0);
+        if (*s1 != *s2)
+            return ((*s1) - (*s2));
+        s1++;
+        s2++;
+    }
+    return (0);
 }
 
 int	ft_strcmp2(char *s1, char *s2)

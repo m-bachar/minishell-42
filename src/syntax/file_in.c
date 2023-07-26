@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file_in.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: benito <benito@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 23:52:11 by mbachar           #+#    #+#             */
-/*   Updated: 2023/07/02 14:10:05 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/07/25 10:52:06 by benito           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,8 @@ int	file_in_begining(t_hell *mini)
 int	file_in_middle(t_hell *mini)
 {
 	int	i;
-	int	flag;
 
 	i = 0;
-	flag = 0;
 	while (mini->line[i])
 	{
 		while (mini->line[i] && (mini->line[i] == ' ' || mini->line[i] == '\t'))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
+/*   By: benito <benito@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 22:25:27 by mbachar           #+#    #+#             */
-/*   Updated: 2023/07/10 20:35:11 by otchekai         ###   ########.fr       */
+/*   Updated: 2023/07/25 10:52:41 by benito           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,8 @@
 int	main(int ac, char *av[], char *env[])
 {
 	t_hell	mini;
-	t_env	*lst;
 
 	(void)av;
-	lst = NULL;
 	if (ac == 1)
 	{
 		mini.vne = env;

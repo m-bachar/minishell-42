@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: benito <benito@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 00:00:20 by mbachar           #+#    #+#             */
-/*   Updated: 2023/07/02 14:09:41 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/07/25 10:52:20 by benito           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,8 @@ int	heredoc_begining(t_hell *mini)
 int	heredoc_middle(t_hell *mini)
 {
 	int	i;
-	int	flag;
 
 	i = 0;
-	flag = 0;
 	while (mini->line[i])
 	{
 		while (mini->line[i] && (mini->line[i] == ' ' || mini->line[i] == '\t'))
