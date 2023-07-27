@@ -6,49 +6,56 @@
 /*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 22:35:36 by mbachar           #+#    #+#             */
-/*   Updated: 2023/07/20 00:11:23 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/07/27 02:21:09 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	*add_whitespaces(t_hell *mini)
+int	isredirection(t_hell *mini, int i)
+{
+	if (mini->line[i] == '<' || mini->line[i] == '>'
+		|| mini->line[i] == '|')
+		return (1);
+	return (0);
+}
+
+int	isredirection2(t_hell *mini, int i)
+{
+	if ((mini->line[i] == '<' && mini->line[i + 1] == '<')
+		|| (mini->line[i] == '>' && mini->line[i + 1] == '>')
+		|| (mini->line[i] == '|' && mini->line[i + 1] == '|'))
+		return (1);
+	return (0);
+}
+
+char	*add_whitespaces(t_hell *mn)
 {
 	char		*result;
-	int			j;
-	size_t		i;
 
-	j = 0;
-	i = 0;
-	result = malloc(sizeof(char) * MAX_SIZE);
-	if (!result)
-		return (NULL);
-	while (i < ft_strlen(mini->line))
+	mn->i = 0;
+	mn->j = 0;
+	result = ft_calloc(MAX_SIZE, sizeof(char));
+	while (mn->i < ft_strlen2(mn->line))
 	{
-		if (mini->line[i] == '<' || mini->line[i] == '>'
-			|| mini->line[i] == '|')
+		if (isredirection(mn, mn->i))
 		{
-			result[j++] = ' ';
-			if ((mini->line[i] == '<' && mini->line[i + 1] == '<')
-				|| (mini->line[i] == '>' && mini->line[i + 1] == '>')
-				|| (mini->line[i] == '|' && mini->line[i + 1] == '|'))
-				result[j++] = mini->line[i];
-			if (mini->line[i + 1] && mini->line[i] == mini->line[i + 1])
-				i++;
-			result[j++] = mini->line[i];
-			result[j++] = ' ';
+			result[mn->j++] = ' ';
+			if (isredirection2(mn, mn->i))
+				result[mn->j++] = mn->line[mn->i];
+			if (mn->line[mn->i + 1] && mn->line[mn->i] == mn->line[mn->i + 1])
+				mn->i++;
+			result[mn->j++] = mn->line[mn->i];
+			result[mn->j++] = ' ';
 		}
 		else
-			result[j++] = mini->line[i];
-		i++;
+			result[mn->j++] = mn->line[mn->i];
+		mn->i++;
 	}
-	result[j] = '\0';
-	free(mini->line);
-	mini->line = malloc(sizeof(char) * ft_strlen(result) + 1);
-	if (!mini->line)
-		return (free(result), NULL);
-	ft_strcpy(mini->line, result);
-	return (free(result), mini->line);
+	free(mn->line);
+	mn->line = ft_calloc(ft_strlen2(result) + 1, sizeof(char));
+	ft_strcpy(mn->line, result);
+	return (free(result), mn->line);
 }
 
 void	split_and_store(char *line, t_list **mini)

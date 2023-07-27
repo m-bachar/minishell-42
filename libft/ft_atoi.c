@@ -6,7 +6,7 @@
 /*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 09:00:59 by mbachar           #+#    #+#             */
-/*   Updated: 2022/11/14 11:43:52 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/07/27 01:42:12 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	ft_atoi(const char *str)
 	if (str[i] == '-' || str[i] == '+')
 		i++;
 	while (str[i] >= '0' && str[i] <= '9')
-	{		
+	{
 		output = output * 10 + (str[i] - 48);
 		i++;
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: benito <benito@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 12:07:28 by mbachar           #+#    #+#             */
-/*   Updated: 2023/07/26 13:36:41 by benito           ###   ########.fr       */
+/*   Updated: 2023/07/27 02:32:25 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,67 +32,99 @@ char	*extract_var_value(t_env **env, char *env_name)
 	return (env_value);
 }
 
-void	skip_or_replace(t_list	**mini, t_env **env)
+void	extract_var_name(char *data, char **returned_var,
+		t_hell *mini, t_env **env)
+{
+	char	varname[8000];
+	char	*varvalue;
+	int		k;
+
+	k = 0;
+	mini->i++;
+	while (data[mini->i] && ft_isalnum(data[mini->i]))
+	{
+		varname[k] = data[mini->i];
+		mini->i++;
+		k++;
+	}
+	varname[k] = '\0';
+	varvalue = extract_var_value(env, varname);
+	if (varvalue)
+	{
+		k = 0;
+		while (varvalue[k])
+			(*returned_var)[mini->j++] = varvalue[k++];
+	}
+}
+
+char	*expand_or_skip(char *str, t_hell *mini, t_env **env)
+{
+	char	final_var[MAX_SIZE];
+	char	*var;
+
+	mini->i = 0;
+	mini->j = 0;
+	while (str[mini->i])
+	{
+		if (str[mini->i] == '\'')
+		{
+			mini->i++;
+			while (str[mini->i] && str[mini->i] != '\'')
+			{
+				final_var[mini->j] = str[mini->i];
+				mini->i++;
+				mini->j++;
+			}
+			mini->i++;
+		}
+		else if (str[mini->i] == '\"')
+		{
+			mini->i++;
+			while (str[mini->i] && str[mini->i] != '\"')
+			{
+				if (str[mini->i] == '$')
+				{
+					var = final_var;
+					extract_var_name(str, &var, mini, env);
+				}
+				else
+				{
+					final_var[mini->j] = str[mini->i];
+					mini->i++;
+					mini->j++;
+				}
+			}
+			mini->i++;
+		}
+		else if (str[mini->i] == '$')
+		{
+			var = final_var;
+			extract_var_name(str, &var, mini, env);
+		}
+		else if (str[mini->i])
+		{
+			final_var[mini->j] = str[mini->i];
+			mini->i++;
+			mini->j++;	
+		}
+	}
+	final_var[mini->j] = '\0';
+	return (ft_strdup(final_var));
+}
+
+void	skip_or_replace(t_list	**mini, t_env **env, t_hell *hell)
 {
 	t_list	*tmp;
-	int		i;
 	int		j;
-	int		k;
-	int		l;
-	char	str[MAX_SIZE];
-	char	*var_value;
-	char	var_name[MAX_SIZE];
 
-	var_value = NULL;
 	tmp = *mini;
 	while ((*mini))
 	{
 		j = 0;
 		while ((*mini)->command[j])
 		{
-			i = 0;
-			l = 0;
-			k = 0;
-			if ((*mini)->command[j][i] == '\"')
-			{
-				i++;
-				while ((*mini)->command[j][i] && (*mini)->command[j][i] != '\"')
-				{
-					if ((*mini)->command[j][i] == '$')
-					{
-						i++;
-						while ((*mini)->command[j][i] && ft_isalnum((*mini)->command[j][i]))
-						{
-							var_name[l] = (*mini)->command[j][i];
-							i++;
-							l++;
-						}
-						var_name[l] = '\0';
-						var_value = extract_var_value(env, var_name);
-						if (var_value == NULL)
-							var_value = ft_strdup("");
-						l = 0;
-						if (var_value != NULL)
-						{
-							while (var_value[l])
-							{
-								str[k] = var_value[l];
-								l++;
-								k++;
-							}
-						}
-						l = 0;
-					}
-					else
-					{
-						str[k] = (*mini)->command[j][i];
-						k++;
-						i++;
-					}
-				}
-				str[k] = '\0';
-				(*mini)->command[j] = ft_strdup(str);
-			}
+			(*mini)->command[j] = expand_or_skip((*mini)->command[j],
+					hell, env);
 			j++;
 		}
 		(*mini) = (*mini)->next;

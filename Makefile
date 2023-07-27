@@ -6,7 +6,7 @@
 #    By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/20 22:20:05 by mbachar           #+#    #+#              #
-#    Updated: 2023/07/23 22:58:38 by mbachar          ###   ########.fr        #
+#    Updated: 2023/07/27 02:33:50 by mbachar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,10 +27,12 @@ LIBFT		=	./libft/libft.a
 MAN_SRC 	=	minishell.c \
 				./src/misc/errors.c \
 				./src/misc/tools.c \
+				./src/misc/tools2.c \
 				./src/syntax.c \
 				./src/split_and_store.c \
 				./src/norminette.c \
 				./src/misc/lst.c \
+				./src/misc/lst2.c \
 				./src/syntax/append.c \
 				./src/syntax/heredoc.c \
 				./src/syntax/file_in.c \

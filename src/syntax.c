@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: benito <benito@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 22:29:00 by mbachar           #+#    #+#             */
-/*   Updated: 2023/07/25 11:02:08 by benito           ###   ########.fr       */
+/*   Updated: 2023/07/27 02:30:59 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void	minihell_entrance(t_hell *mini)
 				open_and_output(&list);
 			else if (is_input(list))
 				open_and_input(&list);
-			skip_or_replace(&list, &lst);
+			skip_or_replace(&list, &lst, mini);
 			commands(list, mini, lst);
 			ft_lstclear(&list);
 		}

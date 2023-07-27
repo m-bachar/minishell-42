@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lst.c                                              :+:      :+:    :+:   */
+/*   lst2.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/24 02:04:05 by mbachar           #+#    #+#             */
-/*   Updated: 2023/07/27 02:25:59 by mbachar          ###   ########.fr       */
+/*   Created: 2023/07/27 02:24:37 by mbachar           #+#    #+#             */
+/*   Updated: 2023/07/27 02:26:07 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void	ft_lstadd_back(t_list **lst, t_list *new)
+void	ft_lstadd_back1(t_env **lst, t_env *new)
 {
-	t_list	*last;
+	t_env	*last;
 
 	if (*lst == NULL)
 	{
@@ -27,23 +27,22 @@ void	ft_lstadd_back(t_list **lst, t_list *new)
 	last->next = new;
 }
 
-t_list	*ft_lstnew(char *data)
+t_env	*ft_lstnew1(char *env_name, char *env_value)
 {
-	t_list	*node;
+	t_env	*node;
 
-	node = malloc(sizeof(t_list));
+	node = malloc(sizeof(t_env));
 	if (!node)
-		return (NULL);
-	node->multi_cmds = ft_strdup(data);
-	node->file_in = 0;
-	node->file_out = 1;
+		return (free(node), NULL);
+	node->env_name = ft_strdup(env_name);
+	node->env_value = ft_strdup(env_value);
 	node->next = NULL;
 	return (node);
 }
 
-int	ft_lstsize(t_list *lst)
+int	ft_lstsize1(t_env *lst)
 {
-	t_list	*ptr;
+	t_env	*ptr;
 	int		i;
 
 	i = 0;

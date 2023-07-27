@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: benito <benito@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 22:25:23 by mbachar           #+#    #+#             */
-/*   Updated: 2023/07/25 12:02:51 by benito           ###   ########.fr       */
+/*   Updated: 2023/07/27 02:21:52 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ typedef struct minishell
 	char			*new_key;
 	char			*new_val;
 	int				join_val;
+	int				i;
+	int				j;
 	struct s_list	*push;
 	struct s_env	*s_env;
 }	t_hell;
@@ -77,6 +79,7 @@ char	*ft_strcpy(char *dest, char *src);
 int		ft_strcmp(char *s1, char *s2);
 int		ft_strcmp2(char *s1, char *s2);
 int		remove_whitespaces_from_history(t_hell *mini);
+int		ft_strlen2(char *str);
 
 		/*		Tools 2		*/
 char	*add_whitespaces(t_hell *mini);
@@ -132,7 +135,10 @@ char	*rand_name(void);
 
 		/*		Expand			*/
 char	*extract_var_value(t_env **env, char *env_name);
-void	skip_or_replace(t_list	**mini, t_env **env);
+void	extract_var_name(char *data, char **returned_var,
+			t_hell *mini, t_env **env);
+char	*expand_or_skip(char *str, t_hell *mini, t_env **env);
+void	skip_or_replace(t_list	**mini, t_env **env, t_hell *hell);
 
 		/*		Builtins		*/
 t_env	*check_env(t_env *lst, char *str);
