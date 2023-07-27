@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 03:03:21 by mbachar           #+#    #+#             */
-/*   Updated: 2023/07/09 02:48:47 by otchekai         ###   ########.fr       */
+/*   Updated: 2023/07/27 14:03:58 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ char	**ft_split(char const *s, char c)
 		return (NULL);
 	split = (char **)malloc((words_counter(s, c) + 1) * sizeof(*split));
 	if (!split)
-		return (free_mem(split), NULL);
+		return (free(split), NULL);
 	while (*s != '\0')
 	{
 		while (*s && *s == c)

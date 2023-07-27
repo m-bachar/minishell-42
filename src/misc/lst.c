@@ -6,7 +6,7 @@
 /*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 02:04:05 by mbachar           #+#    #+#             */
-/*   Updated: 2023/07/27 02:25:59 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/07/27 14:24:54 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ t_list	*ft_lstnew(char *data)
 	if (!node)
 		return (NULL);
 	node->multi_cmds = ft_strdup(data);
+	node->command = NULL;
 	node->file_in = 0;
 	node->file_out = 1;
 	node->next = NULL;

@@ -6,7 +6,7 @@
 /*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 15:16:30 by mbachar           #+#    #+#             */
-/*   Updated: 2023/07/14 01:10:47 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/07/27 17:20:56 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,24 +36,42 @@ int	is_heredoc(t_list *mini)
 char	*rand_name(void)
 {
 	static size_t	i;
+	static size_t	flag;
+	int				access_flag;
 	char			*number;
 	char			*name;
 
+	access_flag = 0;
 	number = ft_itoa(i);
 	name = ft_strjoin(ft_strdup("./tmp/tmp_"), number);
-	i++;
+	access_flag = access(name, F_OK);
+	while (!access_flag && flag++ <= SIZE_T_MAX)
+	{
+		i = flag;
+		free(name);
+		name = NULL;
+		if (number)
+			free(number);
+		number = ft_itoa(i);
+		if (name)
+			free(name);
+		name = ft_strjoin(ft_strdup("./tmp/tmp_"), number);
+		access_flag = access(name, F_OK);
+	}
 	return (free(number), name);
 }
 
-void	open_and_heredoc(t_list **mini) // delimiter issue
+void	open_and_heredoc(t_list **mini) // CTRL+C ==> quits minishell - CTRL+D ==> SEGV
 {
 	t_list	*tmp;
 	char	*line;
+	char	*random;
 	int		file_id;
 	int		i;
 
 	tmp = *mini;
 	i = 0;
+	random = NULL;
 	while ((*mini) != NULL)
 	{
 		while ((*mini)->command[i])
@@ -61,24 +79,29 @@ void	open_and_heredoc(t_list **mini) // delimiter issue
 			if (!ft_strcmp((*mini)->command[i], "<<"))
 			{
 				i++;
-				file_id = open(rand_name(), O_CREAT | O_RDWR | O_TRUNC, 0777); // Check if file exists
+				if (random)
+					free(random);
+				random = rand_name();
+				file_id = open(random, O_CREAT | O_RDWR | O_TRUNC, 0777);
 				line = readline("😃 Heredoc > ");
-				while (ft_strcmp2(line, (*mini)->command[i]))
+				ft_putstr_fd(line, file_id);
+				while (ft_strcmp(line, (*mini)->command[i]))
 				{
-					ft_putstr_fd(line, file_id);
-					free(line);
-					line = NULL;
+					if (line)
+						free(line);
 					line = readline("😃 Heredoc > ");
+					if (!ft_strcmp(line, (*mini)->command[i]))
+						break ;
 					ft_putstr_fd(line, file_id);
 					(*mini)->file_in = file_id;
 				}
-				// Remove arg
 			}
 			i++;
 		}
 		i = 0;
 		(*mini) = (*mini)->next;
 	}
+	free(line);
+	free(random);
 	*mini = tmp;
-	// free((*mini));
 }

@@ -6,13 +6,13 @@
 #    By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/20 22:20:05 by mbachar           #+#    #+#              #
-#    Updated: 2023/07/27 02:33:50 by mbachar          ###   ########.fr        #
+#    Updated: 2023/07/27 15:41:58 by mbachar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 MINISHELL 	= 	minishell
 
-CFLAGS		=	-Wall -Wextra -Werror -g -fsanitize=address
+CFLAGS		=	-Wall -Wextra -Werror #-g -fsanitize=address
 
 LDFLAGS		=	"-L/goinfre/mbachar/homebrew/opt/readline/lib"
 

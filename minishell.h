@@ -6,7 +6,7 @@
 /*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 22:25:23 by mbachar           #+#    #+#             */
-/*   Updated: 2023/07/27 02:21:52 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/07/27 15:59:30 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <fcntl.h>
 # include <sys/types.h>
 # include <sys/wait.h>
+# include <limits.h>
 # include "./libft/libft.h"
 
 # define MAX_SIZE 4000000
@@ -130,7 +131,7 @@ void	open_and_append(t_list **mini);
 void	open_and_output(t_list **mini);
 void	open_and_input(t_list **mini);
 void	open_and_heredoc(t_list **mini);
-void	ft_lstclear(t_list **lst); // Check if file exists
+void	ft_lstclear(t_list **lst);
 char	*rand_name(void);
 
 		/*		Expand			*/

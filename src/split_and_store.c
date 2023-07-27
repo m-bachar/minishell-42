@@ -6,7 +6,7 @@
 /*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 22:35:36 by mbachar           #+#    #+#             */
-/*   Updated: 2023/07/27 02:21:09 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/07/27 14:57:42 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	ft_lstclear(t_list **lst)
 		to_clear = tmp;
 		tmp = tmp->next;
 		free(to_clear);
-		to_clear = NULL;
+		// to_clear = NULL;
 	}
 	*lst = NULL;
 }

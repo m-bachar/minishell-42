@@ -6,11 +6,24 @@
 /*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 22:29:00 by mbachar           #+#    #+#             */
-/*   Updated: 2023/07/27 02:30:59 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/07/27 19:45:29 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+void	free_mem(char **mem)
+{
+	int	i;
+
+	i = 0;
+	while (mem[i])
+	{
+		free(mem[i]);
+		i++;
+	}
+	free(mem);
+}
 
 void	nodes_shapeshifting(t_list **mini)
 {
@@ -41,7 +54,8 @@ void	print_syntax_error(void)
 void	exit_minihell(t_hell *mini)
 {
 	printf(RED "\t\tExiting MiniShell 🥺\n" RESET);
-	free(mini->line);
+	if (mini->line)
+		free(mini->line);
 	exit(0);
 }
 
@@ -52,6 +66,11 @@ void	split_and_store2(t_list **list)
 	tmp = *list;
 	while (*list)
 	{
+		if ((*list)->command)
+		{
+			free_mem((*list)->command);
+			(*list)->command = NULL;
+		}
 		(*list)->command = ft_split((*list)->multi_cmds, ' '); // Add all whitespaces
 		(*list) = (*list)->next;
 	}
@@ -67,6 +86,7 @@ void	minihell_entrance(t_hell *mini)
 	lst = NULL;
 	list = NULL;
 	line = NULL;
+	mini->line = NULL;
 	printf(CYAN "\t\tHell is -- MiniShell 😔 😔  \n\n" RESET);
 	copy_env(&lst, mini->vne);
 	while (1)
@@ -74,7 +94,7 @@ void	minihell_entrance(t_hell *mini)
 		mini->line = readline("😃 Minihell-1.0$ ");
 		if (!mini->line)
 			exit_minihell(mini);
-		if (!ft_strncmp(mini->line, "", 1)
+		if (!ft_strcmp(mini->line, "")
 			|| !remove_whitespaces_from_history(mini))
 		{
 			free(mini->line);
@@ -100,9 +120,10 @@ void	minihell_entrance(t_hell *mini)
 				open_and_output(&list);
 			else if (is_input(list))
 				open_and_input(&list);
-			skip_or_replace(&list, &lst, mini);
-			commands(list, mini, lst);
-			ft_lstclear(&list);
+			// skip_or_replace(&list, &lst, mini);
+			// commands(list, mini, lst);
+			// ft_lstclear(&list);
 		}
+		free(mini->line);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 12:07:28 by mbachar           #+#    #+#             */
-/*   Updated: 2023/07/27 02:32:25 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/07/27 09:16:56 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ char	*expand_or_skip(char *str, t_hell *mini, t_env **env)
 		{
 			final_var[mini->j] = str[mini->i];
 			mini->i++;
-			mini->j++;	
+			mini->j++;
 		}
 	}
 	final_var[mini->j] = '\0';
