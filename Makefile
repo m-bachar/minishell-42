@@ -6,7 +6,7 @@
 #    By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/20 22:20:05 by mbachar           #+#    #+#              #
-#    Updated: 2023/07/27 15:41:58 by mbachar          ###   ########.fr        #
+#    Updated: 2023/07/28 16:10:22 by mbachar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,13 +26,14 @@ LIBFT		=	./libft/libft.a
 
 MAN_SRC 	=	minishell.c \
 				./src/misc/errors.c \
-				./src/misc/tools.c \
-				./src/misc/tools2.c \
-				./src/syntax.c \
-				./src/split_and_store.c \
-				./src/norminette.c \
 				./src/misc/lst.c \
 				./src/misc/lst2.c \
+				./src/misc/tools.c \
+				./src/misc/tools2.c \
+				./src/misc/tools3.c \
+				./src/minihell_entrance.c \
+				./src/split_and_store.c \
+				./src/norminette.c \
 				./src/syntax/append.c \
 				./src/syntax/heredoc.c \
 				./src/syntax/file_in.c \
@@ -40,7 +41,7 @@ MAN_SRC 	=	minishell.c \
 				./src/syntax/pipe.c \
 				./src/syntax/all_in_one.c \
 				./src/syntax/quotes.c \
-				./src/parsing/parsing.c \
+				./src/parsing/env.c \
 				./src/parsing/append.c \
 				./src/parsing/heredoc.c \
 				./src/parsing/file_in.c \

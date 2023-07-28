@@ -6,7 +6,7 @@
 /*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 19:01:18 by otchekai          #+#    #+#             */
-/*   Updated: 2023/07/11 18:43:29 by otchekai         ###   ########.fr       */
+/*   Updated: 2023/07/27 01:34:47 by otchekai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	export_first(t_hell *mini, char *str)
 		mini->new_val = ft_strdup(&str[i + 1]);
 	}
 	else if (str[i] == '\0')
-		mini->new_val = ft_strdup("");
+		mini->new_val = NULL;
 	mini->new_key = ft_strdup(str);
 	i = -1;
 	while (mini->new_key[++i])
@@ -48,54 +48,61 @@ int	export_first(t_hell *mini, char *str)
 	return (0);
 }
 
-void	ft_export(t_env *lst, t_hell *mini)
+void	update_env(t_env *lst, t_hell *mini)
+{
+	while (lst)
+	{
+		if (lst->env_name && mini->new_key && \
+			!ft_strcmp(lst->env_name, mini->new_key))
+		{
+			if (mini->join_val == 1)
+			{
+				lst->env_value = ft_strjoin(lst->env_value, \
+				ft_strdup(mini->new_val));
+			}
+			else if (!mini->new_val && lst->env_value != NULL)
+			{
+				mini->expo_var = 1;
+				break ;
+			}
+			else
+			{
+				free(lst->env_value);
+				lst->env_value = ft_strdup(mini->new_val);
+			}
+			mini->expo_var = 1;
+			break ;
+		}
+		lst = lst->next;
+	}
+}
+
+void	ft_export(t_env *lst, t_hell *mini, t_list *list)
 {
 	t_env	*tmp;
-	char	**split;
-	int		var;
 	int		i;
 
 	i = 1;
 	tmp = lst;
-	split = ft_split(mini->line, ' ');
-	while (split[i])
+	mini->expo_var = 0;
+	while (list->command[i])
 	{
-		var = 0;
 		mini->join_val = 0;
-		if (export_first(mini, split[i]))
+		if (export_first(mini, list->command[i]))
 			return ;
-		while (tmp)
-		{
-			if (tmp->env_name && mini->new_key && \
-				!strcmp(tmp->env_name, mini->new_key) && export_first(mini, split[i]))
-			{
-				if (!mini->new_val && tmp->env_value != NULL)
-					printf("Export error\n");
-				if (mini->join_val == 1)
-					tmp->env_value = ft_strjoin(tmp->env_value, \
-					ft_strdup(mini->new_val));
-				else
-				{
-					free(tmp->env_value);
-					tmp->env_value = ft_strdup(mini->new_val);
-				}
-				var = 1;
-				break ;
-			}
-			tmp = tmp->next;
-		}
-		if (!var)
+		update_env(tmp, mini);
+		if (!mini->expo_var)
 			ft_lstadd_back1(&lst, ft_lstnew1(mini->new_key, mini->new_val));
 		i++;
 	}
 }
 
-void	print_export(t_env *lst, t_hell *mini)
+void	print_export(t_env *lst, t_list *list)
 {
 	t_env	*tmp;
 
 	tmp = lst;
-	if (mini->line && !ft_strncmp(mini->line, "export", 7))
+	if (list->command && !ft_strncmp(list->command[0], "export", 7))
 	{
 		while (tmp)
 		{

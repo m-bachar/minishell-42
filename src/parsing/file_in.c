@@ -6,7 +6,7 @@
 /*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 15:16:25 by mbachar           #+#    #+#             */
-/*   Updated: 2023/07/27 18:01:45 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/07/28 17:05:33 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,15 @@ int	is_input(t_list *mini)
 
 void	open_and_input(t_list **mini)
 {
-	t_list	*tmp;
-	char	*file_name;
-	int		file_id;
-	int		i;
+	t_list		*tmp;
+	char		*file_name;
+	static int	file_id;
+	int			i;
 
 	tmp = *mini;
-	i = 0;
 	while ((*mini) != NULL)
 	{
+		i = 0;
 		while ((*mini)->command[i])
 		{
 			if (!ft_strcmp((*mini)->command[i], "<"))
@@ -52,21 +52,18 @@ void	open_and_input(t_list **mini)
 					close(file_id);
 				file_name = ft_strdup((*mini)->command[i + 1]);
 				file_id = open(file_name, O_RDONLY);
+				if (file_id == -1)
+				{
+					printf("😃 Minihell-1.0: %s: No such file or directory\n", file_name);
+					break ;
+				}
 				free(file_name);
 				(*mini)->file_in = file_id;
-				while ((*mini)->command[i])
-				{
-					free((*mini)->command[i]);
-					(*mini)->command[i] = NULL;
-					i++;
-				}
 				break ;
 			}
 			i++;
 		}
-		i = 0;
 		(*mini) = (*mini)->next;
 	}
 	*mini = tmp;
-	// free(file_name);
 }

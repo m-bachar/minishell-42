@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 00:40:28 by otchekai          #+#    #+#             */
-/*   Updated: 2023/07/27 01:50:51 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/07/19 22:52:10 by otchekai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_env	*check_env(t_env *lst, char *str)
 	tmp = lst;
 	while (tmp)
 	{
-		if (!strcmp(tmp->env_name, str))
+		if (!ft_strcmp(tmp->env_name, str))
 			return (tmp);
 		tmp = tmp->next;
 	}
@@ -53,8 +53,10 @@ void	update_pwds(t_env *lst, t_list *list)
 
 void	change_directory(t_list *list, t_env *lst)
 {
+	int		i;
 	t_env	*tmp;
 
+	i = 0;
 	if (!list->command[1] || !ft_strncmp(list->command[1], "~", 2))
 	{
 		tmp = check_env(lst, "HOME");

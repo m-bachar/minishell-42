@@ -6,7 +6,7 @@
 /*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 22:31:10 by otchekai          #+#    #+#             */
-/*   Updated: 2023/07/02 10:32:27 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/07/28 12:59:34 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,29 +63,5 @@ void	print_env(t_env *lst)
 		}
 		printf("%s=%s\n", tmp->env_name, tmp->env_value);
 		tmp = tmp->next;
-	}
-}
-
-void	shape_shifting(char	*line)
-{
-	int	i;
-
-	i = 0;
-	while (line[i])
-	{
-		if (line[i] && line[i + 1] && (line[i] == '\"'))
-		{
-			i++;
-			while (line[i] && (line[i] != '\"'))
-			{
-				line[i] *= -1;
-				i++;
-				if (!line[i])
-					break ;
-			}
-		}
-		if (!line[i])
-			break ;
-		i++;
 	}
 }

@@ -1,49 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   syntax.c                                           :+:      :+:    :+:   */
+/*   minihell_entrance.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 22:29:00 by mbachar           #+#    #+#             */
-/*   Updated: 2023/07/27 19:45:29 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/07/28 17:03:10 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-void	free_mem(char **mem)
-{
-	int	i;
-
-	i = 0;
-	while (mem[i])
-	{
-		free(mem[i]);
-		i++;
-	}
-	free(mem);
-}
-
-void	nodes_shapeshifting(t_list **mini)
-{
-	t_list	*tmp;
-	int		i;
-
-	i = 0;
-	tmp = *mini;
-	while (*mini)
-	{
-		while ((*mini)->command[i])
-		{
-			shape_shifting((*mini)->command[i]);
-			i++;
-		}
-		i = 0;
-		(*mini) = (*mini)->next;
-	}
-	*mini = tmp;
-}
 
 void	print_syntax_error(void)
 {
@@ -57,24 +24,6 @@ void	exit_minihell(t_hell *mini)
 	if (mini->line)
 		free(mini->line);
 	exit(0);
-}
-
-void	split_and_store2(t_list **list)
-{
-	t_list	*tmp;
-
-	tmp = *list;
-	while (*list)
-	{
-		if ((*list)->command)
-		{
-			free_mem((*list)->command);
-			(*list)->command = NULL;
-		}
-		(*list)->command = ft_split((*list)->multi_cmds, ' '); // Add all whitespaces
-		(*list) = (*list)->next;
-	}
-	*list = tmp;
 }
 
 void	minihell_entrance(t_hell *mini)
@@ -120,10 +69,9 @@ void	minihell_entrance(t_hell *mini)
 				open_and_output(&list);
 			else if (is_input(list))
 				open_and_input(&list);
-			// skip_or_replace(&list, &lst, mini);
-			// commands(list, mini, lst);
-			// ft_lstclear(&list);
+			skip_or_replace(&list, &lst, mini);
+			commands(list, mini, lst);
+			ft_clearmem(&list, &mini);
 		}
-		free(mini->line);
 	}
 }

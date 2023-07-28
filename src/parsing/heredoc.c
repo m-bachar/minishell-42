@@ -6,7 +6,7 @@
 /*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 15:16:30 by mbachar           #+#    #+#             */
-/*   Updated: 2023/07/27 17:20:56 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/07/28 14:46:23 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,16 @@ char	*rand_name(void)
 	return (free(number), name);
 }
 
+// void    ft_signal_handler2(int sig)
+// {
+//     if (sig == SIGINT)
+//     {
+//         g_flag = 1;
+//         close(0);
+//         return ;
+//     }
+// }
+
 void	open_and_heredoc(t_list **mini) // CTRL+C ==> quits minishell - CTRL+D ==> SEGV
 {
 	t_list	*tmp;
@@ -83,6 +93,7 @@ void	open_and_heredoc(t_list **mini) // CTRL+C ==> quits minishell - CTRL+D ==> 
 					free(random);
 				random = rand_name();
 				file_id = open(random, O_CREAT | O_RDWR | O_TRUNC, 0777);
+				// ft_signal_handler2();
 				line = readline("😃 Heredoc > ");
 				ft_putstr_fd(line, file_id);
 				while (ft_strcmp(line, (*mini)->command[i]))

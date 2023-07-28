@@ -6,7 +6,7 @@
 /*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 22:25:23 by mbachar           #+#    #+#             */
-/*   Updated: 2023/07/27 15:59:30 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/07/28 16:59:01 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct minishell
 	int				join_val;
 	int				i;
 	int				j;
+	int				expo_var;
 	struct s_list	*push;
 	struct s_env	*s_env;
 }	t_hell;
@@ -74,23 +75,35 @@ void	ft_errors(char *str);
 		/*		Entry Point	*/
 void	minihell_entrance(t_hell *mini);
 
-		/*		Tools		*/
+		/*		Tools 1		*/
 int		check_for_redirections(t_hell *mini, int i);
-char	*ft_strcpy(char *dest, char *src);
-int		ft_strcmp(char *s1, char *s2);
-int		ft_strcmp2(char *s1, char *s2);
 int		remove_whitespaces_from_history(t_hell *mini);
-int		ft_strlen2(char *str);
+char	*add_whitespaces(t_hell *mini);
+void	shape_shifting(char	*line);
+void	nodes_shapeshifting(t_list **mini);
 
 		/*		Tools 2		*/
-char	*add_whitespaces(t_hell *mini);
-void	split_and_store(char *line, t_list **mini);
-void	shape_shifting(char	*line);
+char	*ft_strcpy(char *dest, char *src);
+int		ft_strcmp(char *s1, char *s2);
+int		ft_strlen2(char *str);
+void	free_mem(char **mem);
+void	ft_clearmem(t_list **lst, t_hell **mini);
 
-		/*		Misc		*/
+		/*		Tools 3		*/
+int		isredirection(t_hell *mini, int i);
+int		isredirection2(t_hell *mini, int i);
+void	ft_clearmem2(t_env **env);
+
+		/*		Split & Store	*/
+void	split_and_store(char *line, t_list **mini);
+void	split_and_store2(t_list **list);
+
+		/*		Lists 1		*/
 void	ft_lstadd_back(t_list **lst, t_list *new);
 t_list	*ft_lstnew(char *data);
 int		ft_lstsize(t_list *lst);
+
+		/*		Lists 2		*/
 void	ft_lstadd_back1(t_env **lst, t_env *new);
 t_env	*ft_lstnew1(char *env_name, char *env_value);
 int		ft_lstsize1(t_env *lst);
@@ -131,7 +144,6 @@ void	open_and_append(t_list **mini);
 void	open_and_output(t_list **mini);
 void	open_and_input(t_list **mini);
 void	open_and_heredoc(t_list **mini);
-void	ft_lstclear(t_list **lst);
 char	*rand_name(void);
 
 		/*		Expand			*/
@@ -147,15 +159,15 @@ int		export_first(t_hell *mini, char *str);
 int		check_n(char *str);
 void	copy_env(t_env **lst, char **envs);
 void	print_current_directory(t_hell *mini);
-void	ft_export(t_env *lst, t_hell *mini);
+void	ft_export(t_env *lst, t_hell *mini, t_list *list);
 void	update_pwds(t_env *lst, t_list *list);
 void	change_directory(t_list *list, t_env *lst);
 void	unset(t_env **lst, t_list *list);
 void	echo(t_list *list);
-void	print_export(t_env *lst, t_hell *mini);
+void	print_export(t_env *lst, t_list *list);
 void	print_env(t_env *lst);
 
-		/*      execution        */
+		/*      Execution        */
 void	one_command(t_hell *mini, t_env *lst, t_list *split);
 void	commands(t_list *list, t_hell *mini, t_env *lst);
 int		choose_and_acquire(t_hell *mini, t_env *lst, t_list *list);

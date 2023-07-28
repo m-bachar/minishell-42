@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execve.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 16:44:18 by otchekai          #+#    #+#             */
-/*   Updated: 2023/07/27 01:51:04 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/07/28 15:22:42 by otchekai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,11 @@ void	check_path(t_hell *mini, t_env *lst, t_list *split)
 void	one_command(t_hell *mini, t_env *lst, t_list *list)
 {
 	t_env	*tmp;
+	int		i;
 	int		fok;
 
 	tmp = lst;
+	i = 0;
 	if (!tmp)
 		return ;
 	if ((choose_and_acquire(mini, tmp, list)) == 1)
@@ -52,8 +54,10 @@ void	one_command(t_hell *mini, t_env *lst, t_list *list)
 	fok = fork();
 	if (fok == 0)
 	{
+		dup2(list->file_out, 1);
 		check_path(mini, tmp, list);
-		if (execve(mini->to_find, list->command, convert_to_2d_array(tmp)) == -1)
+		if (execve(mini->to_find, list->command, 
+				convert_to_2d_array(tmp)) == -1)
 			ft_putstr_fd("command not found", 2);
 		exit(1);
 	}
@@ -79,7 +83,10 @@ void	commands(t_list *list, t_hell *mini, t_env *lst)
 			dup2(fd[1], STDOUT_FILENO);
 			close(fd[0]);
 			close(fd[1]);
-			choose_and_acquire(mini, lst, tmp);
+			if (list->file_out != 1)
+				dup2(list->file_out, 1);
+			if ((choose_and_acquire(mini, lst, tmp)) == 1)
+				return ;
 			check_path(mini, lst, tmp);
 			if (execve(mini->to_find, tmp->command,
 					convert_to_2d_array(lst)) == -1)

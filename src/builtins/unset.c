@@ -6,7 +6,7 @@
 /*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 00:17:23 by otchekai          #+#    #+#             */
-/*   Updated: 2023/07/10 17:39:32 by otchekai         ###   ########.fr       */
+/*   Updated: 2023/07/27 00:59:11 by otchekai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,12 @@ void	unset(t_env **lst, t_list *list)
 	{
 		tmp = *lst;
 		temp = *lst;
-		if (tmp && !strcmp(list->command[index], tmp->env_name))
+		if (tmp && !ft_strcmp(list->command[index], tmp->env_name))
 			*lst = tmp->next;
 		while (tmp)
 		{
-			if (tmp->env_name && !strcmp(list->command[index], tmp->env_name))
+			if (tmp->env_name && !ft_strcmp(list->command[index], 
+					tmp->env_name))
 			{
 				temp->next = tmp->next;
 				purpose = tmp;

@@ -6,11 +6,19 @@
 /*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 13:02:48 by mbachar           #+#    #+#             */
-/*   Updated: 2023/07/27 02:27:00 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/07/28 13:10:29 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
+int	check_for_redirections(t_hell *mini, int i)
+{
+	if (mini->line[i] == '<' || mini->line[i] == '>'
+		|| mini->line[i] == '|')
+		return (0);
+	return (1);
+}
 
 int	remove_whitespaces_from_history(t_hell *mini)
 {
@@ -25,24 +33,75 @@ int	remove_whitespaces_from_history(t_hell *mini)
 	return (1);
 }
 
-int	check_for_redirections(t_hell *mini, int i)
+char	*add_whitespaces(t_hell *mn)
 {
-	if (mini->line[i] == '<' || mini->line[i] == '>'
-		|| mini->line[i] == '|')
-		return (0);
-	return (1);
+	char		*result;
+
+	mn->i = 0;
+	mn->j = 0;
+	result = ft_calloc(MAX_SIZE, sizeof(char));
+	while (mn->i < ft_strlen2(mn->line))
+	{
+		if (isredirection(mn, mn->i))
+		{
+			result[mn->j++] = ' ';
+			if (isredirection2(mn, mn->i))
+				result[mn->j++] = mn->line[mn->i];
+			if (mn->line[mn->i + 1] && mn->line[mn->i] == mn->line[mn->i + 1])
+				mn->i++;
+			result[mn->j++] = mn->line[mn->i];
+			result[mn->j++] = ' ';
+		}
+		else
+			result[mn->j++] = mn->line[mn->i];
+		mn->i++;
+	}
+	free(mn->line);
+	mn->line = ft_calloc(ft_strlen2(result) + 1, sizeof(char));
+	ft_strcpy(mn->line, result);
+	return (free(result), mn->line);
 }
 
-char	*ft_strcpy(char *dest, char *src)
+void	shape_shifting(char	*line)
 {
 	int	i;
 
 	i = 0;
-	while (src[i] != '\0')
+	while (line[i])
 	{
-		dest[i] = src[i];
+		if (line[i] && line[i + 1] && (line[i] == '\"'))
+		{
+			i++;
+			while (line[i] && (line[i] != '\"'))
+			{
+				line[i] *= -1;
+				i++;
+				if (!line[i])
+					break ;
+			}
+		}
+		if (!line[i])
+			break ;
 		i++;
 	}
-	dest[i] = '\0';
-	return (dest);
+}
+
+void	nodes_shapeshifting(t_list **mini)
+{
+	t_list	*tmp;
+	int		i;
+
+	i = 0;
+	tmp = *mini;
+	while (*mini)
+	{
+		while ((*mini)->command[i])
+		{
+			shape_shifting((*mini)->command[i]);
+			i++;
+		}
+		i = 0;
+		(*mini) = (*mini)->next;
+	}
+	*mini = tmp;
 }

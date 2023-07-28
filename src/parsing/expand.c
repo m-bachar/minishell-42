@@ -6,7 +6,7 @@
 /*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 12:07:28 by mbachar           #+#    #+#             */
-/*   Updated: 2023/07/27 09:16:56 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/07/28 16:42:39 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	*extract_var_value(t_env **env, char *env_name)
 void	extract_var_name(char *data, char **returned_var,
 		t_hell *mini, t_env **env)
 {
-	char	varname[8000];
+	char	varname[MAX_SIZE];
 	char	*varvalue;
 	int		k;
 
@@ -54,6 +54,8 @@ void	extract_var_name(char *data, char **returned_var,
 		k = 0;
 		while (varvalue[k])
 			(*returned_var)[mini->j++] = varvalue[k++];
+		free(varvalue);
+		varvalue = NULL;
 	}
 }
 
@@ -115,16 +117,20 @@ char	*expand_or_skip(char *str, t_hell *mini, t_env **env)
 void	skip_or_replace(t_list	**mini, t_env **env, t_hell *hell)
 {
 	t_list	*tmp;
+	char	*new_value;
 	int		j;
 
 	tmp = *mini;
+	new_value = NULL;
 	while ((*mini))
 	{
 		j = 0;
 		while ((*mini)->command[j])
 		{
-			(*mini)->command[j] = expand_or_skip((*mini)->command[j],
+			new_value = expand_or_skip((*mini)->command[j],
 					hell, env);
+			free((*mini)->command[j]);
+			(*mini)->command[j] = new_value;
 			j++;
 		}
 		(*mini) = (*mini)->next;

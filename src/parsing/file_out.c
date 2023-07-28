@@ -6,7 +6,7 @@
 /*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 15:16:28 by mbachar           #+#    #+#             */
-/*   Updated: 2023/07/27 18:01:18 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/07/28 14:35:20 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,15 @@ int	is_output(t_list *mini)
 
 void	open_and_output(t_list **mini)
 {
-	t_list	*tmp;
-	char	*file_name;
-	int		file_id;
-	int		i;
+	t_list		*tmp;
+	char		*file_name;
+	static int	file_id;
+	int			i;
 
 	tmp = *mini;
-	i = 0;
 	while ((*mini) != NULL)
 	{
+		i = 0;
 		while ((*mini)->command[i])
 		{
 			if (!ft_strcmp((*mini)->command[i], ">"))
@@ -54,17 +54,10 @@ void	open_and_output(t_list **mini)
 				file_id = open(file_name, O_CREAT | O_RDWR | O_TRUNC, 0777);
 				free(file_name);
 				(*mini)->file_out = file_id;
-				while ((*mini)->command[i])
-				{
-					free((*mini)->command[i]);
-					(*mini)->command[i] = NULL;
-					i++;
-				}
 				break ;
 			}
 			i++;
 		}
-		i = 0;
 		(*mini) = (*mini)->next;
 	}
 	*mini = tmp;
