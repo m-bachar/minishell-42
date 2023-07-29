@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 15:16:30 by mbachar           #+#    #+#             */
-/*   Updated: 2023/07/28 14:46:23 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/07/28 17:24:59 by otchekai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	open_and_heredoc(t_list **mini) // CTRL+C ==> quits minishell - CTRL+D ==> 
 	{
 		while ((*mini)->command[i])
 		{
-			if (!ft_strcmp((*mini)->command[i], "<<"))
+			if (!ft_strcmp2((*mini)->command[i], "<<"))
 			{
 				i++;
 				if (random)
@@ -96,12 +96,12 @@ void	open_and_heredoc(t_list **mini) // CTRL+C ==> quits minishell - CTRL+D ==> 
 				// ft_signal_handler2();
 				line = readline("😃 Heredoc > ");
 				ft_putstr_fd(line, file_id);
-				while (ft_strcmp(line, (*mini)->command[i]))
+				while (ft_strcmp2(line, (*mini)->command[i]))
 				{
 					if (line)
 						free(line);
 					line = readline("😃 Heredoc > ");
-					if (!ft_strcmp(line, (*mini)->command[i]))
+					if (!ft_strcmp2(line, (*mini)->command[i]))
 						break ;
 					ft_putstr_fd(line, file_id);
 					(*mini)->file_in = file_id;

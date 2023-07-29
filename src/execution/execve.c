@@ -6,7 +6,7 @@
 /*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 16:44:18 by otchekai          #+#    #+#             */
-/*   Updated: 2023/07/28 15:22:42 by otchekai         ###   ########.fr       */
+/*   Updated: 2023/07/29 22:23:43 by otchekai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,15 @@
 void	check_path(t_hell *mini, t_env *lst, t_list *split)
 {
 	int		i;
-	t_env	*tmp;
 	char	*slash;
 
-	tmp = lst;
 	slash = "/";
 	i = 0;
-	while (tmp)
+	while (lst)
 	{
-		if (!ft_strncmp(tmp->env_name, "PATH", 5))
-			mini->path = ft_split(tmp->env_value, ':');
-		tmp = tmp->next;
+		if (!ft_strncmp(lst->env_name, "PATH", 5))
+			mini->path = ft_split(lst->env_value, ':');
+		lst = lst->next;
 	}
 	while (mini->path[i++])
 		mini->path[i] = ft_strjoin(mini->path[i], slash);
@@ -41,23 +39,24 @@ void	check_path(t_hell *mini, t_env *lst, t_list *split)
 
 void	one_command(t_hell *mini, t_env *lst, t_list *list)
 {
-	t_env	*tmp;
 	int		i;
 	int		fok;
 
-	tmp = lst;
 	i = 0;
-	if (!tmp)
-		return ;
-	if ((choose_and_acquire(mini, tmp, list)) == 1)
-		return ;
+	if (!pipe_check(mini))
+	{
+		if (choose_and_acquire(mini, lst, list) == 1)
+			return ;
+	}
 	fok = fork();
 	if (fok == 0)
 	{
+		if ((choose_and_acquire(mini, lst, list)) == 1 && pipe_check(mini) == 1)
+			exit (1);
 		dup2(list->file_out, 1);
-		check_path(mini, tmp, list);
+		check_path(mini, lst, list);
 		if (execve(mini->to_find, list->command, 
-				convert_to_2d_array(tmp)) == -1)
+				convert_to_2d_array(lst)) == -1)
 			ft_putstr_fd("command not found", 2);
 		exit(1);
 	}
@@ -98,8 +97,23 @@ void	commands(t_list *list, t_hell *mini, t_env *lst)
 		close(fd[1]);
 		tmp = tmp->next;
 	}
+	signal(SIGQUIT, ctrl_that_thing);
 	dup2(out, 1);
 	one_command(mini, lst, tmp);
 	dup2(in, 0);
 	while (wait(NULL) != -1);
+}
+
+int	pipe_check(t_hell *mini)
+{
+	int	index;
+
+	index = 0;
+	while (mini->line[index])
+	{
+		if (mini->line[index] == '|')
+			return (1);
+		index++;
+	}
+	return (0);
 }

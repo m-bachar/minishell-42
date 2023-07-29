@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 02:27:21 by mbachar           #+#    #+#             */
-/*   Updated: 2023/07/28 15:28:23 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/07/28 17:24:03 by otchekai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,20 @@ char	*ft_strcpy(char *dest, char *src)
 
 int	ft_strcmp(char *s1, char *s2)
 {
+	while (*s1 || *s2)
+	{
+		if (*s1 != *s2)
+			return (1);
+		s1++;
+		s2++;
+	}
+	return (0);
+}
+
+int	ft_strcmp2(char *s1, char *s2)
+{
+	if (!s1 || !s2)
+		return (0);
 	while (*s1 || *s2)
 	{
 		if (*s1 != *s2)
@@ -75,8 +89,8 @@ void	ft_clearmem(t_list **lst, t_hell **mini)
 		to_clear = tmp;
 		free(to_clear->multi_cmds);
 		free_mem(to_clear->command);
-		free(to_clear);
 		tmp = tmp->next;
+		free(to_clear);
 		to_clear = NULL;
 	}
 	*lst = NULL;

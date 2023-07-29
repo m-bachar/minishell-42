@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 22:31:10 by otchekai          #+#    #+#             */
-/*   Updated: 2023/07/28 12:59:34 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/07/29 22:22:24 by otchekai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,17 +51,14 @@ void	copy_env(t_env **lst, char **envs)
 
 void	print_env(t_env *lst)
 {
-	t_env	*tmp;
-
-	tmp = lst;
-	while (tmp)
+	while (lst)
 	{
-		if (tmp->env_value && !ft_strncmp(tmp->env_value, "", 1))
+		if (lst->env_value && !ft_strncmp(lst->env_value, "", 1))
 		{
-			tmp = tmp->next;
+			lst = lst->next;
 			continue ;
 		}
-		printf("%s=%s\n", tmp->env_name, tmp->env_value);
-		tmp = tmp->next;
+		printf("%s=%s\n", lst->env_name, lst->env_value);
+		lst = lst->next;
 	}
 }

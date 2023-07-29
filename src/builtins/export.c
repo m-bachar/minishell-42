@@ -6,7 +6,7 @@
 /*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 19:01:18 by otchekai          #+#    #+#             */
-/*   Updated: 2023/07/27 01:34:47 by otchekai         ###   ########.fr       */
+/*   Updated: 2023/07/29 21:31:56 by otchekai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,10 +106,7 @@ void	print_export(t_env *lst, t_list *list)
 	{
 		while (tmp)
 		{
-			if (!ft_strncmp(tmp->env_value, "", 1))
-				printf("declare -x %s%s\n", tmp->env_name, tmp->env_value);
-			else
-				printf("declare -x %s=%s\n", tmp->env_name, tmp->env_value);
+			printf("declare -x %s=%s\n", tmp->env_name, tmp->env_value);
 			tmp = tmp->next;
 		}
 	}

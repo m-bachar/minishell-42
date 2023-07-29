@@ -6,7 +6,7 @@
 /*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 00:40:28 by otchekai          #+#    #+#             */
-/*   Updated: 2023/07/19 22:52:10 by otchekai         ###   ########.fr       */
+/*   Updated: 2023/07/29 22:24:48 by otchekai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,11 @@
 
 t_env	*check_env(t_env *lst, char *str)
 {
-	t_env	*tmp;
-
-	tmp = lst;
-	while (tmp)
+	while (lst)
 	{
-		if (!ft_strcmp(tmp->env_name, str))
-			return (tmp);
-		tmp = tmp->next;
+		if (!ft_strcmp(lst->env_name, str))
+			return (lst);
+		lst = lst->next;
 	}
 	return (0);
 }
@@ -54,15 +51,14 @@ void	update_pwds(t_env *lst, t_list *list)
 void	change_directory(t_list *list, t_env *lst)
 {
 	int		i;
-	t_env	*tmp;
 
 	i = 0;
 	if (!list->command[1] || !ft_strncmp(list->command[1], "~", 2))
 	{
-		tmp = check_env(lst, "HOME");
-		if (!tmp)
+		lst = check_env(lst, "HOME");
+		if (!lst)
 			return ;
-		chdir(tmp->env_value);
+		chdir(lst->env_value);
 	}
 	if (chdir(list->command[1]) == -1)
 		return ;

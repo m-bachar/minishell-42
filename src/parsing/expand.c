@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 12:07:28 by mbachar           #+#    #+#             */
-/*   Updated: 2023/07/28 16:42:39 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/07/29 14:45:18 by otchekai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ void	extract_var_name(char *data, char **returned_var,
 		k = 0;
 		while (varvalue[k])
 			(*returned_var)[mini->j++] = varvalue[k++];
-		free(varvalue);
+		// if (varvalue)
+		// 	free(varvalue);
 		varvalue = NULL;
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 22:25:23 by mbachar           #+#    #+#             */
-/*   Updated: 2023/07/28 16:59:01 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/07/29 22:22:00 by otchekai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ typedef struct s_env
 	struct minishell	*minishell;
 }	t_env;
 
+
 		/*		Colors		*/
 void	red(void);
 void	green(void);
@@ -85,6 +86,7 @@ void	nodes_shapeshifting(t_list **mini);
 		/*		Tools 2		*/
 char	*ft_strcpy(char *dest, char *src);
 int		ft_strcmp(char *s1, char *s2);
+int		ft_strcmp2(char *s1, char *s2);
 int		ft_strlen2(char *str);
 void	free_mem(char **mem);
 void	ft_clearmem(t_list **lst, t_hell **mini);
@@ -166,11 +168,15 @@ void	unset(t_env **lst, t_list *list);
 void	echo(t_list *list);
 void	print_export(t_env *lst, t_list *list);
 void	print_env(t_env *lst);
+void	exit_hell(char **str);
 
 		/*      Execution        */
 void	one_command(t_hell *mini, t_env *lst, t_list *split);
 void	commands(t_list *list, t_hell *mini, t_env *lst);
 int		choose_and_acquire(t_hell *mini, t_env *lst, t_list *list);
 char	**convert_to_2d_array(t_env *env_list);
+void	ctrl_c(int sig);
+int		pipe_check(t_hell *mini);
+void	ctrl_that_thing(int sig);
 
 #endif

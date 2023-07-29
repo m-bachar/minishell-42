@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minihell_entrance.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 22:29:00 by mbachar           #+#    #+#             */
-/*   Updated: 2023/07/28 17:03:10 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/07/29 18:26:10 by otchekai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,13 @@ void	minihell_entrance(t_hell *mini)
 	list = NULL;
 	line = NULL;
 	mini->line = NULL;
+	rl_catch_signals = 0;
 	printf(CYAN "\t\tHell is -- MiniShell 😔 😔  \n\n" RESET);
 	copy_env(&lst, mini->vne);
 	while (1)
 	{
+		signal(SIGINT, ctrl_c);
+		signal(SIGQUIT, SIG_IGN);
 		mini->line = readline("😃 Minihell-1.0$ ");
 		if (!mini->line)
 			exit_minihell(mini);

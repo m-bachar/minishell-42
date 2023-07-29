@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   norminette.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 17:04:09 by otchekai          #+#    #+#             */
-/*   Updated: 2023/07/28 16:58:12 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/07/29 22:22:50 by otchekai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,45 +14,23 @@
 
 int	choose_and_acquire(t_hell *mini, t_env *lst, t_list *list)
 {
-	t_env	*tmp;
-
-	tmp = lst;
 	if (list->command[0] && !ft_strncmp(list->command[0], "pwd", 4))
-	{
-		print_current_directory(mini);
-		return (1);
-	}
+		return (print_current_directory(mini), 1);
 	else if (list->command[0] && !ft_strncmp(list->command[0], "echo", 5))
-	{
-		echo(list);
-		return (1);
-	}
+		return (echo(list), 1);
 	else if (list->command[0] && !ft_strncmp(list->command[0], "unset", 6))
-	{
-		unset(&tmp, list);
-		return (1);
-	}
+		return (unset(&lst, list), 1);
 	else if (list->command[0] && !ft_strncmp(list->command[0], "cd", 3))
-	{
-		update_pwds(tmp, list);
-		return (1);
-	}
+		return (update_pwds(lst, list), 1);
 	else if (list->command[0] && !ft_strncmp(list->command[0], "export", 7) && \
 		list->command[1])
-	{
-		ft_export(tmp, mini, list);
-		return (1);
-	}
+		return (ft_export(lst, mini, list), 1);
 	else if (list->command[0] && !strncmp(list->command[0], "env", 4))
-	{
-		print_env(tmp);
-		return (1);
-	}
+		return (print_env(lst), 1);
 	else if (list->command[0] && !ft_strncmp(list->command[0], "export", 7))
-	{
-		print_export(tmp, list);
-		return (1);
-	}
+		return (print_export(lst, list), 1);
+	else if (list->command[0] && !ft_strncmp(list->command[0], "exit", 5))
+		return (exit_hell(list->command + 1), 1);
 	return (0);
 }
 

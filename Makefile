@@ -3,20 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+         #
+#    By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/20 22:20:05 by mbachar           #+#    #+#              #
-#    Updated: 2023/07/28 16:10:22 by mbachar          ###   ########.fr        #
+#    Updated: 2023/07/29 20:40:08 by otchekai         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 MINISHELL 	= 	minishell
 
-CFLAGS		=	-Wall -Wextra -Werror #-g -fsanitize=address
-
-LDFLAGS		=	"-L/goinfre/mbachar/homebrew/opt/readline/lib"
-
-CPPFLAGS	=	"-I/goinfre/mbachar/homebrew/opt/readline/include" -lreadline
+CFLAGS 		=  -Wall -Wextra -Werror -g -fsanitize=address
 
 INC 		= 	minishell.h
 
@@ -53,18 +49,19 @@ MAN_SRC 	=	minishell.c \
 				./src/builtins/unset.c \
 				./src/builtins/echo.c \
 				./src/builtins/exit.c \
-				./src/execution/execve.c
+				./src/execution/execve.c \
+				./src/execution/signals.c
 
 MAN_OBJ		=	$(MAN_SRC:.c=.o)
 
 all: $(MINISHELL)
 
 %.o : %.c $(INC)
-	@ $(CC) $(CFLAGS) -c $< -o $@
+	@ $(CC) $(CFLAGS)  -I $(shell brew --prefix readline)/include  -c $< -o $@
 
 $(MINISHELL): $(MAN_OBJ)
 	@ cd ./libft && make
-	@ $(CC) $(CFLAGS) $(LDFLAGS) $(CPPFLAGS) $(MAN_OBJ) -o $(MINISHELL) $(LIBFT)
+	@ $(CC) $(CFLAGS) $(MAN_OBJ) -o $(MINISHELL) $(LIBFT) -lreadline -L $(shell brew --prefix readline)/lib
 	@ printf "==================================================\n"
 	@ printf "All mandatory source files have been compiled.\n"
 	@ printf "Executable file minishell has been generated.\n"
