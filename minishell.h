@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 22:25:23 by mbachar           #+#    #+#             */
-/*   Updated: 2023/07/29 22:22:00 by otchekai         ###   ########.fr       */
+/*   Updated: 2023/07/30 15:35:39 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ typedef struct s_env
 	struct minishell	*minishell;
 }	t_env;
 
-
 		/*		Colors		*/
 void	red(void);
 void	green(void);
@@ -89,12 +88,12 @@ int		ft_strcmp(char *s1, char *s2);
 int		ft_strcmp2(char *s1, char *s2);
 int		ft_strlen2(char *str);
 void	free_mem(char **mem);
-void	ft_clearmem(t_list **lst, t_hell **mini);
 
 		/*		Tools 3		*/
 int		isredirection(t_hell *mini, int i);
 int		isredirection2(t_hell *mini, int i);
-void	ft_clearmem2(t_env **env);
+void	ft_clearmem(t_list **lst, t_hell **mini);
+// void	single_arg(t_list **mini, int i);
 
 		/*		Split & Store	*/
 void	split_and_store(char *line, t_list **mini);
@@ -139,14 +138,20 @@ int		quotes(t_hell *mini);
 
 		/*		Parsing			*/
 int		is_append(t_list *mini);
+int		is_heredoc(t_list *mini);
 int		is_output(t_list *mini);
 int		is_input(t_list *mini);
-int		is_heredoc(t_list *mini);
-void	open_and_append(t_list **mini);
-void	open_and_output(t_list **mini);
-void	open_and_input(t_list **mini);
+int		open_and_append(t_list **mini);
 void	open_and_heredoc(t_list **mini);
+void	open_and_output(t_list **mini);
+int		open_and_input(t_list **mini);
+void	remove_args_from_append(t_list **mini);
+void	remove_args_from_heredoc(t_list **mini);
+void	remove_args_from_output(t_list **mini);
+void	remove_args_from_input(t_list **mini);
 char	*rand_name(void);
+// void	single_arg(t_list **mini, int i);
+// void	multiple_args(t_list **mini, int i, int j);
 
 		/*		Expand			*/
 char	*extract_var_value(t_env **env, char *env_name);

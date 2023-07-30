@@ -6,7 +6,7 @@
 /*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 15:16:28 by mbachar           #+#    #+#             */
-/*   Updated: 2023/07/28 14:35:20 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/07/30 17:00:35 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,85 @@ void	open_and_output(t_list **mini)
 				file_name = ft_strdup((*mini)->command[i + 1]);
 				file_id = open(file_name, O_CREAT | O_RDWR | O_TRUNC, 0777);
 				free(file_name);
+				file_name = NULL;
 				(*mini)->file_out = file_id;
-				break ;
 			}
 			i++;
 		}
+		(*mini) = (*mini)->next;
+	}
+	*mini = tmp;
+	// remove_args_from_output(mini);
+}
+
+static void	single_arg(t_list **mini, int i)
+{
+	t_list	*tmp;
+
+	tmp = *mini;
+	free((*mini)->command[i]);
+	(*mini)->command[i] = NULL;
+	free((*mini)->command[i + 1]);
+	(*mini)->command[i + 1] = NULL;
+	*mini = tmp;
+}
+
+static void	multiple_args(t_list **mini, int i, int j)
+{
+	t_list	*tmp;
+
+	tmp = *mini;
+	j = i + 2;
+	while ((*mini)->command[j])
+	{
+		if (!ft_strcmp((*mini)->command[j], ">"))
+		{
+			free((*mini)->command[j]);
+			(*mini)->command[j] = NULL;
+			free((*mini)->command[j + 1]);
+			(*mini)->command[j] = NULL;
+			j += 2;
+		}
+		else
+		{
+			free((*mini)->command[i]);
+			(*mini)->command[i] = NULL;
+			(*mini)->command[i] = ft_strdup((*mini)->command[j]);
+			i++;
+			j++;
+		}
+	}
+	free((*mini)->command[i]);
+	(*mini)->command[i] = NULL;
+	free((*mini)->command[i + 1]);
+	(*mini)->command[i] = NULL;
+	*mini = tmp;
+}
+
+void	remove_args_from_output(t_list **mini)
+{
+	t_list	*tmp;
+	int		i;
+	int		j;
+
+	tmp = *mini;
+	i = 0;
+	j = 0;
+	while (*mini)
+	{
+		while ((*mini)->command[i])
+		{
+			if (!ft_strcmp((*mini)->command[i], ">"))
+			{
+				if ((*mini)->command[i + 2] == NULL)
+					single_arg(mini, i);
+				else
+					multiple_args(mini, i, j);
+			}
+			i++;
+		}
+		i = 0;
+		j = 0;
 		(*mini) = (*mini)->next;
 	}
 	*mini = tmp;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 02:27:21 by mbachar           #+#    #+#             */
-/*   Updated: 2023/07/28 17:24:03 by otchekai         ###   ########.fr       */
+/*   Updated: 2023/07/30 14:20:42 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,23 +75,4 @@ void	free_mem(char **mem)
 		i++;
 	}
 	free(mem);
-}
-
-void	ft_clearmem(t_list **lst, t_hell **mini)
-{
-	t_list	*tmp;
-	t_list	*to_clear;
-
-	tmp = *lst;
-	free((*mini)->line);
-	while (tmp)
-	{
-		to_clear = tmp;
-		free(to_clear->multi_cmds);
-		free_mem(to_clear->command);
-		tmp = tmp->next;
-		free(to_clear);
-		to_clear = NULL;
-	}
-	*lst = NULL;
 }

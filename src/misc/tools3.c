@@ -6,7 +6,7 @@
 /*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/28 13:06:59 by mbachar           #+#    #+#             */
-/*   Updated: 2023/07/28 14:18:05 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/07/30 16:36:37 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,20 +29,21 @@ int	isredirection2(t_hell *mini, int i)
 	return (0);
 }
 
-void	ft_clearmem2(t_env **env)
+void	ft_clearmem(t_list **lst, t_hell **mini)
 {
-	t_env	*tmp;
-	t_env	*to_clear;
+	t_list	*tmp;
+	t_list	*to_clear;
 
-	tmp = *env;
+	tmp = *lst;
+	free((*mini)->line);
 	while (tmp)
 	{
 		to_clear = tmp;
+		free(to_clear->multi_cmds);
+		free_mem(to_clear->command);
 		tmp = tmp->next;
-		free(to_clear->env_name);
-		free(to_clear->env_value);
 		free(to_clear);
 		to_clear = NULL;
 	}
-	*env = NULL;
+	*lst = NULL;
 }

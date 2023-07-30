@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minihell_entrance.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 22:29:00 by mbachar           #+#    #+#             */
-/*   Updated: 2023/07/29 18:26:10 by otchekai         ###   ########.fr       */
+/*   Updated: 2023/07/30 16:31:18 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ void	minihell_entrance(t_hell *mini)
 	t_env	*lst;
 	t_list	*list;
 	char	*line;
+	int		file_in;
+	int		append;
 
 	lst = NULL;
 	list = NULL;
@@ -41,6 +43,8 @@ void	minihell_entrance(t_hell *mini)
 	copy_env(&lst, mini->vne);
 	while (1)
 	{
+		file_in = 1;
+		append = 1;
 		signal(SIGINT, ctrl_c);
 		signal(SIGQUIT, SIG_IGN);
 		mini->line = readline("😃 Minihell-1.0$ ");
@@ -71,9 +75,21 @@ void	minihell_entrance(t_hell *mini)
 			else if (is_output(list))
 				open_and_output(&list);
 			else if (is_input(list))
-				open_and_input(&list);
+				file_in = open_and_input(&list);
 			skip_or_replace(&list, &lst, mini);
-			commands(list, mini, lst);
+			if (file_in == 1 && append == 1)
+				commands(list, mini, lst);
+			int i = 0;
+			while (list)
+			{
+				while (list->command[i])
+				{
+					printf("%s\n", list->command[i]);
+					i++;
+				}
+				i = 0;
+				list = list->next;
+			}
 			ft_clearmem(&list, &mini);
 		}
 	}

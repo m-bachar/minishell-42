@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 12:07:28 by mbachar           #+#    #+#             */
-/*   Updated: 2023/07/29 14:45:18 by otchekai         ###   ########.fr       */
+/*   Updated: 2023/07/30 13:46:32 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ void	extract_var_name(char *data, char **returned_var,
 		k = 0;
 		while (varvalue[k])
 			(*returned_var)[mini->j++] = varvalue[k++];
-		// if (varvalue)
-		// 	free(varvalue);
+		if (varvalue)
+			free(varvalue);
 		varvalue = NULL;
 	}
 }
@@ -85,7 +85,13 @@ char	*expand_or_skip(char *str, t_hell *mini, t_env **env)
 			mini->i++;
 			while (str[mini->i] && str[mini->i] != '\"')
 			{
-				if (str[mini->i] == '$')
+				if (str[mini->i] == '$' && str[mini->i + 1] == ' ') // Add all whitespaces here
+				{
+					final_var[mini->j] = str[mini->i];
+					mini->i++;
+					mini->j++;
+				}
+				else if (str[mini->i] == '$')
 				{
 					var = final_var;
 					extract_var_name(str, &var, mini, env);

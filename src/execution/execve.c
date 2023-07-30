@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execve.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 16:44:18 by otchekai          #+#    #+#             */
-/*   Updated: 2023/07/29 22:23:43 by otchekai         ###   ########.fr       */
+/*   Updated: 2023/07/29 23:51:15 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ void	commands(t_list *list, t_hell *mini, t_env *lst)
 	dup2(in, 0);
 	while (wait(NULL) != -1);
 }
+
 
 int	pipe_check(t_hell *mini)
 {

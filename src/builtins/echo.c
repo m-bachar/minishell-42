@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 14:47:21 by otchekai          #+#    #+#             */
-/*   Updated: 2023/07/27 02:51:29 by otchekai         ###   ########.fr       */
+/*   Updated: 2023/07/29 23:43:31 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ int	check_n(char *str)
 	int	index;
 
 	index = 1;
+	if (!str || !str[0])
+		return (1);
 	if (!str[index])
 		return (1);
 	while (str[index])
