@@ -6,7 +6,7 @@
 /*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 17:04:09 by otchekai          #+#    #+#             */
-/*   Updated: 2023/07/29 22:22:50 by otchekai         ###   ########.fr       */
+/*   Updated: 2023/07/31 00:34:37 by otchekai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,29 @@ int	choose_and_acquire(t_hell *mini, t_env *lst, t_list *list)
 	return (0);
 }
 
+void	joint_it(char **s, t_env *env)
+{
+	int	i;
+	int	k;
+
+	k = 0;
+	i = 0;
+	while (env->env_name[i])
+		(*s)[k++] = env->env_name[i++];
+	(*s)[k++] = '=';
+	i = 0;
+	while (env->env_value[i])
+		(*s)[k++] = env->env_value[i++];
+	(*s)[k] = '\0';
+}
+
 char	**convert_to_2d_array(t_env *env_list)
 {
 	int		count;
 	int		i;
 	t_env	*current;
 	char	**array;
+	char	*to_fill;
 
 	i = 0;
 	count = 0;
@@ -57,6 +74,8 @@ char	**convert_to_2d_array(t_env *env_list)
 		int value_length = ft_strlen(current->env_value);
 		int total_length = name_length + value_length + 2;
 		array[i] = malloc(total_length * sizeof(char));
+		to_fill = array[i];
+		joint_it(&to_fill, current);
 		current = current->next;
 		i++;
 	}

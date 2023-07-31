@@ -3,20 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+         #
+#    By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/20 22:20:05 by mbachar           #+#    #+#              #
-#    Updated: 2023/07/30 16:58:16 by mbachar          ###   ########.fr        #
+#    Updated: 2023/07/31 01:21:23 by otchekai         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 MINISHELL 	= 	minishell
 
-CFLAGS 		=  -Wall -Wextra -Werror -g -fsanitize=address
-
-LDFLAGS		=	"-L/goinfre/mbachar/homebrew/opt/readline/lib" -lreadline
-
-CPPFLAGS	=	"-I/goinfre/mbachar/homebrew/opt/readline/include"
+CFLAGS 		=	-Wall -Werror -Wextra -g -fsanitize=address
 
 INC 		= 	minishell.h
 
@@ -61,11 +57,11 @@ MAN_OBJ		=	$(MAN_SRC:.c=.o)
 all: $(MINISHELL)
 
 %.o : %.c $(INC)
-	@ $(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
+	@ $(CC) $(CFLAGS) -c $< -o $@ -I$(shell brew --prefix readline)/include
 
 $(MINISHELL): $(MAN_OBJ)
 	@ cd ./libft && make
-	@ $(CC) $(CFLAGS) $(LDFLAGS) $(CPPFLAGS) $(MAN_OBJ) -o $(MINISHELL) $(LIBFT)
+	@ $(CC) $(CFLAGS) $(MAN_OBJ) -o $(MINISHELL) $(LIBFT) -L$(shell brew --prefix readline)/lib -lreadline
 	@ printf "==================================================\n"
 	@ printf "All mandatory source files have been compiled.\n"
 	@ printf "Executable file minishell has been generated.\n"

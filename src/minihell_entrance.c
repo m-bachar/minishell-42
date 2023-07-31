@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minihell_entrance.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 22:29:00 by mbachar           #+#    #+#             */
-/*   Updated: 2023/07/30 16:31:18 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/07/30 22:43:37 by otchekai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,17 +79,6 @@ void	minihell_entrance(t_hell *mini)
 			skip_or_replace(&list, &lst, mini);
 			if (file_in == 1 && append == 1)
 				commands(list, mini, lst);
-			int i = 0;
-			while (list)
-			{
-				while (list->command[i])
-				{
-					printf("%s\n", list->command[i]);
-					i++;
-				}
-				i = 0;
-				list = list->next;
-			}
 			ft_clearmem(&list, &mini);
 		}
 	}

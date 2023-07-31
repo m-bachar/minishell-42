@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execve.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 16:44:18 by otchekai          #+#    #+#             */
-/*   Updated: 2023/07/29 23:51:15 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/07/31 00:21:12 by otchekai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,11 @@ void	check_path(t_hell *mini, t_env *lst, t_list *split)
 	int		i;
 	char	*slash;
 
+	if (split->command[0][0] == '/' || split->command[0][0] == '.')
+	{
+		mini->to_find = split->command[0];
+		return ;
+	}
 	slash = "/";
 	i = 0;
 	while (lst)
@@ -27,13 +32,12 @@ void	check_path(t_hell *mini, t_env *lst, t_list *split)
 	}
 	while (mini->path[i++])
 		mini->path[i] = ft_strjoin(mini->path[i], slash);
-	i = 0;
-	while (mini->path[i])
+	i = -1;
+	while (mini->path[++i])
 	{
 		mini->to_find = ft_strjoin(mini->path[i], split->command[0]);
 		if (!access(mini->to_find, F_OK | X_OK))
 			break ;
-		i++;
 	}
 }
 
@@ -85,7 +89,7 @@ void	commands(t_list *list, t_hell *mini, t_env *lst)
 			if (list->file_out != 1)
 				dup2(list->file_out, 1);
 			if ((choose_and_acquire(mini, lst, tmp)) == 1)
-				return ;
+				exit (1);
 			check_path(mini, lst, tmp);
 			if (execve(mini->to_find, tmp->command,
 					convert_to_2d_array(lst)) == -1)
@@ -103,7 +107,6 @@ void	commands(t_list *list, t_hell *mini, t_env *lst)
 	dup2(in, 0);
 	while (wait(NULL) != -1);
 }
-
 
 int	pipe_check(t_hell *mini)
 {
