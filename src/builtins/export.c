@@ -6,7 +6,7 @@
 /*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 19:01:18 by otchekai          #+#    #+#             */
-/*   Updated: 2023/07/30 23:48:06 by otchekai         ###   ########.fr       */
+/*   Updated: 2023/07/31 02:35:56 by otchekai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,13 @@
 int	export_first(t_hell *mini, char *str)
 {
 	int		i;
+	int		flag;
 
 	i = 0;
+	flag = 0;
 	if (!str || !*str || !mini)
 		return (1);
-	while (str[i] && str[i] != '=')
+	while ((str[i] && str[i] != '='))
 		i++;
 	if (i > 0 && str[i - 1] == '+')
 	{
@@ -35,6 +37,11 @@ int	export_first(t_hell *mini, char *str)
 	else if (str[i] == '\0')
 		mini->new_val = NULL;
 	mini->new_key = ft_strdup(str);
+	if (!ft_strcmp(mini->new_key, ""))
+	{
+		printf("Empty Key!!\n");
+		return (1);
+	}
 	i = -1;
 	while (mini->new_key[++i])
 	{
