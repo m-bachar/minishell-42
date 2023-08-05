@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 22:25:23 by mbachar           #+#    #+#             */
-/*   Updated: 2023/07/30 22:58:13 by otchekai         ###   ########.fr       */
+/*   Updated: 2023/08/05 18:18:33 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,30 +65,30 @@ typedef struct s_env
 	struct s_env		*next;
 }	t_env;
 
-		/*		Colors		*/
+		/*		Colors			*/
 void	red(void);
 void	green(void);
 void	reset(void);
 void	ft_errors(char *str);
 
-		/*		Entry Point	*/
+		/*		Entry Point		*/
 void	minihell_entrance(t_hell *mini);
 
-		/*		Tools 1		*/
+		/*		Tools 1			*/
 int		check_for_redirections(t_hell *mini, int i);
 int		remove_whitespaces_from_history(t_hell *mini);
 char	*add_whitespaces(t_hell *mini);
 void	shape_shifting(char	*line);
 void	nodes_shapeshifting(t_list **mini);
 
-		/*		Tools 2		*/
+		/*		Tools 2			*/
 char	*ft_strcpy(char *dest, char *src);
 int		ft_strcmp(char *s1, char *s2);
 int		ft_strcmp2(char *s1, char *s2);
 int		ft_strlen2(char *str);
 void	free_mem(char **mem);
 
-		/*		Tools 3		*/
+		/*		Tools 3			*/
 int		isredirection(t_hell *mini, int i);
 int		isredirection2(t_hell *mini, int i);
 void	ft_clearmem(t_list **lst, t_hell **mini);
@@ -98,17 +98,17 @@ void	ft_clearmem(t_list **lst, t_hell **mini);
 void	split_and_store(char *line, t_list **mini);
 void	split_and_store2(t_list **list);
 
-		/*		Lists 1		*/
+		/*		Lists 1			*/
 void	ft_lstadd_back(t_list **lst, t_list *new);
 t_list	*ft_lstnew(char *data);
 int		ft_lstsize(t_list *lst);
 
-		/*		Lists 2		*/
+		/*		Lists 2			*/
 void	ft_lstadd_back1(t_env **lst, t_env *new);
 t_env	*ft_lstnew1(char *env_name, char *env_value);
 int		ft_lstsize1(t_env *lst);
 
-		/* 		Syntax 		*/
+		/* 		Syntax 			*/
 int		all_begining_syntaxes(t_hell *mini);
 int		all_middle_syntaxes(t_hell *mini);
 int		all_ending_syntaxes(t_hell *mini);
@@ -135,31 +135,30 @@ int		file_out_begining(t_hell *mini);
 int		file_out_ending(t_hell *mini);
 int		quotes(t_hell *mini);
 
-		/*		Parsing			*/
+		/*		Parsing				*/
 int		is_append(t_list *mini);
 int		is_heredoc(t_list *mini);
 int		is_output(t_list *mini);
 int		is_input(t_list *mini);
 int		open_and_append(t_list **mini);
-void	open_and_heredoc(t_list **mini);
+void	open_and_heredoc(t_list **mini, t_env **env);
 void	open_and_output(t_list **mini);
 int		open_and_input(t_list **mini);
-void	remove_args_from_append(t_list **mini);
-void	remove_args_from_heredoc(t_list **mini);
-void	remove_args_from_output(t_list **mini);
-void	remove_args_from_input(t_list **mini);
 char	*rand_name(void);
-// void	single_arg(t_list **mini, int i);
-// void	multiple_args(t_list **mini, int i, int j);
 
-		/*		Expand			*/
+		/*		Expand				*/
 char	*extract_var_value(t_env **env, char *env_name);
 void	extract_var_name(char *data, char **returned_var,
 			t_hell *mini, t_env **env);
 char	*expand_or_skip(char *str, t_hell *mini, t_env **env);
 void	skip_or_replace(t_list	**mini, t_env **env, t_hell *hell);
 
-		/*		Builtins		*/
+		/*		Expand in Heredoc	*/
+char	*extract_var_value_heredoc(t_env **env, char *env_name);
+char	*extract_var_name_heredoc(char *data);
+char	*expand_in_heredoc(char *line, t_env **env);
+
+		/*		Builtins			*/
 t_env	*check_env(t_env *lst, char *str);
 int		export_first(t_hell *mini, char *str);
 int		check_n(char *str);
@@ -174,10 +173,30 @@ void	print_export(t_env *lst, t_list *list);
 void	print_env(t_env *lst);
 void	exit_hell(char **str);
 
-		/*      Execution        */
-void	one_command(t_hell *mini, t_env *lst, t_list *split);
-void	commands(t_list *list, t_hell *mini, t_env *lst);
-int		choose_and_acquire(t_hell *mini, t_env *lst, t_list *list);
+		/*		Heredoc Leaks		*/
+void	single_arg_heredoc(t_list **mini, int i);
+void	multiple_args_heredoc(t_list **mini, int i, int j);
+void	remove_args_from_heredoc(t_list **mini);
+
+		/*		Append Leaks		*/
+void	single_arg_append(t_list **mini, int i);
+void	multiple_args_append(t_list **mini, int i, int j);
+void	remove_args_from_append(t_list **mini);
+
+		/*		Output Leaks		*/
+void	single_arg_output(t_list **mini, int i);
+void	multiple_args_output(t_list **mini, int i, int j);
+void	remove_args_from_output(t_list **mini);
+
+		/*		Input Leaks			*/
+void	single_arg_input(t_list **mini, int i);
+void	multiple_args_output(t_list **mini, int i, int j);
+void	remove_args_from_input(t_list **mini);
+
+		/*      Execution        	*/
+void	one_command(t_hell *mini, t_env **lst, t_list *split);
+void	commands(t_list *list, t_hell *mini, t_env **lst);
+int		choose_and_acquire(t_hell *mini, t_env **lst, t_list *list);
 char	**convert_to_2d_array(t_env *env_list);
 void	ctrl_c(int sig);
 int		pipe_check(t_hell *mini);

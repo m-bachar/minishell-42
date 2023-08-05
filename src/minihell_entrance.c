@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minihell_entrance.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 22:29:00 by mbachar           #+#    #+#             */
-/*   Updated: 2023/07/30 22:43:37 by otchekai         ###   ########.fr       */
+/*   Updated: 2023/08/05 18:25:48 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,16 +69,27 @@ void	minihell_entrance(t_hell *mini)
 			split_and_store2(&list);
 			nodes_shapeshifting(&list);
 			if (is_heredoc(list))
-				open_and_heredoc(&list);
-			else if (is_append(list))
-				open_and_append(&list);
-			else if (is_output(list))
+				open_and_heredoc(&list, &lst);
+			if (is_append(list))
+				append = open_and_append(&list);
+			if (is_output(list))
 				open_and_output(&list);
-			else if (is_input(list))
+			if (is_input(list))
 				file_in = open_and_input(&list);
 			skip_or_replace(&list, &lst, mini);
-			if (file_in == 1 && append == 1)
-				commands(list, mini, lst);
+			if (file_in == 1 && append == 1 && list->command[0])
+				commands(list, mini, &lst);
+			int i = 0;
+			while (list)
+			{
+				while (list->command[i])
+				{
+					printf("cmd = %s\n", list->command[i]);
+					i++;
+				}
+				i = 0;
+				list = list->next;
+			}
 			ft_clearmem(&list, &mini);
 		}
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execve.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 16:44:18 by otchekai          #+#    #+#             */
-/*   Updated: 2023/07/31 02:13:11 by otchekai         ###   ########.fr       */
+/*   Updated: 2023/08/05 18:16:46 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,10 @@ void	check_path(t_hell *mini, t_env *lst, t_list *split)
 	}
 }
 
-void	one_command(t_hell *mini, t_env *lst, t_list *list)
+void	one_command(t_hell *mini, t_env **lst, t_list *list)
 {
-	int		i;
-	int		fok;
+	int	i;
+	int	fok;
 
 	i = 0;
 	if (!pipe_check(mini))
@@ -57,22 +57,25 @@ void	one_command(t_hell *mini, t_env *lst, t_list *list)
 	{
 		if ((choose_and_acquire(mini, lst, list)) == 1 && pipe_check(mini) == 1)
 			exit (1);
-		dup2(list->file_out, 1);
-		check_path(mini, lst, list);
+		if (list->file_out != 1)
+			dup2(list->file_out, 1);
+		if (list->file_in != 0)
+			dup2(list->file_in, 0);
+		check_path(mini, *lst, list);
 		if (execve(mini->to_find, list->command, 
-				convert_to_2d_array(lst)) == -1)
+				convert_to_2d_array(*lst)) == -1)
 			ft_putstr_fd("command not found", 2);
 		exit(1);
 	}
 }
 
-void	commands(t_list *list, t_hell *mini, t_env *lst)
+void    commands(t_list *list, t_hell *mini, t_env **lst)
 {
-	int			fok;
-	int			in;
-	int			out;
-	t_list		*tmp;
-	int			fd[2];
+	int		fok;
+	int		in;
+	int		out;
+	t_list	*tmp;
+	int		fd[2];
 
 	in = dup(0);
 	out = dup(1);
@@ -88,11 +91,13 @@ void	commands(t_list *list, t_hell *mini, t_env *lst)
 			close(fd[1]);
 			if (list->file_out != 1)
 				dup2(list->file_out, 1);
+			if (list->file_in != 0)
+				dup2(list->file_in, 0);
 			if ((choose_and_acquire(mini, lst, tmp)) == 1)
 				exit (1);
-			check_path(mini, lst, tmp);
+			check_path(mini, *lst, tmp);
 			if (execve(mini->to_find, tmp->command,
-					convert_to_2d_array(lst)) == -1)
+					convert_to_2d_array(*lst)) == -1)
 				ft_putstr_fd("command not found", 2);
 			exit(1);
 		}
@@ -102,8 +107,8 @@ void	commands(t_list *list, t_hell *mini, t_env *lst)
 		tmp = tmp->next;
 	}
 	signal(SIGQUIT, ctrl_that_thing);
-	dup2(out, 1);
 	one_command(mini, lst, tmp);
+	dup2(out, 1);
 	dup2(in, 0);
 	while (wait(NULL) != -1);
 }

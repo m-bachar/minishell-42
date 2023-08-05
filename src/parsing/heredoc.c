@@ -6,7 +6,7 @@
 /*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 15:16:30 by mbachar           #+#    #+#             */
-/*   Updated: 2023/07/30 16:25:20 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/08/05 18:12:04 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,33 @@ int	return_input(int file_id, char *random)
 	return (0);
 }
 
-void	open_and_heredoc(t_list **mini)
+char	*del_name(char *del)
+{
+	char	*name;
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	name = ft_calloc(MAX_SIZE, 1);
+	while (del[i])
+	{
+		if (del[i] == '\'' || del[i] == '\"')
+		{
+			i++;
+			while (del[i] && del[i] != '\'' && del[i] != '\"')
+			{
+				name[j] = del[i];
+				j++;
+				i++;
+			}
+			break ;
+		}
+	}
+	return (name);
+}
+
+void	open_and_heredoc(t_list **mini, t_env **env)
 {
 	t_list	*tmp;
 	char	*line;
@@ -103,6 +129,7 @@ void	open_and_heredoc(t_list **mini)
 	tmp = *mini;
 	i = 0;
 	random = NULL;
+	line = NULL;
 	while ((*mini) != NULL)
 	{
 		while ((*mini)->command[i])
@@ -119,19 +146,29 @@ void	open_and_heredoc(t_list **mini)
 				if (file_id == -1)
 					write(2, "ERROR\n", 7);
 				line = readline("😃 Heredoc > ");
+				if ((*mini)->command[i][0] != '\'' && (*mini)->command[i][0] != '\"')
+					line = expand_in_heredoc(line, env);
+				else
+					(*mini)->command[i] = del_name((*mini)->command[i]);
 				ft_putstr_fd(line, file_id);
 				while (ft_strcmp2(line, (*mini)->command[i]))
 				{
 					if (line)
 						free(line);
 					line = readline("😃 Heredoc > ");
+					if ((*mini)->command[i][0] != '\'' && (*mini)->command[i][0] != '\"')
+						line = expand_in_heredoc(line, env);
+					else
+						(*mini)->command[i] = del_name((*mini)->command[i]);
 					if (!ft_strcmp2(line, (*mini)->command[i]))
 						break ;
 					ft_putstr_fd(line, file_id);
-					(*mini)->file_in = file_id;
 				}
 				if (return_input(file_id, random))
 					return ;
+				close(file_id);
+				file_id = open(random, O_RDONLY);
+				(*mini)->file_in = file_id;
 			}
 			i++;
 		}
@@ -142,79 +179,4 @@ void	open_and_heredoc(t_list **mini)
 	free(random);
 	*mini = tmp;
 	remove_args_from_heredoc(mini);
-}
-
-static void	single_arg(t_list **mini, int i)
-{
-	t_list	*tmp;
-
-	tmp = *mini;
-	free((*mini)->command[i]);
-	(*mini)->command[i] = NULL;
-	free((*mini)->command[i + 1]);
-	(*mini)->command[i + 1] = NULL;
-	*mini = tmp;
-}
-
-static void	multiple_args(t_list **mini, int i, int j)
-{
-	t_list	*tmp;
-
-	tmp = *mini;
-	j = i + 2;
-	while ((*mini)->command[j])
-	{
-		if (!ft_strcmp((*mini)->command[j], "<<"))
-		{
-			free((*mini)->command[j]);
-			(*mini)->command[j] = NULL;
-			free((*mini)->command[j + 1]);
-			(*mini)->command[j] = NULL;
-			j += 2;
-		}
-		else
-		{
-			free((*mini)->command[i]);
-			(*mini)->command[i] = NULL;
-			free((*mini)->command[i + 1]);
-			(*mini)->command[i + 1] = NULL;
-			(*mini)->command[i] = ft_strdup((*mini)->command[j]);
-			i++;
-			j++;
-		}
-	}
-	free((*mini)->command[i]);
-	(*mini)->command[i] = NULL;
-	free((*mini)->command[i + 1]);
-	(*mini)->command[i] = NULL;
-	*mini = tmp;
-}
-
-void	remove_args_from_heredoc(t_list **mini)
-{
-	t_list	*tmp;
-	int		i;
-	int		j;
-
-	tmp = *mini;
-	i = 0;
-	j = 0;
-	while (*mini)
-	{
-		while ((*mini)->command[i])
-		{
-			if (!ft_strcmp((*mini)->command[i], "<<"))
-			{
-				if ((*mini)->command[i + 2] == NULL)
-					single_arg(mini, i);
-				else
-					multiple_args(mini, i, j);
-			}
-			i++;
-		}
-		i = 0;
-		j = 0;
-		(*mini) = (*mini)->next;
-	}
-	*mini = tmp;
 }

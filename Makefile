@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+         #
+#    By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/20 22:20:05 by mbachar           #+#    #+#              #
-#    Updated: 2023/07/31 01:21:23 by otchekai         ###   ########.fr        #
+#    Updated: 2023/08/05 18:23:32 by mbachar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,6 +43,11 @@ MAN_SRC 	=	minishell.c \
 				./src/parsing/file_in.c \
 				./src/parsing/file_out.c \
 				./src/parsing/expand.c \
+				./src/parsing/expand_in_heredoc.c \
+				./src/redirection_leaks/append_leaks.c \
+				./src/redirection_leaks/heredoc_leaks.c \
+				./src/redirection_leaks/input_leaks.c \
+				./src/redirection_leaks/output_leaks.c \
 				./src/builtins/export.c \
 				./src/builtins/pwd.c \
 				./src/builtins/cd.c \

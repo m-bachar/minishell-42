@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 00:17:23 by otchekai          #+#    #+#             */
-/*   Updated: 2023/07/29 22:24:04 by otchekai         ###   ########.fr       */
+/*   Updated: 2023/08/05 18:13:48 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	unset(t_env **lst, t_list *list)
 		tmp = *lst;
 		temp = *lst;
 		if (tmp && !ft_strcmp(list->command[index], tmp->env_name))
-			lst = &tmp->next;
+			*lst = (*lst)->next;
 		while (tmp)
 		{
 			if (tmp->env_name && !ft_strcmp(list->command[index], 

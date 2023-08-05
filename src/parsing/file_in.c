@@ -6,7 +6,7 @@
 /*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 15:16:25 by mbachar           #+#    #+#             */
-/*   Updated: 2023/07/30 16:14:21 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/08/05 16:47:35 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,77 +70,4 @@ int	open_and_input(t_list **mini)
 	*mini = tmp;
 	remove_args_from_input(mini);
 	return (1);
-}
-
-static void	single_arg(t_list **mini, int i)
-{
-	t_list	*tmp;
-
-	tmp = *mini;
-	free((*mini)->command[i]);
-	(*mini)->command[i] = NULL;
-	free((*mini)->command[i + 1]);
-	(*mini)->command[i + 1] = NULL;
-	*mini = tmp;
-}
-
-static void	multiple_args(t_list **mini, int i, int j)
-{
-	t_list	*tmp;
-
-	tmp = *mini;
-	j = i + 2;
-	while ((*mini)->command[j])
-	{
-		if (!ft_strcmp((*mini)->command[j], "<"))
-		{
-			free((*mini)->command[j]);
-			(*mini)->command[j] = NULL;
-			free((*mini)->command[j + 1]);
-			(*mini)->command[j + 1] = NULL;
-			j += 2;
-		}
-		else
-		{
-			free((*mini)->command[i]);
-			(*mini)->command[i] = NULL;
-			free((*mini)->command[i + 1]);
-			(*mini)->command[i + 1] = NULL;
-			(*mini)->command[i] = ft_strdup((*mini)->command[j]);
-			i++;
-			j++;
-		}
-	}
-	free((*mini)->command[i]);
-	(*mini)->command[i] = NULL;
-	free((*mini)->command[i + 1]);
-	(*mini)->command[i + 1] = NULL;
-	*mini = tmp;
-}
-
-void	remove_args_from_input(t_list **mini)
-{
-	t_list	*tmp;
-	int		i;
-	int		j;
-
-	tmp = *mini;
-	while (*mini)
-	{
-		i = 0;
-		j = 0;
-		while ((*mini)->command[i])
-		{
-			if (!ft_strcmp((*mini)->command[i], "<"))
-			{
-				if ((*mini)->command[i + 2] == NULL)
-					single_arg(mini, i);
-				else
-					multiple_args(mini, i, j);
-			}
-			i++;
-		}
-		(*mini) = (*mini)->next;
-	}
-	*mini = tmp;
 }
