@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 19:01:18 by otchekai          #+#    #+#             */
-/*   Updated: 2023/07/31 02:35:56 by otchekai         ###   ########.fr       */
+/*   Updated: 2023/08/06 17:26:37 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,17 +104,14 @@ void	ft_export(t_env *lst, t_hell *mini, t_list *list)
 	}
 }
 
-void	print_export(t_env *lst, t_list *list)
+void	print_export(t_env *lst)
 {
 	t_env	*tmp;
 
 	tmp = lst;
-	if (list->command && !ft_strncmp(list->command[0], "export", 7))
+	while (tmp)
 	{
-		while (tmp)
-		{
-			printf("declare -x %s=%s\n", tmp->env_name, tmp->env_value);
-			tmp = tmp->next;
-		}
+		printf("declare -x %s=%s\n", tmp->env_name, tmp->env_value);
+		tmp = tmp->next;
 	}
 }

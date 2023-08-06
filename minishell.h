@@ -6,7 +6,7 @@
 /*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 22:25:23 by mbachar           #+#    #+#             */
-/*   Updated: 2023/08/05 18:18:33 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/08/06 17:56:13 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <sys/wait.h>
 # include <limits.h>
 # include "./libft/libft.h"
+# include <sys/ioctl.h>
 
 # define MAX_SIZE 4000000
 
@@ -92,7 +93,11 @@ void	free_mem(char **mem);
 int		isredirection(t_hell *mini, int i);
 int		isredirection2(t_hell *mini, int i);
 void	ft_clearmem(t_list **lst, t_hell **mini);
-// void	single_arg(t_list **mini, int i);
+int		ft_strchr2(char *s, char c);
+int		iswhitespace(char c);
+
+		/*		Split 2			*/
+char	**ft_split2(char *s, char *c);
 
 		/*		Split & Store	*/
 void	split_and_store(char *line, t_list **mini);
@@ -136,15 +141,12 @@ int		file_out_ending(t_hell *mini);
 int		quotes(t_hell *mini);
 
 		/*		Parsing				*/
-int		is_append(t_list *mini);
-int		is_heredoc(t_list *mini);
-int		is_output(t_list *mini);
-int		is_input(t_list *mini);
-int		open_and_append(t_list **mini);
-void	open_and_heredoc(t_list **mini, t_env **env);
-void	open_and_output(t_list **mini);
-int		open_and_input(t_list **mini);
+int		open_and_heredoc(t_list **mini, t_env **env);
+int		open_and_append(char *str1, char *str2, t_list *list);
+int		open_and_output(char *str1, char *str2, t_list *list);
+int		open_and_input(char *str1, char *str2, t_list *list);
 char	*rand_name(void);
+int		remove_NUL(t_list **mini);
 
 		/*		Expand				*/
 char	*extract_var_value(t_env **env, char *env_name);
@@ -169,29 +171,13 @@ void	update_pwds(t_env *lst, t_list *list);
 void	change_directory(t_list *list, t_env *lst);
 void	unset(t_env **lst, t_list *list);
 void	echo(t_list *list);
-void	print_export(t_env *lst, t_list *list);
+void	print_export(t_env *lst);
 void	print_env(t_env *lst);
 void	exit_hell(char **str);
 
-		/*		Heredoc Leaks		*/
-void	single_arg_heredoc(t_list **mini, int i);
-void	multiple_args_heredoc(t_list **mini, int i, int j);
-void	remove_args_from_heredoc(t_list **mini);
-
-		/*		Append Leaks		*/
-void	single_arg_append(t_list **mini, int i);
-void	multiple_args_append(t_list **mini, int i, int j);
-void	remove_args_from_append(t_list **mini);
-
-		/*		Output Leaks		*/
-void	single_arg_output(t_list **mini, int i);
-void	multiple_args_output(t_list **mini, int i, int j);
-void	remove_args_from_output(t_list **mini);
-
-		/*		Input Leaks			*/
-void	single_arg_input(t_list **mini, int i);
-void	multiple_args_output(t_list **mini, int i, int j);
-void	remove_args_from_input(t_list **mini);
+		/*		Redirections Leaks		*/
+void	remove_args_from_redirections(t_list **mini);
+int		remove_NUL(t_list **mini);;
 
 		/*      Execution        	*/
 void	one_command(t_hell *mini, t_env **lst, t_list *split);

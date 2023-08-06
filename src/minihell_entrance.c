@@ -6,7 +6,7 @@
 /*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 22:29:00 by mbachar           #+#    #+#             */
-/*   Updated: 2023/08/05 18:25:48 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/08/06 17:53:47 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,25 +26,48 @@ void	exit_minihell(t_hell *mini)
 	exit(0);
 }
 
+int	redirection(t_list **head, t_env *env)
+{
+	t_list	*list = *head;
+	int		i;
+
+	if (open_and_heredoc(&list, &env))
+		return (1);
+	list = *head;
+	while (list)
+	{
+		i = 0;
+		while (list->command[i])
+		{
+			open_and_append(list->command[i], list->command[i + 1], list);
+			open_and_output(list->command[i], list->command[i + 1], list);
+			open_and_input(list->command[i], list->command[i + 1], list);
+			i++;
+		}
+		list = list->next;
+	}
+	list = *head;
+	remove_args_from_redirections(&list);
+	remove_NUL(&list);
+	list = *head;
+	return (0);
+}
+
 void	minihell_entrance(t_hell *mini)
 {
-	t_env	*lst;
+	t_env	*env;
 	t_list	*list;
 	char	*line;
-	int		file_in;
-	int		append;
 
-	lst = NULL;
+	env = NULL;
 	list = NULL;
 	line = NULL;
 	mini->line = NULL;
 	rl_catch_signals = 0;
 	printf(CYAN "\t\tHell is -- MiniShell 😔 😔  \n\n" RESET);
-	copy_env(&lst, mini->vne);
+	copy_env(&env, mini->vne);
 	while (1)
 	{
-		file_in = 1;
-		append = 1;
 		signal(SIGINT, ctrl_c);
 		signal(SIGQUIT, SIG_IGN);
 		mini->line = readline("😃 Minihell-1.0$ ");
@@ -68,28 +91,14 @@ void	minihell_entrance(t_hell *mini)
 			split_and_store(line, &list);
 			split_and_store2(&list);
 			nodes_shapeshifting(&list);
-			if (is_heredoc(list))
-				open_and_heredoc(&list, &lst);
-			if (is_append(list))
-				append = open_and_append(&list);
-			if (is_output(list))
-				open_and_output(&list);
-			if (is_input(list))
-				file_in = open_and_input(&list);
-			skip_or_replace(&list, &lst, mini);
-			if (file_in == 1 && append == 1 && list->command[0])
-				commands(list, mini, &lst);
-			int i = 0;
-			while (list)
+			if (redirection(&list, env))
 			{
-				while (list->command[i])
-				{
-					printf("cmd = %s\n", list->command[i]);
-					i++;
-				}
-				i = 0;
-				list = list->next;
+				ft_clearmem(&list, &mini);
+				continue ;
 			}
+			skip_or_replace(&list, &env, mini);
+			if (list->command[0])
+				commands(list, mini, &env);
 			ft_clearmem(&list, &mini);
 		}
 	}

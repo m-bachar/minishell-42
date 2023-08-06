@@ -6,7 +6,7 @@
 /*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/28 13:06:59 by mbachar           #+#    #+#             */
-/*   Updated: 2023/07/30 16:36:37 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/08/05 20:21:00 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,27 @@ void	ft_clearmem(t_list **lst, t_hell **mini)
 		to_clear = NULL;
 	}
 	*lst = NULL;
+}
+
+int	ft_strchr2(char *s, char c)
+{
+	int	i;
+
+	i = 0;
+	if (!s)
+		return (0);
+	while (s[i])
+	{
+		if (s[i] == c)
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+int	iswhitespace(char c)
+{
+	if (c == ' ' || (c >= '\t' && c <= '\r'))
+		return (1);
+	return (0);
 }

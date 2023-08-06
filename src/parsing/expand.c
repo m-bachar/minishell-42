@@ -6,7 +6,7 @@
 /*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 12:07:28 by mbachar           #+#    #+#             */
-/*   Updated: 2023/08/01 12:15:14 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/08/06 15:59:31 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ char	*expand_or_skip(char *str, t_hell *mini, t_env **env)
 			mini->i++;
 			while (str[mini->i] && str[mini->i] != '\"')
 			{
-				if (str[mini->i] == '$' && str[mini->i + 1] == ' ') // Add all whitespaces here
+				if (str[mini->i] == '$' && iswhitespace(str[mini->i + 1]))
 				{
 					final_var[mini->j] = str[mini->i];
 					mini->i++;
@@ -134,6 +134,8 @@ void	skip_or_replace(t_list	**mini, t_env **env, t_hell *hell)
 		j = 0;
 		while ((*mini)->command[j])
 		{
+			if (!ft_strcmp("awk", (*mini)->command[j]))
+				j += 2;
 			new_value = expand_or_skip((*mini)->command[j],
 					hell, env);
 			free((*mini)->command[j]);

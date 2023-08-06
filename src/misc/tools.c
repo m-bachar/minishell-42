@@ -6,7 +6,7 @@
 /*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 13:02:48 by mbachar           #+#    #+#             */
-/*   Updated: 2023/07/30 00:46:03 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/08/05 20:43:45 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,7 @@ int	remove_whitespaces_from_history(t_hell *mini)
 	int	i;
 
 	i = 0;
-	while (mini->line[i] == ' '
-		|| (mini->line[i] >= '\t' && mini->line[i] <= '\r'))
+	while (iswhitespace(mini->line[i]))
 		i++;
 	if (mini->line[i] == '\0')
 		return (0);

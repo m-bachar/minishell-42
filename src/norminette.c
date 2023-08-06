@@ -6,7 +6,7 @@
 /*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 17:04:09 by otchekai          #+#    #+#             */
-/*   Updated: 2023/08/05 18:19:54 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/08/06 17:26:53 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	choose_and_acquire(t_hell *mini, t_env **lst, t_list *list)
 	else if (list->command[0] && !strncmp(list->command[0], "env", 4))
 		return (print_env(*lst), 1);
 	else if (list->command[0] && !ft_strncmp(list->command[0], "export", 7))
-		return (print_export(*lst, list), 1);
+		return (print_export(*lst), 1);
 	else if (list->command[0] && !ft_strncmp(list->command[0], "exit", 5))
 		return (exit_hell(list->command + 1), 1);
 	return (0);

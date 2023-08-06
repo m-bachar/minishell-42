@@ -6,68 +6,29 @@
 /*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 15:16:25 by mbachar           #+#    #+#             */
-/*   Updated: 2023/08/05 16:47:35 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/08/06 17:52:27 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-int	is_input(t_list *mini)
+int	open_and_input(char *str1, char *str2, t_list *list)
 {
-	int	i;
-	int	j;
+	char		*file_name;
 
-	i = 0;
-	j = 0;
-	while (mini != NULL)
+	file_name = NULL;
+	if (!ft_strcmp(str1, "<"))
 	{
-		while (mini->command[j])
+		if (list->file_in > 2)
+			close(list->file_in);
+		file_name = ft_strdup(str2);
+		list->file_in = open(file_name, O_RDONLY);
+		if (list->file_in == -1)
 		{
-			if (mini->command[j][i] == '<' && mini->command[j][i + 1] == '\0')
-				return (1);
-			j++;
+			printf("😃 Minihell-1.0: %s: No such file or directory\n", file_name);
+			return (free(file_name), 1);
 		}
-		j = 0;
-		mini = mini->next;
+		free(file_name);
 	}
 	return (0);
-}
-
-int	open_and_input(t_list **mini)
-{
-	t_list		*tmp;
-	char		*file_name;
-	static int	file_id;
-	int			i;
-
-	tmp = *mini;
-	while ((*mini) != NULL)
-	{
-		i = 0;
-		while ((*mini)->command[i])
-		{
-			if (!ft_strcmp((*mini)->command[i], "<"))
-			{
-				if (file_id > 2)
-					close(file_id);
-				file_name = ft_strdup((*mini)->command[i + 1]);
-				file_id = open(file_name, O_RDONLY);
-				if (file_id == -1)
-				{
-					printf("😃 Minihell-1.0: %s: No such file or directory\n", file_name);
-					free(file_name);
-					remove_args_from_input(mini);
-					(*mini)->file_in = file_id;
-					return (0);
-				}
-				free(file_name);
-				(*mini)->file_in = file_id;
-			}
-			i++;
-		}
-		(*mini) = (*mini)->next;
-	}
-	*mini = tmp;
-	remove_args_from_input(mini);
-	return (1);
 }
