@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 19:01:18 by otchekai          #+#    #+#             */
-/*   Updated: 2023/08/06 17:26:37 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/08/07 18:03:11 by otchekai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,13 +84,13 @@ void	update_env(t_env *lst, t_hell *mini)
 	}
 }
 
-void	ft_export(t_env *lst, t_hell *mini, t_list *list)
+void	ft_export(t_env **lst, t_hell *mini, t_list *list)
 {
 	t_env	*tmp;
 	int		i;
 
 	i = 1;
-	tmp = lst;
+	tmp = *lst;
 	mini->expo_var = 0;
 	while (list->command[i])
 	{
@@ -99,7 +99,7 @@ void	ft_export(t_env *lst, t_hell *mini, t_list *list)
 			return ;
 		update_env(tmp, mini);
 		if (!mini->expo_var)
-			ft_lstadd_back1(&lst, ft_lstnew1(mini->new_key, mini->new_val));
+			ft_lstadd_back1(lst, ft_lstnew1(mini->new_key, mini->new_val));
 		i++;
 	}
 }

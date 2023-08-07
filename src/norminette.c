@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   norminette.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 17:04:09 by otchekai          #+#    #+#             */
-/*   Updated: 2023/08/06 17:26:53 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/08/07 18:03:51 by otchekai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	choose_and_acquire(t_hell *mini, t_env **lst, t_list *list)
 		return (update_pwds(*lst, list), 1);
 	else if (list->command[0] && !ft_strncmp(list->command[0], "export", 7) && \
 		list->command[1])
-		return (ft_export(*lst, mini, list), 1);
+		return (ft_export(lst, mini, list), 1);
 	else if (list->command[0] && !strncmp(list->command[0], "env", 4))
 		return (print_env(*lst), 1);
 	else if (list->command[0] && !ft_strncmp(list->command[0], "export", 7))
