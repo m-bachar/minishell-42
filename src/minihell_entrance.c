@@ -6,7 +6,7 @@
 /*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 22:29:00 by mbachar           #+#    #+#             */
-/*   Updated: 2023/08/06 17:53:47 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/08/07 14:15:21 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	redirection(t_list **head, t_env *env)
 	}
 	list = *head;
 	remove_args_from_redirections(&list);
-	remove_NUL(&list);
+	remove_NADA(&list);
 	list = *head;
 	return (0);
 }

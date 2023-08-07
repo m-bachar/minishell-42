@@ -6,7 +6,7 @@
 /*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 16:41:29 by mbachar           #+#    #+#             */
-/*   Updated: 2023/08/06 17:22:34 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/08/07 14:15:21 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int		get_size_double_char(char **arr)
 	return(i);
 }
 
-int	remove_NUL(t_list **mini)
+int	remove_NADA(t_list **mini)
 {
 	t_list	*lst;
 	char	**arr;
@@ -38,7 +38,7 @@ int	remove_NUL(t_list **mini)
 			return (1);
 		while (lst->command[i])
 		{
-			if (ft_strcmp(lst->command[i], "NUL") != 0)
+			if (ft_strcmp(lst->command[i], "NADA") != 0)
 				arr[j++] = ft_strdup(lst->command[i++]);
 			else
 				i++;
@@ -67,9 +67,9 @@ void	remove_args_from_redirections(t_list **mini)
 				|| !ft_strcmp((*mini)->command[i], ">>") || !ft_strcmp((*mini)->command[i], ">"))
 			{
 				free((*mini)->command[i]);
-				(*mini)->command[i] = ft_strdup("NUL");
+				(*mini)->command[i] = ft_strdup("NADA");
 				free((*mini)->command[i + 1]);
-				(*mini)->command[i + 1] = ft_strdup("NUL");
+				(*mini)->command[i + 1] = ft_strdup("NADA");
 			}
 			i++;
 		}

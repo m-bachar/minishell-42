@@ -6,34 +6,13 @@
 /*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 15:16:30 by mbachar           #+#    #+#             */
-/*   Updated: 2023/08/06 17:54:18 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/08/07 14:39:08 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
 int	g_flag;
-
-int	is_heredoc(t_list *mini)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	while (mini != NULL)
-	{
-		while (mini->command[j])
-		{
-			if (mini->command[j][i] == '<' && mini->command[j][i + 1] == '<')
-				return (1);
-			j++;
-		}
-		j = 0;
-		mini = mini->next;
-	}
-	return (0);
-}
 
 char	*rand_name(void)
 {
@@ -68,13 +47,19 @@ void	ft_signal_handler2(int sig)
 	if (sig == SIGINT)
 	{
 		g_flag = 1;
-		ioctl(0,TIOCSTI, "\4");
+		close(0);
 		return ;
 	}
 }
 
 int	return_input(int file_id, char *random)
 {
+	int	fd;
+
+	fd = open(ttyname(1), O_RDONLY);
+	if (fd == -1)
+		return (perror("open"), free(random), 1);
+	dup2(0, fd);
 	if (g_flag == 1)
 	{
 		unlink(random);
@@ -122,12 +107,12 @@ int	open_and_heredoc(t_list **mini, t_env **env)
 
 	tmp = *mini;
 	i = 0;
-	random = NULL;
-	line = NULL;
 	while ((*mini) != NULL)
 	{
 		while ((*mini)->command[i])
 		{
+			random = NULL;
+			line = NULL;
 			g_flag = 0;
 			if (!ft_strcmp2((*mini)->command[i], "<<"))
 			{
@@ -138,10 +123,7 @@ int	open_and_heredoc(t_list **mini, t_env **env)
 				signal (SIGINT, ft_signal_handler2);
 				file_id = open(random, O_CREAT | O_RDWR | O_TRUNC, 0777);
 				if (file_id == -1)
-				{
 					write(2, "ERROR\n", 7);
-					break ;
-				}
 				line = readline("😃 Heredoc > ");
 				if ((*mini)->command[i][0] != '\'' && (*mini)->command[i][0] != '\"')
 					line = expand_in_heredoc(line, env);
@@ -161,19 +143,19 @@ int	open_and_heredoc(t_list **mini, t_env **env)
 						break ;
 					ft_putstr_fd(line, file_id);
 				}
-				close(file_id);
 				if (return_input(file_id, random))
 					return (1);
+				close(file_id);
 				file_id = open(random, O_RDONLY);
 				(*mini)->file_in = file_id;
 			}
+			free(line);
+			free(random);
 			i++;
 		}
 		i = 0;
 		(*mini) = (*mini)->next;
 	}
-	free(line);
-	free(random);
 	*mini = tmp;
-	return(0);
+	return (0);
 }

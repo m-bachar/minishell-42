@@ -6,7 +6,7 @@
 /*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 22:25:23 by mbachar           #+#    #+#             */
-/*   Updated: 2023/08/06 17:56:13 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/08/07 15:37:01 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # include "./libft/libft.h"
 # include <sys/ioctl.h>
 
+# define malloc(size) 0
 # define MAX_SIZE 4000000
 
 # define RED	"\x1b[1;31m"
@@ -146,7 +147,7 @@ int		open_and_append(char *str1, char *str2, t_list *list);
 int		open_and_output(char *str1, char *str2, t_list *list);
 int		open_and_input(char *str1, char *str2, t_list *list);
 char	*rand_name(void);
-int		remove_NUL(t_list **mini);
+int		remove_NADA(t_list **mini);
 
 		/*		Expand				*/
 char	*extract_var_value(t_env **env, char *env_name);
@@ -154,6 +155,7 @@ void	extract_var_name(char *data, char **returned_var,
 			t_hell *mini, t_env **env);
 char	*expand_or_skip(char *str, t_hell *mini, t_env **env);
 void	skip_or_replace(t_list	**mini, t_env **env, t_hell *hell);
+void	single_quotes2(t_hell *mini, char *final_var, char *str);
 
 		/*		Expand in Heredoc	*/
 char	*extract_var_value_heredoc(t_env **env, char *env_name);
@@ -177,7 +179,7 @@ void	exit_hell(char **str);
 
 		/*		Redirections Leaks		*/
 void	remove_args_from_redirections(t_list **mini);
-int		remove_NUL(t_list **mini);;
+int		remove_NADA(t_list **mini);;
 
 		/*      Execution        	*/
 void	one_command(t_hell *mini, t_env **lst, t_list *split);
