@@ -6,7 +6,7 @@
 /*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 22:25:23 by mbachar           #+#    #+#             */
-/*   Updated: 2023/08/07 15:37:01 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/08/07 17:53:29 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@
 # include "./libft/libft.h"
 # include <sys/ioctl.h>
 
-# define malloc(size) 0
 # define MAX_SIZE 4000000
 
 # define RED	"\x1b[1;31m"
@@ -38,6 +37,7 @@ typedef struct minishell
 	char			**path;
 	char			**vne;
 	char			*pwd;
+	char			*var;
 	char			*line;
 	char			*to_find;
 	char			*new_key;
@@ -156,6 +156,7 @@ void	extract_var_name(char *data, char **returned_var,
 char	*expand_or_skip(char *str, t_hell *mini, t_env **env);
 void	skip_or_replace(t_list	**mini, t_env **env, t_hell *hell);
 void	single_quotes2(t_hell *mini, char *final_var, char *str);
+void	double_quotes2(t_hell *mini, char *final_var, char *str, t_env **env);
 
 		/*		Expand in Heredoc	*/
 char	*extract_var_value_heredoc(t_env **env, char *env_name);
@@ -179,7 +180,7 @@ void	exit_hell(char **str);
 
 		/*		Redirections Leaks		*/
 void	remove_args_from_redirections(t_list **mini);
-int		remove_NADA(t_list **mini);;
+int		remove_nada(t_list **mini);
 
 		/*      Execution        	*/
 void	one_command(t_hell *mini, t_env **lst, t_list *split);

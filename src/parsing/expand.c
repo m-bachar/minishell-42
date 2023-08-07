@@ -6,7 +6,7 @@
 /*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 12:07:28 by mbachar           #+#    #+#             */
-/*   Updated: 2023/08/07 14:51:11 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/08/07 17:23:04 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ void	extract_var_name(char *data, char **returned_var,
 char	*expand_or_skip(char *str, t_hell *mini, t_env **env)
 {
 	char	*final_var;
-	char	*var;
 
 	mini->i = 0;
 	mini->j = 0;
@@ -73,34 +72,11 @@ char	*expand_or_skip(char *str, t_hell *mini, t_env **env)
 		if (str[mini->i] == '\'')
 			single_quotes2(mini, final_var, str);
 		else if (str[mini->i] == '\"')
-		{
-			mini->i++;
-			while (str[mini->i] && str[mini->i] != '\"')
-			{
-				if (str[mini->i] == '$' && iswhitespace(str[mini->i + 1]))
-				{
-					final_var[mini->j] = str[mini->i];
-					mini->i++;
-					mini->j++;
-				}
-				else if (str[mini->i] == '$')
-				{
-					var = final_var;
-					extract_var_name(str, &var, mini, env);
-				}
-				else
-				{
-					final_var[mini->j] = str[mini->i];
-					mini->i++;
-					mini->j++;
-				}
-			}
-			mini->i++;
-		}
+			double_quotes2(mini, final_var, str, env);
 		else if (str[mini->i] == '$')
 		{
-			var = final_var;
-			extract_var_name(str, &var, mini, env);
+			mini->var = final_var;
+			extract_var_name(str, &mini->var, mini, env);
 		}
 		else if (str[mini->i])
 		{
@@ -109,8 +85,7 @@ char	*expand_or_skip(char *str, t_hell *mini, t_env **env)
 			mini->j++;
 		}
 	}
-	final_var[mini->j] = '\0';
-	return (ft_strdup(final_var));
+	return (final_var);
 }
 
 void	skip_or_replace(t_list	**mini, t_env **env, t_hell *hell)
@@ -137,42 +112,4 @@ void	skip_or_replace(t_list	**mini, t_env **env, t_hell *hell)
 		(*mini) = (*mini)->next;
 	}
 	*mini = tmp;
-}
-
-void	single_quotes2(t_hell *mini, char *final_var, char *str)
-{
-	mini->i++;
-	while (str[mini->i] && str[mini->i] != '\'')
-	{
-		final_var[mini->j] = str[mini->i];
-		mini->i++;
-		mini->j++;
-	}
-	mini->i++;
-}
-
-void	double_quotes2(t_hell *mini, char *final_var, char *str, t_env **env)
-{
-	mini->i++;
-	while (str[mini->i] && str[mini->i] != '\"')
-	{
-		if (str[mini->i] == '$' && iswhitespace(str[mini->i + 1]))
-		{
-			final_var[mini->j] = str[mini->i];
-			mini->i++;
-			mini->j++;
-		}
-		else if (str[mini->i] == '$')
-		{
-			var = final_var;
-			extract_var_name(str, &var, mini, env);
-		}
-		else
-		{
-			final_var[mini->j] = str[mini->i];
-			mini->i++;
-			mini->j++;
-		}
-	}
-	mini->i++;
 }

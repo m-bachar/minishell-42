@@ -6,22 +6,33 @@
 /*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 16:41:29 by mbachar           #+#    #+#             */
-/*   Updated: 2023/08/07 14:15:21 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/08/07 17:59:30 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static int		get_size_double_char(char **arr)
+static int	check_redir(char *str)
 {
-	int		i = 0;
-
-	while(arr[i])
-		i++;
-	return(i);
+	if (!ft_strcmp(str, "<<")
+		|| !ft_strcmp(str, "<")
+		|| !ft_strcmp(str, ">>")
+		|| !ft_strcmp(str, ">"))
+		return (1);
+	return (0);
 }
 
-int	remove_NADA(t_list **mini)
+static int	get_size(char **arr)
+{
+	int	i;
+
+	i = 0;
+	while (arr[i])
+		i++;
+	return (i);
+}
+
+int	remove_nada(t_list **mini)
 {
 	t_list	*lst;
 	char	**arr;
@@ -33,7 +44,7 @@ int	remove_NADA(t_list **mini)
 	{
 		i = 0;
 		j = 0;
-		arr = ft_calloc(get_size_double_char(lst->command) + 1, sizeof(char **));
+		arr = ft_calloc(get_size(lst->command) + 1, sizeof(char **));
 		if (!arr)
 			return (1);
 		while (lst->command[i])
@@ -63,8 +74,7 @@ void	remove_args_from_redirections(t_list **mini)
 		j = 0;
 		while ((*mini)->command[i])
 		{
-			if (!ft_strcmp((*mini)->command[i], "<<") || !ft_strcmp((*mini)->command[i], "<")
-				|| !ft_strcmp((*mini)->command[i], ">>") || !ft_strcmp((*mini)->command[i], ">"))
+			if (check_redir((*mini)->command[i]))
 			{
 				free((*mini)->command[i]);
 				(*mini)->command[i] = ft_strdup("NADA");

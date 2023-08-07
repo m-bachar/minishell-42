@@ -6,7 +6,7 @@
 /*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 16:44:18 by otchekai          #+#    #+#             */
-/*   Updated: 2023/08/05 18:16:46 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/08/07 17:54:38 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	check_path(t_hell *mini, t_env *lst, t_list *split)
 	int		i;
 	char	*slash;
 
+	if (!lst)
+		return ;
 	if (split->command[0][0] == '/' || split->command[0][0] == '.')
 	{
 		mini->to_find = split->command[0];

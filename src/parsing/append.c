@@ -6,7 +6,7 @@
 /*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 16:53:05 by mbachar           #+#    #+#             */
-/*   Updated: 2023/08/06 17:49:40 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/08/07 17:55:33 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,5 @@ int	open_and_append(char *str1, char *str2, t_list *list)
 			return (free(file_name), 1);
 		free(file_name);
 	}
-	return(0);
+	return (0);
 }

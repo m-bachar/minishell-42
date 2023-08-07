@@ -6,7 +6,7 @@
 /*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 22:29:00 by mbachar           #+#    #+#             */
-/*   Updated: 2023/08/07 14:15:21 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/08/07 17:51:00 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,10 @@ void	exit_minihell(t_hell *mini)
 
 int	redirection(t_list **head, t_env *env)
 {
-	t_list	*list = *head;
+	t_list	*list;
 	int		i;
 
+	list = *head;
 	if (open_and_heredoc(&list, &env))
 		return (1);
 	list = *head;
@@ -48,7 +49,7 @@ int	redirection(t_list **head, t_env *env)
 	}
 	list = *head;
 	remove_args_from_redirections(&list);
-	remove_NADA(&list);
+	remove_nada(&list);
 	list = *head;
 	return (0);
 }

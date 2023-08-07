@@ -6,7 +6,7 @@
 #    By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/20 22:20:05 by mbachar           #+#    #+#              #
-#    Updated: 2023/08/07 14:44:22 by mbachar          ###   ########.fr        #
+#    Updated: 2023/08/07 17:54:07 by mbachar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,7 @@ MAN_SRC 	=	minishell.c \
 				./src/parsing/file_in.c \
 				./src/parsing/file_out.c \
 				./src/parsing/expand.c \
+				./src/parsing/expand2.c \
 				./src/parsing/expand_in_heredoc.c \
 				./src/redirections_leaks.c \
 				./src/builtins/export.c \
