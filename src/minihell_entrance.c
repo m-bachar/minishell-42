@@ -6,7 +6,7 @@
 /*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 22:29:00 by mbachar           #+#    #+#             */
-/*   Updated: 2023/08/07 17:51:00 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/08/08 23:02:30 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,17 @@ void	minihell_entrance(t_hell *mini)
 				continue ;
 			}
 			skip_or_replace(&list, &env, mini);
+			t_list *tmp = list;
+			while (tmp)
+			{
+				int i= 0;
+				while(tmp->command[i])
+				{
+					printf("command[%d] = %s\n", i, tmp->command[i]);
+					i++;
+				}
+				tmp = tmp->next;
+			}
 			if (list->command[0])
 				commands(list, mini, &env);
 			ft_clearmem(&list, &mini);

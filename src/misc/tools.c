@@ -6,7 +6,7 @@
 /*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 13:02:48 by mbachar           #+#    #+#             */
-/*   Updated: 2023/08/05 20:43:45 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/08/08 02:09:12 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,10 @@ void	shape_shifting(char	*line)
 	i = 0;
 	while (line[i])
 	{
-		if (line[i] && line[i + 1] && (line[i] == '\"'))
+		if (line[i] && line[i + 1] && (line[i] == '\"' || line[i] == '\''))
 		{
 			i++;
-			while (line[i] && (line[i] != '\"'))
+			while (line[i] && line[i] != '\"' && line[i] != '\'')
 			{
 				line[i] *= -1;
 				i++;

@@ -6,11 +6,62 @@
 /*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 12:07:28 by mbachar           #+#    #+#             */
-/*   Updated: 2023/08/07 17:23:04 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/08/08 23:04:19 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
+static int	get_size(char **arr)
+{
+	int	i;
+
+	i = 0;
+	while (arr[i])
+		i++;
+	return (i);
+}
+
+char	**assign_2d_to_2d(char *varvalue)
+{
+	char	**splitted;
+	char	**returned;
+	int		i;
+
+	i = 0;
+	splitted = ft_split2(varvalue, " \t\r\n\v\f");
+	varvalue = NULL;
+	returned = malloc(sizeof(char **) * (get_size(splitted) + 1));
+	if (!returned)
+		return (NULL);
+	while (splitted[i])
+	{
+		returned[i] = ft_strdup(splitted[i]);
+		i++;
+	}
+	returned[i] = NULL;
+	free_mem(splitted);
+	return (returned);
+}
+
+int	iswhitespaces2(char *s, char *c)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (s[i])
+	{
+		while (s[i] != c[j] && s[i] && c[j])
+			j++;
+		if (iswhitespace(c[j]))
+			return (1);
+		j = 0;
+		i++;
+	}
+	return (0);
+}
 
 char	*extract_var_value(t_env **env, char *env_name)
 {
@@ -49,7 +100,9 @@ void	extract_var_name(char *data, char **returned_var,
 	}
 	varname[k] = '\0';
 	varvalue = extract_var_value(env, varname);
-	if (varvalue)
+	if (iswhitespaces2(varvalue, " \t\r\n\v\f") && varvalue)
+		mini->expanded = assign_2d_to_2d(varvalue);
+	else if (varvalue)
 	{
 		k = 0;
 		while (varvalue[k])
@@ -79,13 +132,28 @@ char	*expand_or_skip(char *str, t_hell *mini, t_env **env)
 			extract_var_name(str, &mini->var, mini, env);
 		}
 		else if (str[mini->i])
-		{
-			final_var[mini->j] = str[mini->i];
-			mini->i++;
-			mini->j++;
-		}
+			final_var[mini->j++] = str[mini->i++];
 	}
 	return (final_var);
+}
+
+char	**ft_strdup2(char **str)
+{
+	char	**new;
+	int		i;
+	
+	i = 0;
+
+	new = malloc(sizeof(char **) * (get_size(str) + 1));
+	if (!new)
+		return (NULL);
+	while (str[i])
+	{
+		new[i] = ft_strdup(str[i]);
+		i++;
+	}
+	new[i] = NULL;
+	return (new);
 }
 
 void	skip_or_replace(t_list	**mini, t_env **env, t_hell *hell)
@@ -106,9 +174,11 @@ void	skip_or_replace(t_list	**mini, t_env **env, t_hell *hell)
 			new_value = expand_or_skip((*mini)->command[j],
 					hell, env);
 			free((*mini)->command[j]);
-			(*mini)->command[j] = new_value;
+			(*mini)->command[j] = ft_strdup(new_value);
 			j++;
 		}
+		if (hell->expanded)
+			(*mini)->command = ft_strdup2(hell->expanded);
 		(*mini) = (*mini)->next;
 	}
 	*mini = tmp;

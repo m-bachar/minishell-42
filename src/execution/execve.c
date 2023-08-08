@@ -6,7 +6,7 @@
 /*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 16:44:18 by otchekai          #+#    #+#             */
-/*   Updated: 2023/08/07 17:54:38 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/08/08 20:51:56 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,10 @@ void	one_command(t_hell *mini, t_env **lst, t_list *list)
 	int	i;
 	int	fok;
 
+	if (list->file_out != 1)
+		dup2(list->file_out, 1);
+	if (list->file_in != 0)
+		dup2(list->file_in, 0);
 	i = 0;
 	if (!pipe_check(mini))
 	{
@@ -58,11 +62,7 @@ void	one_command(t_hell *mini, t_env **lst, t_list *list)
 	if (fok == 0)
 	{
 		if ((choose_and_acquire(mini, lst, list)) == 1 && pipe_check(mini) == 1)
-			exit (1);
-		if (list->file_out != 1)
-			dup2(list->file_out, 1);
-		if (list->file_in != 0)
-			dup2(list->file_in, 0);
+			exit (1);	
 		check_path(mini, *lst, list);
 		if (execve(mini->to_find, list->command, 
 				convert_to_2d_array(*lst)) == -1)
@@ -88,8 +88,8 @@ void    commands(t_list *list, t_hell *mini, t_env **lst)
 		fok = fork();
 		if (fok == 0)
 		{
-			dup2(fd[1], STDOUT_FILENO);
 			close(fd[0]);
+			dup2(fd[1], STDOUT_FILENO);
 			close(fd[1]);
 			if (list->file_out != 1)
 				dup2(list->file_out, 1);
