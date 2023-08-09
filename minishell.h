@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 22:25:23 by mbachar           #+#    #+#             */
-/*   Updated: 2023/08/08 21:56:15 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/08/09 15:57:53 by otchekai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,13 @@ typedef struct minishell
 	char			*to_find;
 	char			*new_key;
 	char			*new_val;
+	int				fork;
+	int				count;
+	int				name_length;
+	int				value_length;
+	int				unset_index;
+	int				total_length;
+	int				exit_status;
 	int				join_val;
 	int				i;
 	int				j;
@@ -169,13 +176,14 @@ t_env	*check_env(t_env *lst, char *str);
 int		export_first(t_hell *mini, char *str);
 int		check_n(char *str);
 void	copy_env(t_env **lst, char **envs);
-void	print_current_directory(t_hell *mini);
-void	ft_export(t_env *lst, t_hell *mini, t_list *list);
-void	update_pwds(t_env *lst, t_list *list);
-void	change_directory(t_list *list, t_env *lst);
-void	unset(t_env **lst, t_list *list);
+void	print_current_directory(t_hell *mini, t_env *lst);
+void	ft_export(t_env **lst, t_hell *mini, t_list *list);
+void	update_pwds(t_env *lst, t_list *list, t_hell *mini);
+void	change_directory(t_list *list, t_env *lst, t_hell *mini);
+void	unset(t_env **lst, t_list *list, t_hell *mini);
 void	echo(t_list *list);
 void	print_export(t_env *lst);
+int		export_key(char *str);
 void	print_env(t_env *lst);
 void	exit_hell(char **str);
 
@@ -187,7 +195,7 @@ int		remove_nada(t_list **mini);
 void	one_command(t_hell *mini, t_env **lst, t_list *split);
 void	commands(t_list *list, t_hell *mini, t_env **lst);
 int		choose_and_acquire(t_hell *mini, t_env **lst, t_list *list);
-char	**convert_to_2d_array(t_env *env_list);
+char	**convert_to_2d_array(t_env *env_list, t_hell *mini);
 void	ctrl_c(int sig);
 int		pipe_check(t_hell *mini);
 void	ctrl_that_thing(int sig);

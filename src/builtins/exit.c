@@ -6,7 +6,7 @@
 /*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 15:48:36 by otchekai          #+#    #+#             */
-/*   Updated: 2023/07/27 01:00:09 by otchekai         ###   ########.fr       */
+/*   Updated: 2023/08/09 13:58:06 by otchekai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	exit_hell(char **str)
 
 	index = 1;
 	if (!str || !*str)
-		return ;
+		exit (0);
 	if (check_exit(str[0]) == 1 || ft_atoi(str[0]) > INT_MAX)
 		exit (255);
 	if (ft_atoi(str[0]) < 0)

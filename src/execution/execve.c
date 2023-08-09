@@ -3,14 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   execve.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 16:44:18 by otchekai          #+#    #+#             */
-/*   Updated: 2023/08/08 20:51:56 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/08/09 16:55:33 by otchekai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
+void	path_norminette(t_hell *mini, t_list *split)
+{
+	int		i;
+	char	*slash;
+
+	slash = "/";
+	i = 0;
+	while (mini->path[i++])
+		mini->path[i] = ft_strjoin(mini->path[i], slash);
+	i = -1;
+	while (mini->path[++i])
+	{
+		mini->to_find = ft_strjoin(mini->path[i], split->command[0]);
+		if (!access(mini->to_find, F_OK | X_OK))
+			break ;
+		free(mini->to_find);
+		mini->to_find = NULL;
+	}
+}
 
 void	check_path(t_hell *mini, t_env *lst, t_list *split)
 {
@@ -32,21 +52,36 @@ void	check_path(t_hell *mini, t_env *lst, t_list *split)
 			mini->path = ft_split(lst->env_value, ':');
 		lst = lst->next;
 	}
-	while (mini->path[i++])
-		mini->path[i] = ft_strjoin(mini->path[i], slash);
-	i = -1;
-	while (mini->path[++i])
+	path_norminette(mini, split);
+}
+
+void	one_command_norminette(t_hell *mini, t_env **lst, t_list *list)
+{
+	int	fok;
+
+	fok = fork();
+	if (fok == 0)
 	{
-		mini->to_find = ft_strjoin(mini->path[i], split->command[0]);
-		if (!access(mini->to_find, F_OK | X_OK))
-			break ;
+		if ((choose_and_acquire(mini, lst, list)) == 1 && pipe_check(mini) == 1)
+			exit (1);
+		check_path(mini, *lst, list);
+		if (!mini->to_find)
+		{
+			ft_putstr_fd("Command Not Found!!", 2);
+			mini->exit_status = 127;
+			exit(1);
+		}
+		if (execve(mini->to_find, list->command, 
+				convert_to_2d_array(*lst, mini)) == -1)
+			return (printf("No Such File or Directory"),
+				mini->exit_status = 1, exit(mini->exit_status));
+		exit(1);
 	}
 }
 
 void	one_command(t_hell *mini, t_env **lst, t_list *list)
 {
 	int	i;
-	int	fok;
 
 	if (list->file_out != 1)
 		dup2(list->file_out, 1);
@@ -58,17 +93,7 @@ void	one_command(t_hell *mini, t_env **lst, t_list *list)
 		if (choose_and_acquire(mini, lst, list) == 1)
 			return ;
 	}
-	fok = fork();
-	if (fok == 0)
-	{
-		if ((choose_and_acquire(mini, lst, list)) == 1 && pipe_check(mini) == 1)
-			exit (1);	
-		check_path(mini, *lst, list);
-		if (execve(mini->to_find, list->command, 
-				convert_to_2d_array(*lst)) == -1)
-			ft_putstr_fd("command not found", 2);
-		exit(1);
-	}
+	one_command_norminette(mini, lst, list);
 }
 
 void    commands(t_list *list, t_hell *mini, t_env **lst)
@@ -98,9 +123,16 @@ void    commands(t_list *list, t_hell *mini, t_env **lst)
 			if ((choose_and_acquire(mini, lst, tmp)) == 1)
 				exit (1);
 			check_path(mini, *lst, tmp);
+			if (!mini->to_find)
+			{
+				ft_putstr_fd("Command Not Found!!", 2);
+				mini->exit_status = 127;
+				exit (1);
+			}
 			if (execve(mini->to_find, tmp->command,
-					convert_to_2d_array(*lst)) == -1)
-				ft_putstr_fd("command not found", 2);
+					convert_to_2d_array(*lst, mini)) == -1)
+				return (printf("No Such File or Directory"),
+					mini->exit_status = 1, exit(mini->exit_status));
 			exit(1);
 		}
 		dup2(fd[0], STDIN_FILENO);
@@ -113,18 +145,4 @@ void    commands(t_list *list, t_hell *mini, t_env **lst)
 	dup2(out, 1);
 	dup2(in, 0);
 	while (wait(NULL) != -1);
-}
-
-int	pipe_check(t_hell *mini)
-{
-	int	index;
-
-	index = 0;
-	while (mini->line[index])
-	{
-		if (mini->line[index] == '|')
-			return (1);
-		index++;
-	}
-	return (0);
 }

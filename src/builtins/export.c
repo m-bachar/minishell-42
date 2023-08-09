@@ -3,22 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 19:01:18 by otchekai          #+#    #+#             */
-/*   Updated: 2023/08/08 02:06:30 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/08/09 14:57:33 by otchekai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
+int	export_check(t_hell *mini)
+{
+	int	i;
+
+	i = -1;
+	while (mini->new_key[++i])
+	{
+		if ((!i && !ft_isalpha(mini->new_key[i])) || \
+			(i && !ft_isalnum(mini->new_key[i])))
+		{
+			printf("Forbidden key!\n");
+			return (1);
+		}
+	}
+	return (0);
+}
+
 int	export_first(t_hell *mini, char *str)
 {
 	int		i;
-	int		flag;
 
 	i = 0;
-	flag = 0;
 	if (!str || !*str || !mini)
 		return (1);
 	while ((str[i] && str[i] != '='))
@@ -34,24 +49,11 @@ int	export_first(t_hell *mini, char *str)
 		str[i] = '\0';
 		mini->new_val = ft_strdup(&str[i + 1]);
 	}
-	else if (str[i] == '\0')
+	else if (str[i] == '\0') 
 		mini->new_val = NULL;
 	mini->new_key = ft_strdup(str);
-	if (!ft_strcmp(mini->new_key, ""))
-	{
-		printf("Empty Key!!\n");
+	if (export_check(mini) || export_key(str))
 		return (1);
-	}
-	i = -1;
-	while (mini->new_key[++i])
-	{
-		if ((!i && !ft_isalpha(mini->new_key[i])) || \
-			(i && !ft_isalnum(mini->new_key[i])))
-		{
-			printf("Forbidden key!\n");
-			return (1);
-		}
-	}
 	return (0);
 }
 
@@ -84,13 +86,13 @@ void	update_env(t_env *lst, t_hell *mini)
 	}
 }
 
-void	ft_export(t_env *lst, t_hell *mini, t_list *list)
+void	ft_export(t_env **lst, t_hell *mini, t_list *list)
 {
 	t_env	*tmp;
 	int		i;
 
 	i = 1;
-	tmp = lst;
+	tmp = *lst;
 	mini->expo_var = 0;
 	while (list->command[i])
 	{
@@ -99,7 +101,7 @@ void	ft_export(t_env *lst, t_hell *mini, t_list *list)
 			return ;
 		update_env(tmp, mini);
 		if (!mini->expo_var)
-			ft_lstadd_back1(&lst, ft_lstnew1(mini->new_key, mini->new_val));
+			ft_lstadd_back1(lst, ft_lstnew1(mini->new_key, mini->new_val));
 		i++;
 	}
 }
@@ -111,7 +113,10 @@ void	print_export(t_env *lst)
 	tmp = lst;
 	while (tmp)
 	{
-		printf("declare -x %s=%s\n", tmp->env_name, tmp->env_value);
+		if (tmp->env_value)
+			printf("declare -x %s=%s\n", tmp->env_name, tmp->env_value);
+		else
+			printf("declare -x %s\n", tmp->env_name);
 		tmp = tmp->next;
 	}
 }

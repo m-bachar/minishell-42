@@ -6,7 +6,7 @@
 /*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 00:40:28 by otchekai          #+#    #+#             */
-/*   Updated: 2023/07/29 22:24:48 by otchekai         ###   ########.fr       */
+/*   Updated: 2023/08/09 12:49:09 by otchekai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,32 +23,34 @@ t_env	*check_env(t_env *lst, char *str)
 	return (0);
 }
 
-void	update_pwds(t_env *lst, t_list *list)
+void	update_pwds(t_env *lst, t_list *list, t_hell *mini)
 {
 	char	*old_pwd;
 	char	*current_pwd;
 	t_env	*tmp;
 
 	old_pwd = getcwd(NULL, 0);
-	if (!old_pwd)
-		return ;
-	change_directory(list, lst);
+	change_directory(list, lst, mini);
 	current_pwd = getcwd(NULL, 0);
-	if (!current_pwd)
-		return ;
 	tmp = check_env(lst, "OLDPWD");
 	if (!tmp)
 		return ;
-	free(tmp->env_value);
-	tmp->env_value = old_pwd;
+	if (old_pwd)
+	{
+		free(tmp->env_value);
+		tmp->env_value = old_pwd;
+	}
 	tmp = check_env(lst, "PWD");
 	if (!tmp)
 		return ;
-	free(tmp->env_value);
-	tmp->env_value = current_pwd;
+	if (current_pwd)
+	{
+		free(tmp->env_value);
+		tmp->env_value = current_pwd;
+	}
 }
 
-void	change_directory(t_list *list, t_env *lst)
+void	change_directory(t_list *list, t_env *lst, t_hell *mini)
 {
 	int		i;
 
@@ -60,6 +62,10 @@ void	change_directory(t_list *list, t_env *lst)
 			return ;
 		chdir(lst->env_value);
 	}
-	if (chdir(list->command[1]) == -1)
+	else if (chdir(list->command[1]) == -1)
+	{
+		ft_putstr_fd("cd: No such file or directory", 2);
+		mini->exit_status = 1;
 		return ;
+	}
 }

@@ -3,19 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   minihell_entrance.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 22:29:00 by mbachar           #+#    #+#             */
-/*   Updated: 2023/08/08 23:02:30 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/08/09 15:20:32 by otchekai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	print_syntax_error(void)
+void	print_syntax_error(t_hell *mini)
 {
 	printf("😤 " RED "SyntaxError: " RESET
 		"Oh dear! It appears you've encountered a syntax error.\n");
+	mini->exit_status = 258;
 }
 
 void	exit_minihell(t_hell *mini)
@@ -65,6 +66,7 @@ void	minihell_entrance(t_hell *mini)
 	line = NULL;
 	mini->line = NULL;
 	rl_catch_signals = 0;
+	mini->exit_status = 0;
 	printf(CYAN "\t\tHell is -- MiniShell 😔 😔  \n\n" RESET);
 	copy_env(&env, mini->vne);
 	while (1)
@@ -82,7 +84,7 @@ void	minihell_entrance(t_hell *mini)
 		}
 		shape_shifting(mini->line);
 		if (!all_in_one(mini))
-			print_syntax_error();
+			print_syntax_error(mini);
 		shape_shifting(mini->line);
 		add_history(mini->line);
 		shape_shifting(mini->line);
@@ -98,17 +100,6 @@ void	minihell_entrance(t_hell *mini)
 				continue ;
 			}
 			skip_or_replace(&list, &env, mini);
-			t_list *tmp = list;
-			while (tmp)
-			{
-				int i= 0;
-				while(tmp->command[i])
-				{
-					printf("command[%d] = %s\n", i, tmp->command[i]);
-					i++;
-				}
-				tmp = tmp->next;
-			}
 			if (list->command[0])
 				commands(list, mini, &env);
 			ft_clearmem(&list, &mini);

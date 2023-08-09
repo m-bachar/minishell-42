@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+         #
+#    By: otchekai <otchekai@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/20 22:20:05 by mbachar           #+#    #+#              #
-#    Updated: 2023/08/08 22:05:11 by mbachar          ###   ########.fr        #
+#    Updated: 2023/08/09 15:48:04 by otchekai         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 MINISHELL 	= 	minishell
 
-CFLAGS 		=	-Wall -Werror -Wextra -g -fsanitize=address
+CFLAGS 		=	-Wall -Werror -Wextra -g #-fsanitize=address
 
 INC 		= 	minishell.h
 
@@ -31,6 +31,7 @@ MAN_SRC 	=	minishell.c \
 				./src/minihell_entrance.c \
 				./src/split_and_store.c \
 				./src/norminette.c \
+				./src/norminette_two.c \
 				./src/syntax/append.c \
 				./src/syntax/heredoc.c \
 				./src/syntax/file_in.c \
